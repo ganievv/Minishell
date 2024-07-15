@@ -6,7 +6,7 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/07/15 16:04:18 by tnakas           ###   ########.fr        #
+#    Updated: 2024/07/15 16:26:39 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	@echo "$(BLUE)Linking $@...$(RESET)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIBFT_DIR) -lft
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIBFT_DIR) -lft -lreadline
 	@echo "$(GREEN)Executable $(NAME) created successfully!$(RESET)"
 
 $(LIBFT):
