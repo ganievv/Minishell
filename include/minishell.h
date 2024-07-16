@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:56:18 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/16 11:15:42 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:57:06 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ typedef enum e_token_type
 	PIPE,
 	REDIR_OUT,
 	REDIR_IN,
+	DELIMITER,
+	APPEND_DELIMITER,
+	DOUBLE_QUOTED,
+	SINGLE_QUOTED,
 	EXP_FIELD
 }	t_token_type;
 
