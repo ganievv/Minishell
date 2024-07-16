@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/16 12:47:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:56:56 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,16 @@ static void	init_builtin_ptrs(int (**builtin_ptrs)(char **))
     builtin_ptrs[7] = NULL;
 }
 
-int	exec_one_cmd(t_pipe_group *group)
+static int	exec_one_cmd(t_pipe_group *group, char **builtin_names,
+	int (**builtin_ptrs)(char **))
 {
-	char	*builtin_names[BUILTIN_NUM + 1];
-	int		(*builtin_ptrs[BUILTIN_NUM + 1]) (char **args);
-	int		i;
-
-	init_builtin_names(builtin_names);
-	init_builtin_ptrs(builtin_ptrs);
+	int	i;
 
 	i = 0;
 	while (builtin_ptrs[i] != NULL)
 	{
-        if (strcmp(group->command, builtin_names[i]) == 0) {
+        if (strcmp(group->command, builtin_names[i]) == 0)
             return (*builtin_ptrs[i])(group->args);
-        }
         i++;
     }
 
@@ -69,12 +64,16 @@ int	exec_one_cmd(t_pipe_group *group)
 
 int	exec_all_cmds(t_pipe_group *groups)
 {
+	char	*builtin_names[BUILTIN_NUM + 1];
+	int		(*builtin_ptrs[BUILTIN_NUM + 1]) (char **args);
 	int	i;
 
+	init_builtin_names(builtin_names);
+	init_builtin_ptrs(builtin_ptrs);
 	i = 0;
 	while (groups != NULL)
 	{
-		exec_one_cmd(groups);
+		exec_one_cmd(groups, builtin_names, builtin_ptrs);
 		groups = groups->next;
 	}
 }
