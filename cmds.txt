@@ -1,0 +1,247 @@
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+'echo [option] [string]':
+
+- if [option] is '-n' -> output [string] without '\n' at the end
+
+- we can use 'echo' with > and >> redirections
+
+- not interpret unclosed quotes or special characters which are not required by the subject:
+
+  echo "hello 		 -> output: "hello
+  echo 'hello 		 -> output: 'hello
+  echo Hello \ World -> output: Hello \ World
+  echo Hello; World  -> output: Hello; World
+
+- '-n' option could be written multiple times, but this will not be consider as a mistake.
+  Also multiple 'n' in option will be treated as '-n':
+
+  echo -nnnnnnn -nnnnnnn hello  all   -> output: hello all (without newline)
+  echo -na                            -> output: -na (WITH newline)
+  echo -nnnnn -na -nn                 -> output: -na -nn (without newline)
+  echo -n -n -n -n hello              -> output: hello (without newline)
+
+- other special cases:
+
+  echo                    -> output: newline (\n)
+  echo -n                 -> output: nothing
+  echo A -n               -> output: A -n
+  echo -n A               -> output: A (without newline)
+  echo A=B "$HOME"        -> output: A=B /Users/sganiev
+
+- if flag is not -n: echo -m d  -> output: -m d
+
+- echo --n    -> output: --n
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+'exit N':
+
+- if the value of 'N' is not specified, the exit status will be the last executed command.
+  (or 0 if no commands have been executed)
+
+- if we have 2 and more 'N' -> output 'bash: exit: too many arguments'
+
+- if 'N' is not a number -> output: 'bash: exit: numeric argument required'
+
+- if 'N' is bigger than MAX value of long long (9,223,372,036,854,775,807)
+  or less than MIN value of long long (-9,223,372,036,854,775,808) ->
+  ouput: 'bash: exit: numeric argument required'
+
+- if ('N' >= MIN_LONG_LONG && 'N' <= MAX_LONG_LONG) -> exit status: N % 256
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Redirection:
+
+- if we have multiple redirection in a command then the last redirection (of input and output)
+  will be applied to this command. Because of that maybe it is more convenient to save only
+  the last redirection for the input and output.
+
+
+cat | cat | cat | cat > oufile < infile 2>errfile
+cat < infile_1 | cat | cat | cat | cat > oufile < infile 2>errfile
+cat < infile_2 | cat > outfile_2 | cat < infile_2 | cat > outfile < infile 2> err_file
+cat < infile | cat >outfile_1 > outfile_2 > outfile_3
+
+
+- if after redirect operator we have nothing:
+
+  command >     |
+  command >>    |
+  command <     |->           -> output: bash: syntax error near unexpected token `newline'
+  command <<    |                (without even processes creating, i.e. output will be on the
+                                 lexer or parser step)
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+Environment variables:
+
+
+- echo $T abc -> output:
+                        1) (if we don't have T var) "abc"
+                        2) (if we have T var) "(value of T var) abc"
+
+
+- should we handle it ? :
+
+  setting the 'PATH' variable for a single command:
+  PATH="/usr/local/bin:$PATH" command_name
+
+  the PATH environment variable is temporarily prepended with /usr/local/bin
+  for the command_name command.
+
+  about it:
+  https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Environment
+
+- VAR=789 (without export) -> how should we handle it ?
+
+- VAR= 789 -> invalid
+
+- VAR =789 -> invalid
+
+- VAR = 789 -> invalid
+
+We should handle it in executor because of this:
+
+  echo hello | VAR = 7 | echo all    ->  output:
+
+  bash: VAR: command not found
+  all
+
+- this will create these variables and assign to them null string
+
+  my_variable=""
+  my_variable=
+
+  but they won't be exported to environment, so we can check them only with the 'set' cmd (not 'env' cmd)
+
+- we can use ${environment variable} here also:
+
+  HYY=$HOME
+  echo $HYY    -> output:   /Users/sganiev
+
+  VAR="hello     all"
+  echo $VAR         -> output: hello all (with one space)
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Pipe:
+
+
+- command | | another_command  -> output: bash: syntax error near unexpected token `|'
+                               (without even processes creating, i.e. output will be on the
+                               lexer or parser step)
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+cd [options] [directory]
+
+- cd     -> result: retrieves the value from the environment variable HOME and uses it as the argument
+                    for the chdir(char *path) function.
+
+- cd .   -> result: |
+- cd ..  -> result: |-> will it change directory if I just invoke chdir(.) ???
+
+- cd dir -> result: chdir(dir)
+
+- if you invoke 'cd' executable as a child process it will change directory only for the child and will not
+  affect the parent process.
+
+
+- should you use CDPATH environment variable ?
+  If the shell variable CDPATH exists, it is used as a search path: each directory
+  name in CDPATH is searched for directory, with alternative directory names in CDPATH
+  separated by a colon (‘:’). If directory begins with a slash, CDPATH is not used.
+
+- should we handle symbolic links in an argument of the 'cd' command ?
+  (https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#index-cd)
+
+- should we handle 'cd -' ?
+
+- if the directory change is successful, 'cd' sets the value of the PWD environment variable
+  to the new directory name.
+
+- the return status is zero if the directory is successfully changed, non-zero otherwise.
+
+- cd Minishell/ Minitalk/ Exams/ hello_dir/
+
+  - if Minishell/ dir exists then it will go to this dir,
+    otherwise: "bash: cd: Minishell/: No such file or directory".
+    Even if we write multiple dir this will not be a mistake, because it will
+    process only the first arg. If other dir-s aren't exist this is not a mistake.
+
+- export RROOT_1=/
+  cd $RROOT_1
+
+  this is valid command
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+pwd [options]
+
+
+- print the absolute pathname of the current working directory.
+
+- the return status is zero unless an error is encountered while determining the name
+  of the current directory or an invalid option is supplied.
+
+- we should do pwd with no options as it says in the subject (we can ignore them)
+  (also we can ignore arguments)
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+export [options] [name[=value]]
+
+- if no names are supplied a list of names of all exported variables is displayed
+
+- if a variable name is followed by =value, the value of the variable is set to value
+
+- the return status is zero unless an invalid option is supplied, one of the names
+  is not a valid shell variable name, or -f is supplied with a name that is not a shell
+  function.
+
+  about it:
+  (https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#index-export)
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+unset [options] [name]
+
+
+- each name refers to a variable is unset
+
+- the return status is zero unless a name is readonly or may not be unset.
+
+- if we just run 'unset' without any arguments in Bash, it will not produce any error or
+  output, but it will also not unset any variables.
+
+- we can use a single 'unset' command to unset multiple variables in Bash
+
+  unset VAR_1 VAR_2 VAR_3
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+
+env [options] [Name=Value]...[Command[Argument...]]:
+
+
+- we should implement 'env' with no options or arguments
+
+- without any argument : print out a list of all environment variables (only exported)
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
