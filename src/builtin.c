@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/19 20:35:18 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/19 20:52:38 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 static void	pwd_errno_check(void)
 {
 	if (errno == EINVAL)
-			write (STDERR_FILENO, "The argument size is negative or 0", 34);
+		write (STDERR_FILENO, "The argument size is negative or 0", 34);
 	else if (errno == ELOOP)
 		write (STDERR_FILENO, "Too many levels of symbolic links", 33);
 	else if (errno == ENOSYS)
@@ -42,14 +42,15 @@ int	ft_pwd(char **args)
 		pwd_errno_check();
 		return (1);
 	}
+	write(STDOUT_FILENO, buff_ptr, ft_strlen(buff_ptr));
 	return (0);
 }
 
 static void	cd_errno_check(void)
 {
 	if (errno == EACCES)
-			write (STDERR_FILENO, "Search permission is "
-				"denied for a component of path", 51);
+		write (STDERR_FILENO, "Search permission is "
+			"denied for a component of path", 51);
 	else if (errno == EINTR)
 		write (STDERR_FILENO, "The call was interrupted "
 			"by a signal", 36);
@@ -79,20 +80,20 @@ static void	cd_errno_check(void)
 
 int	ft_cd(char **args)
 {
-	char	*home_dir;
+	char	*dir;
 
 	if (!args[0])
 	{
-		home_dir = getenv("HOME");
-		if (home_dir)
-		{
-			if (chdir(home_dir) == -1)
-				cd_errno_check();
-		}
+		dir = getenv("HOME");
+		if (!dir)
+			return (0);
 	}
 	else
+		dir = args[0];
+	if (chdir(dir) == -1)
 	{
+		cd_errno_check();
+		return (1);
 	}
-
 	return (0);
 }

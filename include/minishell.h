@@ -6,13 +6,14 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:56:18 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/19 19:47:24 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/19 20:45:27 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
@@ -100,5 +101,6 @@ void	handle_signal(int signal);
 
 /*------------builtins-----------*/
 int		ft_pwd(char **args);
+int		ft_cd(char **args);
 
 #endif
