@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:56:18 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/16 12:57:06 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/19 19:47:24 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <limits.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -29,11 +31,11 @@ typedef enum e_token_type
 	PIPE,
 	REDIR_OUT,
 	REDIR_IN,
-	DELIMITER,
-	APPEND_DELIMITER,
-	DOUBLE_QUOTED,
-	SINGLE_QUOTED,
-	EXP_FIELD
+	DELIMITER, // what is it ???
+	APPEND_DELIMITER, // REDIR_OUT + append mode
+	DOUBLE_QUOTED, // why do we need it ???
+	SINGLE_QUOTED, // why do we need it ???
+	EXP_FIELD // expanding field
 }	t_token_type;
 
 typedef struct s_token
@@ -80,10 +82,23 @@ typedef struct	s_pipe_group
 *	<<stop
 *	>>     file.txt
 *
+*	'echo hello >'
+*	bash: syntax error near unexpected token `newline'
+*
+*
+*
+*
+*
+*
+*
 */
 
 /*------------executer-----------*/
 
 void	handle_signal(int signal);
+
+
+/*------------builtins-----------*/
+int		ft_pwd(char **args);
 
 #endif
