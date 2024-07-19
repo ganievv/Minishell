@@ -192,7 +192,7 @@ pwd [options]
 - the return status is zero unless an error is encountered while determining the name
   of the current directory or an invalid option is supplied.
 
-- we should do pwd with no options as it says in the subject (we can ignore them)
+- we should implement pwd with no options as it says in the subject (we can ignore them)
   (also we can ignore arguments)
 
 --------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,70 @@
+--------------------------------------------------------------------------------------------------------------------------------
+	Program's steps:
+
+
+1) Read command (with readline())
+2) Divide it into tokens (token - logical element) (lexer)
+3) Analyze tokens (parser)
+4) Execute this command
+5) Post actions
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+lexer(char *command):
+
+	'pwd >file | echo "Hello world"' -> command
+
+	1-approach.
+				token[0] = {int len = 3; char *begin = &p; int type = word}
+				...
+				Like this you don't need to allocate a lot of memory.
+
+
+	Array of tokens -> return value of 'lexer'
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+parser(list of tokens):
+
+Parser will divide this list of tokens into linked list:
+
+group {cmd info}; group {cmd info}
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+ft_strchr -> " or ' (2 " or  2 ').
+
+go build . |echo A=B >>file "$HOME"
+
+tokens:
+{go} word
+{ } sep
+{build} word
+{ } sep
+{.} word
+{ } sep
+{|} pipe
+{ } sep
+{echo} word
+{ } sep
+{A=B} word
+{ } sep
+{>} redir_out
+{file} word
+{ } sep
+{$HOME} exp_field
+
+1) Pipe grouping
+
+This function should return 1. group: from {go} to {|} (without including the {|} in the group).
+This function should return 2. group: from { } to {$HOME} (including the {$HOME} in the group).
+
+2) Expansions ($HOME; "hello  people"$PATH   abc789; ...)
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+1) https://www.youtube.com/watch?v=cex9XrZCU14&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY&ab_channel=CodeVault
+

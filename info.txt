@@ -1,0 +1,400 @@
+'exec' function in C:
+
+1) int execl(const char *path, const char *arg0, ... /*, (char *)0 */);
+
+It takes file name to an executable (with its path) and execute it with certain arguments.
+('l' stands for 'list' of arguments)
+
+2) int execlp(const char *file, const char *arg0, ... /*, (char *)0 */);
+
+It does the same thing as the execl(), but it takes just name of executable file (this file should
+be in PATH variable) ('p' stands for 'PATH' variable)
+
+3) int execvp(const char *file, char *const argv[]);
+
+It does the same thing as the execlp();
+('v' stands for 'vector' of arguments)
+
+4) int execve(const char *path, char *const argv[], char *const envp[]);
+
+('e' stands for 'enviroment')
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+metacharacter:
+A character that, when unquoted, separates words. A metacharacter is a space, tab, newline, or one of
+the following characters: ‘|’, ‘&’, ‘;’, ‘(’, ‘)’, ‘<’, or ‘>’.
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+echo helllo > test; echo testiiing > a if it works | echo hmmm < a | cat > b > c < test
+
+echo okay > a sure| cat
+file 'a' will have 'okay sure' written inside ('okay' before redirection and 'sure' after redirection)
+cat will receive nothing as input and it will print nothing as output
+
+The `cat` command should be waiting for input
+since it doesn't receive any input from the previous command. However, in practice, `cat` doesn't block
+the terminal when used in this way.
+
+The reason for this behavior is that when a command in a pipeline completes, it closes its end of the pipe.
+When `echo` completes and closes its end of the pipe, `cat` receives an end-of-file (EOF) indicator from
+the pipe, which tells it that there's no more input to read. At this point, `cat` also completes and
+exits, allowing the terminal to become available for further input.
+
+So, even though `cat` doesn't receive any actual input from the pipe, it still completes and exits
+because it receives an EOF indicator when the previous command completes. This is why the terminal
+doesn't become blocked when you run the command `echo okay > a | cat`.
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+cd .. | echo "hello" -> output: hello (but without changing the directory)
+
+
+
+cd with no arguments - retrieves the value from the environment variable HOME and uses it as the argument for
+the chdir(char *path) function.
+
+cd with any other argument - the argument will be used as the argument for the chdir(char *path)
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+This is Process substitution:
+
+diff <(echo "string1") <(echo "string2")
+
+
+cat <(command)
+
+Should we implement it ?
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+cat | cat | ls (https://42born2code.slack.com/archives/CMX2R5JSW/p1688403957757249)
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Is it possible to implement HereDoc in minishell using a get_next_line function with some modifications and
+don't create any additional tmp - files (to store read lines)?
+
+(https://42born2code.slack.com/archives/CMX2R5JSW/p1689435915802059)
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+example of using 'type' variable (from t_token stuct in minishell.h) (parser step):
+
+if after redirect operator (and after SEP(s) (if it exist)) we have PIPE or REDIR_OUT or REDIR_IN ->
+mistake (output: bash: syntax error (we can use this output in each syntax error cases) )
+
+special cases:
+
+1)
+sganiev$ export NEW_FILE=test.txt
+sganiev$ cat > $NEW_FILE  > hello < info.txt 
+sganiev$ cat > $NEW_FILE < info.txt
+
+So, we can use after redirect operator EXP_FIELD.
+
+2)
+sganiev$ cat > "$NEW_FILE" < info.txt 
+sganiev$ cat > "$NEW_FILE < info.txtc
+sganiev$ cat > \" < info.txt
+
+I think this should be also valid.
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+How can we handle quotation marks:
+
+Just count how many " and ' we have. If their count is even then we should handle it as the subject says:
+Handle ’ (single quote) which should prevent the shell from interpreting the metacharacters in the quoted sequence.
+Handle " (double quote) which should prevent the shell from interpreting the metacharacters in the quoted sequence except for $ (dollar sign).
+Quotation marks could be not only in 'echo' command:
+"rm" file.txt           ->   should be valid
+touch "hello   d"   ->  should created file with 'hello   d' name
+touch "hello  all"  'e "       ->.  should create hello  all; 'e; "
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+executor
+
+1) invalid command:
+
+      sganiev$ foo
+      -bash: foo: command not found
+      sganiev$
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+should we handle 'cd -' or 'cd ~' ?
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+- empty command in bash (also with ' '(s), '\t'(s), other from 9 to 13 in ascii) :
+
+      1-B-28:Minishell sganiev$ 
+      1-B-28:Minishell sganiev$ 
+      1-B-28:Minishell sganiev$ 
+      1-B-28:Minishell sganiev$
+
+
+- command made of spaces and tabulations before and after its named and between its
+  parameters such as '    /bin/ls     -l  -A':
+
+  all those spaces and tabs must not interfere with the command's execution.
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+### Signal
+
+In this section we'll evaluate signal management and more specifically Ctrl-C.
+
+Execute the following 3 tests:
+
+- Instead of typing a command press Ctrl-C. The shell must just give back the prompt.
+- Type a random command but instead of running it press Ctrl-C. The minishell must give back an empty prompt.
+- Run the following command "$> cat", then when cat waits for inputs on the standard input, press Ctrl-C.
+  The minishell must kill cat's process and give back the prompt.
+
+If at least one fails, no points will be awarded for this section. Move to the next one.
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+### PATH's rights
+
+In this section we'll evaluate PATH's rights management.
+
+Execute the following test:
+
+- Create a new folder /tmp/bin/ and add this folder to the PATH environment variable. Create a program named 'test_exec_rights' inside that folder that will just display 'KO'. Give this program the following rights 644 (meaning no execution rights). From another folder, run the following command "$> test_exec_rights". Check that the minishell refuses to run the program because of the missing execution rights.
+
+If it fails, no points will be awarded for this section. Move to the next one.
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Only if we have 2 and more builtins (e.g. pwd argc | exit) we should launch them in different processes (using fork()).
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+'cd' command:
+
+if you invoke 'cd' executable as a child process it will change directory only for the child and will not
+affect the parent process.
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+special cases:
+
+### ECHO ###
+
+echo echo
+echo echo"1"
+echo test1		test2
+echo -n " test1 test2 " 'test3 '
+echo "test1 -n"
+echo -n -n -n -n -n test1
+echo ~42
+
+eCho |
+ECHO |-> this should work (also in other cmds (Rm, ToUCH ...) )
+
+### CD ###
+
+cd "."
+cd ".."
+cd //////
+cd ./././
+cd '/////'
+cd "doesntexist"
+cd "$PWD/file_tests" ???
+cd ../../..
+cd Exams/ Libft/
+
+### PWD ###
+
+"pwd"
+pw"d"
+
+### EXPORT ###
+
+/bin/echo $HALLO42
+env | grep HALLO42
+
+export =============123
+export =
+export =42
+export ""=""
+export export
+export echo
+export HELLO42=T=""
+
+echo $?
+export ?=hallo
+export test=42 | echo 99
+
+export mini_test=
+
+
+### EXIT ###
+
+exit +1
+exit -1
+
+exit --1  -> mistake
+
+exit --1 | echo hello:
+
+    -bash: exit: --1: numeric argument required
+    hello
+
+exit ++++3193912939 -> mistake
+
+
+exit 001
+exit 00000001
+exit +00000001
+exit -00000001
+
+
+exit cd ..
+
+exit exit
+
+
+### PIPELINES ###
+
+echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e
+
+
+
+### PERMISSION DENIED ###
+
+bsh$ chmod 444 file1
+bsh$ echo hello > file1
+-bash: file1: Permission denied
+bsh$
+
+
+
+### HERE_DOC ###
+
+cat << lim
+ "lim"
+HELLO
+42
+ lim
+testing your minishell
+limm
+lim
+
+<<lim cat
+ "lim"
+HELLO
+42
+ lim
+testing your minishell
+limm
+lim
+
+
+
+### BROKEN SCMD ###
+
+"."
+
+.ls
+
+./ls
+
+"./"ls
+
+"./""ls"
+
+"./"''"ls"
+
+lsa
+
+/ls
+
+/ls/
+
+/bin/
+
+/bin/cats
+
+./4242424242.sh
+
+
+### SYNTAX ERRORS ###
+
+>
+
+<
+
+<<
+
+>>>>>
+
+> > > > >
+
+>> >> >> >>
+
+<<<<<<
+
+< < < < < <
+
+/bin/cat ><
+
+/bin/cat <Makefile >
+
+cat 42 42
+
+echo >
+
+echo > <
+
+.
+
+..
+
+EechoE
+
+.echo.
+
+>echo>
+
+<echo<
+
+>>echo>>
+
+|echo|
+
+|
+
+| test
+
+| | |
+
+| | | | test
