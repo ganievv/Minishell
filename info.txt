@@ -398,3 +398,17 @@ EechoE
 | | |
 
 | | | | test
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+readline:
+
+CONTROL + D signal (EOF) :
+
+if there is input from a user  ->  EOF will be treated as a new line
+if there is no input from a user  ->  readline will return NULL
+
+
+--------------------------------------------------------------------------------------------------------------------------------
