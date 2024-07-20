@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:56:18 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/19 21:03:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/20 19:32:35 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,5 @@ void	handle_signal(int signal);
 /*------------builtins-----------*/
 int		ft_pwd(char **args);
 int		ft_cd(char **args);
-
-void	pwd_errno_check(void);
-void	cd_errno_check(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/19 21:04:28 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/20 19:33:23 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_pwd(char **args)
 	buff_ptr = getcwd(buff, sizeof(buff));
 	if (!buff_ptr)
 	{
-		pwd_errno_check();
+		perror("Error getting current directory");
 		return (1);
 	}
 	write(STDOUT_FILENO, buff_ptr, ft_strlen(buff_ptr));
@@ -50,7 +50,7 @@ int	ft_cd(char **args)
 		dir = args[0];
 	if (chdir(dir) == -1)
 	{
-		cd_errno_check();
+		perror("Error changing directory");
 		return (1);
 	}
 	return (0);
