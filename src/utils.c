@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 20:51:56 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/22 21:02:47 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ long long	ft_atoll(char *str)
 
 int	is_valid_exit_range(char *nbr)
 {
+// protected
 }
 
 int	count_args(char **args)
