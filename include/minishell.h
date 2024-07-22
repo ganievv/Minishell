@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:56:18 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 19:00:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/22 21:02:01 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,13 @@ int			count_args(char **args);
 int			is_nbr(char *arg);
 int			is_valid_exit_range(char *nbr);
 long long	ft_atoll(char *str);
+
+/*fgjk*/
+/*fgjk*/
+/*fgjk*/
+/*fgjk*/
+/*fgjk*/
+/*fgjk*/
+/*fgjk*/
 
 #endif
