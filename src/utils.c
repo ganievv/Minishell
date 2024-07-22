@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 18:49:51 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/22 19:00:25 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_nbr(char *arg)
 {
 	if (!arg)
 		return (0);
-	while ((*arg == ' ') || (*arg >= 9 && *arg <= 13))
+	while (ft_isspace(*arg))
 		arg++;
 	if ((*arg == '+') || (*arg == '-'))
 		arg++;
@@ -24,11 +24,15 @@ int	is_nbr(char *arg)
 		return (0);
 	while (*arg)
 	{
-		if (*arg < '0' || *arg > '9')
+		if (!ft_isdigit(*arg))
 			return (0);
 		arg++;
 	}
 	return (1);
+}
+
+long long	ft_atoll(char *str)
+{
 }
 
 int	is_valid_exit_range(char *nbr)
