@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 15:06:22 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/22 18:47:34 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_cd(char **args)
 	{
 		dir = getenv("HOME");
 		if (!dir)
-			return (0);
+			return (1);
 	}
 	else
 		dir = args[0];
@@ -77,4 +77,26 @@ int	ft_echo(char **args)
 	if (put_new_line)
 		write (STDOUT_FILENO, "\n", 1);
 	return (0);
+}
+
+/* we should do it in executor.c:
+*  if (args[0] == NULL) ->  args[0] = $?*/
+
+int	ft_exit(char **args)
+{
+	int	n_nbr;
+
+	/* in this case it will not exit*/
+	if (count_args(args) >= 2)
+	{
+		write (STDERR_FILENO, "msh: exit: too many arguments", 29);
+		return (1);
+	}
+	if (!is_nbr(*args) || !is_valid_range(*args))
+	{
+		write (STDERR_FILENO, "msh: exit: numeric argument required", 36);
+		exit(1);
+	}
+	n_nbr = ft_atoi(*args);
+	exit(n_nbr % 256);
 }
