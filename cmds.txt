@@ -245,3 +245,22 @@ env [options] [Name=Value]...[Command[Argument...]]:
 --------------------------------------------------------------------------------------------------------------------------------
 
 
+$?
+
+- echo hello | cat | cat | cat | cat | cat non_existent_file.txt | echo $?
+
+  output ->
+  0
+  cat: non_existent_file.txt: No such file or directory
+
+  '0' - exit status of the 'echo $?' command, because previous command haven't completed
+
+- echo hello | cat | cat | cat | cat | cat non_existent_file.txt
+
+  output ->
+  cat: non_existent_file.txt: No such file or directory
+
+  echo $? output -> 1 (exit status of the 'cat non_existent_file.txt')
+
+
+--------------------------------------------------------------------------------------------------------------------------------
