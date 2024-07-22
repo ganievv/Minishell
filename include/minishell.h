@@ -3,18 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 15:56:18 by tnakas            #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2024/07/22 21:04:57 by tnakas           ###   ########.fr       */
-=======
-/*   Updated: 2024/07/22 21:02:01 by sganiev          ###   ########.fr       */
->>>>>>> d50fdac6ab9220c001db9034ad1bdd55fce95cbc
-=======
-/*   Updated: 2024/07/22 21:02:01 by sganiev          ###   ########.fr       */
->>>>>>> d50fdac6ab9220c001db9034ad1bdd55fce95cbc
+/*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
+/*   Updated: 2024/07/22 22:29:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +48,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-// here we should handle heredoc
-
 /*-----------parser-launch----------*/
 
 // pipe grouping
@@ -95,18 +85,9 @@ typedef struct	s_pipe_group
 *	'echo hello >'
 *	bash: syntax error near unexpected token `newline'
 *
-*
-*
-*
-*
-*
-*
 */
 
-/*------------executer-----------*/
-
 void		handle_signal(int signal);
-
 
 /*------------builtins-----------*/
 int			ft_pwd(char **args);
@@ -118,14 +99,5 @@ int			count_args(char **args);
 int			is_nbr(char *arg);
 int			is_valid_exit_range(char *nbr);
 long long	ft_atoll(char *str);
-long long	test;
-//protected
 
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
 #endif

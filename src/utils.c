@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 21:19:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/22 22:30:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	is_valid_exit_range(char *nbr)
 		return (0);
 	else
 		return (1);
-// protected
 }
 
 int	count_args(char **args)
