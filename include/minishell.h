@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/22 22:37:43 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/22 22:55:41 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 /*-----------lexer-launch-----------*/
 
-typedef enum e_token_type
+typedef enum	e_token_type
 {
 	WORD,
 	SEP,
@@ -40,7 +40,7 @@ typedef enum e_token_type
 	EXP_FIELD // expanding field
 }	t_token_type;
 
-typedef struct s_token
+typedef struct	s_token
 {
 	char			*token_start;
 	int				len;
@@ -90,9 +90,15 @@ typedef struct	s_pipe_group
 void		handle_signal(int signal);
 
 /*---------------builtins--------------*/
+# define BUILTIN_NUM 7
+
 int			ft_pwd(char **args);
 int			ft_cd(char **args);
 int			ft_echo(char **args);
+int			ft_exit(char **args);
+int			ft_export(char **args);
+int			ft_unset(char **args);
+int			ft_env(char **args);
 
 /*--------------utils_exec-------------*/
 int			count_args(char **args);

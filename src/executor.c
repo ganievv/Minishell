@@ -6,21 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/16 12:56:56 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/22 22:56:33 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-#define BUILTIN_NUM 7
-
-int	ft_echo(char **args);
-int	ft_cd(char **args);
-int	ft_pwd(char **args);
-int	ft_export(char **args);
-int	ft_unset(char **args);
-int	ft_env(char **args);
-int	ft_exit(char **args);
 
 static void	init_builtin_names(char **builtin_names)
 {
@@ -66,7 +56,7 @@ int	exec_all_cmds(t_pipe_group *groups)
 {
 	char	*builtin_names[BUILTIN_NUM + 1];
 	int		(*builtin_ptrs[BUILTIN_NUM + 1]) (char **args);
-	int	i;
+	int		i;
 
 	init_builtin_names(builtin_names);
 	init_builtin_ptrs(builtin_ptrs);
