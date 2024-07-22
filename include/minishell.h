@@ -3,10 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:56:18 by tnakas            #+#    #+#             */
+<<<<<<< HEAD
+<<<<<<< HEAD
+/*   Updated: 2024/07/22 21:04:57 by tnakas           ###   ########.fr       */
+=======
 /*   Updated: 2024/07/22 21:02:01 by sganiev          ###   ########.fr       */
+>>>>>>> d50fdac6ab9220c001db9034ad1bdd55fce95cbc
+=======
+/*   Updated: 2024/07/22 21:02:01 by sganiev          ###   ########.fr       */
+>>>>>>> d50fdac6ab9220c001db9034ad1bdd55fce95cbc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +118,8 @@ int			count_args(char **args);
 int			is_nbr(char *arg);
 int			is_valid_exit_range(char *nbr);
 long long	ft_atoll(char *str);
+long long	test;
+//protected
 
 /*fgjk*/
 /*fgjk*/
@@ -118,5 +128,4 @@ long long	ft_atoll(char *str);
 /*fgjk*/
 /*fgjk*/
 /*fgjk*/
-
 #endif
