@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/22 22:29:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/22 22:37:43 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ typedef struct	s_pipe_group
 
 void		handle_signal(int signal);
 
-/*------------builtins-----------*/
+/*---------------builtins--------------*/
 int			ft_pwd(char **args);
 int			ft_cd(char **args);
 int			ft_echo(char **args);
 
-/*------------utils-----------*/
+/*--------------utils_exec-------------*/
 int			count_args(char **args);
 int			is_nbr(char *arg);
 int			is_valid_exit_range(char *nbr);
