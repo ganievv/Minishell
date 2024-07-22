@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:56:18 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/20 19:32:35 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/22 15:08:01 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <errno.h>
+# include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -102,5 +103,6 @@ void	handle_signal(int signal);
 /*------------builtins-----------*/
 int		ft_pwd(char **args);
 int		ft_cd(char **args);
+int		ft_echo(char **args);
 
 #endif

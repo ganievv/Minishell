@@ -6,14 +6,14 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/20 19:33:23 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/22 15:06:22 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// for pwd, cd commands:
-// should we use -l c option to qcc when we compile the project ???
+/* for pwd, cd commands:
+*  should we use -l c option to qcc when we compile the project ??? */
 
 int	ft_pwd(char **args)
 {
@@ -30,11 +30,11 @@ int	ft_pwd(char **args)
 	return (0);
 }
 
-// We should skip all flags in the parser or lexer,
-// because of this sentence in the subject:
-// 'cd with only a relative or absolute path'
-
-// We should change PWD env var in 'ft_cd()'
+/* We should skip all flags in the parser or lexer,
+*  because of this sentence in the subject:
+*  'cd with only a relative or absolute path'
+*
+*  We should change PWD env var in 'ft_cd()' */
 
 int	ft_cd(char **args)
 {
@@ -53,5 +53,28 @@ int	ft_cd(char **args)
 		perror("Error changing directory");
 		return (1);
 	}
+	return (0);
+}
+
+/* '-n' flag should be in args[0] */
+
+int	ft_echo(char **args)
+{
+	bool	put_new_line;
+
+	put_new_line = true;
+	if (*args && (ft_strcmp("-n", *args) == 0))
+	{
+		put_new_line = false;
+		args++;
+	}
+	while (*args)
+	{
+		write (STDOUT_FILENO, *args++, ft_strlen(*args));
+		if (*args)
+			write (STDOUT_FILENO, " ", 1);
+	}
+	if (put_new_line)
+		write (STDOUT_FILENO, "\n", 1);
 	return (0);
 }
