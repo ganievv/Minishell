@@ -6,7 +6,11 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:56:18 by tnakas            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/07/22 21:04:57 by tnakas           ###   ########.fr       */
+=======
+/*   Updated: 2024/07/22 21:02:01 by sganiev          ###   ########.fr       */
+>>>>>>> d50fdac6ab9220c001db9034ad1bdd55fce95cbc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +116,13 @@ int			is_valid_exit_range(char *nbr);
 long long	ft_atoll(char *str);
 long long	test;
 //protected
+
+/*fgjk*/
+/*fgjk*/
+/*fgjk*/
+/*fgjk*/
+/*fgjk*/
+/*fgjk*/
+/*fgjk*/
+
 #endif
