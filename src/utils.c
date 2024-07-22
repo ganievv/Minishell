@@ -6,11 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/07/22 20:54:08 by sganiev          ###   ########.fr       */
-=======
-/*   Updated: 2024/07/22 21:02:47 by tnakas           ###   ########.fr       */
->>>>>>> f7e11d729fc8b730d4dc6592c67105fb2abe9d56
+/*   Updated: 2024/07/22 21:19:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +58,6 @@ long long	ft_atoll(char *arg)
 
 int	is_valid_exit_range(char *nbr)
 {
-<<<<<<< HEAD
 	int	i;
 
 	i = 0;
@@ -74,9 +69,7 @@ int	is_valid_exit_range(char *nbr)
 		return (0);
 	else
 		return (1);
-=======
 // protected
->>>>>>> f7e11d729fc8b730d4dc6592c67105fb2abe9d56
 }
 
 int	count_args(char **args)
