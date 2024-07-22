@@ -1,51 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   p_utils_two.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 20:51:56 by tnakas           ###   ########.fr       */
+/*   Created: 2024/07/22 17:37:12 by tnakas            #+#    #+#             */
+/*   Updated: 2024/07/22 17:43:50 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	is_nbr(char *arg)
+t_token	*token_new(char *content)
 {
-	if (!arg)
-		return (0);
-	while (ft_isspace(*arg))
-		arg++;
-	if ((*arg == '+') || (*arg == '-'))
-		arg++;
-	if (*arg == '\0')
-		return (0);
-	while (*arg)
-	{
-		if (!ft_isdigit(*arg))
-			return (0);
-		arg++;
-	}
-	return (1);
-}
+	t_token	*new;
 
-long long	ft_atoll(char *str)
-{
-	//test;
-}
-
-int	is_valid_exit_range(char *nbr)
-{
-}
-
-int	count_args(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
+	new = (t_token *)malloc(sizeof(t_token));
+	if (!new)
+		return (NULL);
+	new->token_start = content;
+	new->len = ft_strlen(content);
+	new->type = token_find_type(content);
+	new->next = NULL;
+	return (new);
 }
