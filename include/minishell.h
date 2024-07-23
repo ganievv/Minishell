@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/23 12:49:54 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/23 12:58:10 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int			ft_isdouble_quote(char *str, int i);
 int			ft_isvar(char c);
 /*------------parser-utils-two---------------*/
 int			ft_isvar_dqoute(char *str, int i);
-t_token	*	token_new(char *content);
+t_token		*token_new(char *content);
+void		ft_lstadd_back(t_token **lst, t_token *new);
 /*fgjk*/
 /*fgjk*/
 /*fgjk*/

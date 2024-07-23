@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:37:12 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/23 12:46:46 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/23 12:57:16 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,21 @@ t_token	*token_new(char *content)
 	new->type = token_find_type(content);
 	new->next = NULL;
 	return (new);
+}
+
+void	ft_lstadd_back(t_token **lst, t_token *new)
+{
+	t_token	*temp;
+
+	if (!lst || !new)
+		return ;
+	if (!(*lst))
+	{
+		*lst = new;
+		return ;
+	}
+	temp = *lst;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
 }
