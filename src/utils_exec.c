@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 22:39:18 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:01:16 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,17 @@ int	count_args(char **args)
 	while (args[i])
 		i++;
 	return (i);
+}
+
+int	count_groups(t_pipe_group *groups)
+{
+	int	count;
+
+	count = 0;
+	while (groups != NULL)
+	{
+		count++;
+		groups = groups->next;
+	}
+	return (count);
 }
