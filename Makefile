@@ -6,7 +6,7 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/07/23 12:53:49 by tnakas           ###   ########.fr        #
+#    Updated: 2024/07/23 13:00:48 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CFLAGS = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 LIBFT_DIR = libft
 
 SRC = src/parser.c src/executor.c src/main.c src/signals.c \
-      src/utils.c src/builtin_1.c src/builtin_2.c src/p_utils_one.c \
-	  src/p_utils_two.c src/utils_exec.c
+      src/utils.c src/builtin_1.c src/builtin_2.c src/l_utils_one.c \
+	  src/l_utils_two.c src/utils_exec.c
 
 OBJ = $(SRC:.c=.o)
 
