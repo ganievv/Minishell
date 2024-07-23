@@ -1,3 +1,5 @@
-
+*.o
+*.out
 notes.txt
 subject_funcs.txt
+practicing_copy
