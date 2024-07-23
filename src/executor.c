@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/23 17:26:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:33:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,15 @@ static int	exec_one_cmd(t_pipe_group *group, char **builtin_names,
 
 int	exec_all_cmds(t_msh *info)
 {
-	char	*builtin_names[BUILTIN_NUM + 1];
-	int		(*builtin_ptrs[BUILTIN_NUM + 1]) (char **args);
-
-	init_builtin_names(builtin_names);
-	init_builtin_ptrs(builtin_ptrs);
-	if (count_groups(groups) == 1)
-		exec_one_cmd(groups, builtin_names, builtin_ptrs, envp);
+	init_builtin_names(info->builtin_names);
+	init_builtin_ptrs(info->builtin_ptrs);
+	if (count_groups(info->cmds) == 1)
+		exec_one_cmd(info);
 	else
 	{
-		while (groups != NULL)
+		while (info->groups != NULL)
 		{
-			groups = groups->next;
+			info->groups = info->groups->next;
 		}
 	}
 }

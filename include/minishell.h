@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/23 17:25:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:30:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <readline/history.h>
 # include <signal.h>
 # include "../libft/libft.h"
+
+# define BUILTIN_NUM 7
 
 /*-----------lexer-launch-----------*/
 
@@ -65,6 +67,8 @@ typedef struct s_msh
 	t_pipe_group	*cmds;
 	char			**envp;
 	int				last_exit_status;
+	char			*builtin_names[BUILTIN_NUM + 1];
+	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args);
 }	t_msh;
 
 /*-----------------------------main-----------------------------*/
@@ -73,8 +77,6 @@ typedef struct s_msh
 int				exec_all_cmds(t_msh *info);
 
 /*---------------------------builtins---------------------------*/
-# define BUILTIN_NUM 7
-
 int				ft_pwd(char **args);
 int				ft_cd(char **args);
 int				ft_echo(char **args);
