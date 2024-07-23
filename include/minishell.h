@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/23 17:15:10 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:25:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,19 @@ typedef struct s_pipe_group
 	struct s_group_cmd	*next;
 }	t_pipe_group;
 
+typedef struct s_msh
+{
+	char			*input;
+	t_token			*tokens;
+	t_pipe_group	*cmds;
+	char			**envp;
+	int				last_exit_status;
+}	t_msh;
+
 /*-----------------------------main-----------------------------*/
 
 /*---------------------------executor---------------------------*/
-int				exec_all_cmds(t_pipe_group *groups, char **envp);
+int				exec_all_cmds(t_msh *info);
 
 /*---------------------------builtins---------------------------*/
 # define BUILTIN_NUM 7

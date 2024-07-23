@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/23 15:17:22 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:25:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,24 @@ void	handle_signal(int signal)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	*input;
+	t_msh	info;
 
+	info.envp = envp;
 	clear_screen();
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		input = readline("minishell$ ");
-		if (!input)
+		info.input = readline("minishell$ ");
+		if (!info.input)
 		{
 			printf("exit\n");
 			break ;
 		}
-		if (ft_strlen(input) > 0)
-			add_history(input);
-		free(input);
+		if (ft_strlen(info.input) > 0)
+			add_history(info.input);
+		exec_all_cmds(&info);
+		free(info.input);
 	}
 	return (0);
 }
