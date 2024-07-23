@@ -6,50 +6,25 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/23 17:33:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:44:35 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	init_builtin_names(char **builtin_names)
-{
-	builtin_names[0] = "echo";
-	builtin_names[1] = "cd";
-	builtin_names[2] = "pwd";
-	builtin_names[3] = "export";
-	builtin_names[4] = "unset";
-	builtin_names[5] = "env";
-	builtin_names[6] = "exit";
-	builtin_names[7] = NULL;
-}
-
-static void	init_builtin_ptrs(int (**builtin_ptrs)(char **))
-{
-	builtin_ptrs[0] = ft_echo;
-    builtin_ptrs[1] = ft_cd;
-    builtin_ptrs[2] = ft_pwd;
-    builtin_ptrs[3] = ft_export;
-    builtin_ptrs[4] = ft_unset;
-    builtin_ptrs[5] = ft_env;
-    builtin_ptrs[6] = ft_exit;
-    builtin_ptrs[7] = NULL;
-}
-
-static int	exec_external_cmd(t_pipe_group *group)
+static int	exec_external_cmd(t_msh *info)
 {
 }
 
-static int	exec_one_cmd(t_pipe_group *group, char **builtin_names,
-	int (**builtin_ptrs)(char **))
+static int	exec_one_cmd(t_msh *info)
 {
 	int	i;
 
 	i = 0;
-	while (builtin_ptrs[i] != NULL)
+	while (info->builtin_names[i] != NULL)
 	{
-		if (strcmp(group->command, builtin_names[i]) == 0)
-			return (*builtin_ptrs[i])(group->args);
+		if (strcmp(info->cmds, info->builtin_names[i]) == 0)
+			return ((info->builtin_ptrs[i])(info->cmds->args));
 		i++;
 	}
 
@@ -60,7 +35,7 @@ int	exec_all_cmds(t_msh *info)
 {
 	init_builtin_names(info->builtin_names);
 	init_builtin_ptrs(info->builtin_ptrs);
-	if (count_groups(info->cmds) == 1)
+	if (count_cmds(info->cmds) == 1)
 		exec_one_cmd(info);
 	else
 	{
