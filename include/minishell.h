@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/23 17:03:35 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:15:10 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-/*-----------parser-launch----------*/
-
-// pipe grouping
-// expansions ($)
-
 typedef struct s_pipe_group
 {
 	char				*command;
@@ -62,31 +57,6 @@ typedef struct s_pipe_group
 	int					mode;
 	struct s_group_cmd	*next;
 }	t_pipe_group;
-
-/*-----------error-checking---------*/
-/*
-*	'exit 3 c | echo "Hello"':
-*	-bash: exit: too many arguments
-*	Hello
-*
-*
-*	'exit':
-*				- check number of args (should be only 1)
-*				- check if this 1 arg is a number
-*
-*	'export':
-*
-*	spaces between file name and command ?
-*	<file.txt
-*	> file.txt
-*	<<stop
-*	>>     file.txt
-*
-*	'echo hello >'
-*	bash: syntax error near unexpected token `newline'
-*
-*/
-
 
 /*-----------------------------main-----------------------------*/
 
