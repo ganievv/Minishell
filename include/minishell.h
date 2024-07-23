@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/23 13:12:03 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/23 14:29:58 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 /*-----------lexer-launch-----------*/
 
-typedef enum	e_token_type
+typedef enum e_token_type
 {
 	WORD,
 	SEP,
@@ -40,7 +40,7 @@ typedef enum	e_token_type
 	EXP_FIELD
 }	t_token_type;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	char			*token_start;
 	int				len;
@@ -53,13 +53,13 @@ typedef struct	s_token
 // pipe grouping
 // expansions ($)
 
-typedef struct	s_pipe_group
+typedef struct s_pipe_group
 {
 	char				*command;
 	char				**args;
-	char				*file;    /* if file: NULL then no redir */
-	int					redir_fd; /* 0: stdin; 1: stdout */
-	int					mode;     /* 0: O_RDONLY, O_WRONLY, O_CREAT, O_APPEND  */
+	char				*file;
+	int					redir_fd;
+	int					mode;
 	struct s_group_cmd	*next;
 }	t_pipe_group;
 
@@ -87,34 +87,37 @@ typedef struct	s_pipe_group
 *
 */
 
-void		handle_signal(int signal);
 
+/*-------------------main--------------------*/
 /*---------------builtins--------------*/
 # define BUILTIN_NUM 7
 
-int			ft_pwd(char **args);
-int			ft_cd(char **args);
-int			ft_echo(char **args);
-int			ft_exit(char **args);
-int			ft_export(char **args);
-int			ft_unset(char **args);
-int			ft_env(char **args);
+void			handle_signal(int signal);
+int				ft_pwd(char **args);
+int				ft_cd(char **args);
+int				ft_echo(char **args);
+int				ft_exit(char **args);
+int				ft_export(char **args);
+int				ft_unset(char **args);
+int				ft_env(char **args);
 
 /*--------------utils_exec-------------*/
-int			count_args(char **args);
-int			is_nbr(char *arg);
-int			is_valid_exit_range(char *nbr);
-long long	ft_atoll(char *str);
+int				count_args(char **args);
+int				is_nbr(char *arg);
+int				is_valid_exit_range(char *nbr);
+long long		ft_atoll(char *str);
+/*----------------lexer---------------------*/
+t_token_type	token_find_type(char *str);
 /*------------lexer-utils-one---------------*/
-int			ft_isdouble_lower_bigger(char *str, int i);
-int			ft_issingle_pipe_lower_bigger(char c);
-int			ft_issingle_quote(char *str, int i);
-int			ft_isdouble_quote(char *str, int i);
-int			ft_isvar(char c);
+int				ft_isdouble_lower_bigger(char *str, int i);
+int				ft_issingle_pipe_lower_bigger(char c);
+int				ft_issingle_quote(char *str, int i);
+int				ft_isdouble_quote(char *str, int i);
+int				ft_isvar(char c);
 /*------------lexer-utils-two---------------*/
-int			ft_isvar_dqoute(char *str, int i);
-t_token		*token_new(char *content);
-void		ft_lstadd_back(t_token **lst, t_token *new);
+int				ft_isvar_dqoute(char *str, int i);
+t_token			*token_new(char *content);
+void			ft_lstadd_back(t_token **lst, t_token *new);
 /*fgjk*/
 /*fgjk*/
 /*fgjk*/
