@@ -6,11 +6,20 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:37:12 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 17:43:50 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/23 12:46:46 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_isvar_dqoute(char *str, int i)
+{
+	if (ft_isvar(str[i]))
+		while (str[++i] && str[i] != 34)
+			if (str[i] == '$')
+				return (1);
+	return (0);
+}
 
 t_token	*token_new(char *content)
 {

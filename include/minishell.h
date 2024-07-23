@@ -118,9 +118,15 @@ int			count_args(char **args);
 int			is_nbr(char *arg);
 int			is_valid_exit_range(char *nbr);
 long long	ft_atoll(char *str);
-long long	test;
-//protected
-
+/*------------parser-utils-one---------------*/
+int			ft_isdouble_lower_bigger(char *str, int i);
+int			ft_issingle_pipe_lower_bigger(char c);
+int			ft_issingle_quote(char *str, int i);
+int			ft_isdouble_quote(char *str, int i);
+int			ft_isvar(char c);
+/*------------parser-utils-two---------------*/
+int			ft_isvar_dqoute(char *str, int i);
+t_token	*	token_new(char *content);
 /*fgjk*/
 /*fgjk*/
 /*fgjk*/
