@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/23 13:12:03 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/23 14:22:41 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int			count_args(char **args);
 int			is_nbr(char *arg);
 int			is_valid_exit_range(char *nbr);
 long long	ft_atoll(char *str);
+/*----------------lexer---------------------*/
+t_token_type	token_find_type(char *str);
 /*------------lexer-utils-one---------------*/
 int			ft_isdouble_lower_bigger(char *str, int i);
 int			ft_issingle_pipe_lower_bigger(char c);

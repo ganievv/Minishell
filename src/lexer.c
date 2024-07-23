@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/19 14:49:15 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 14:19:36 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //a function that is giving you back what type of enum is the string
 
-t_token_type token_find_type(char *str)
+t_token_type	token_find_type(char *str)
 {
 	if (!ft_strcmp("<", str))
 		return (REDIR_IN);
