@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 22:30:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 15:17:22 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	handle_signal(int signal)
 	}
 }
 
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
 	char	*input;
 

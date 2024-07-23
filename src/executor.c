@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 22:56:33 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 15:24:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	exec_one_cmd(t_pipe_group *group, char **builtin_names,
 	return (0);
 }
 
-int	exec_all_cmds(t_pipe_group *groups)
+int	exec_all_cmds(t_pipe_group *groups, char **envp)
 {
 	char	*builtin_names[BUILTIN_NUM + 1];
 	int		(*builtin_ptrs[BUILTIN_NUM + 1]) (char **args);

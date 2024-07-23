@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/23 14:37:21 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/23 15:25:39 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,14 @@ typedef struct s_pipe_group
 */
 
 
-/*-------------------main--------------------*/
-/*---------------builtins--------------*/
+/*-----------------------------main-----------------------------*/
+
+/*---------------------------executor---------------------------*/
+int				exec_all_cmds(t_pipe_group *groups, char **envp);
+
+/*---------------------------builtins---------------------------*/
 # define BUILTIN_NUM 7
 
-void			handle_signal(int signal);
 int				ft_pwd(char **args);
 int				ft_cd(char **args);
 int				ft_echo(char **args);
@@ -101,7 +104,7 @@ int				ft_export(char **args);
 int				ft_unset(char **args);
 int				ft_env(char **args);
 
-/*--------------utils_exec-------------*/
+/*--------------------------utils_exec--------------------------*/
 int				count_args(char **args);
 int				is_nbr(char *arg);
 int				is_valid_exit_range(char *nbr);
@@ -125,5 +128,7 @@ void			ft_lstadd_back(t_token **lst, t_token *new);
 /*fgjk*/
 /*fgjk*/
 /*fgjk*/
+
+void			handle_signal(int signal);
 
 #endif
