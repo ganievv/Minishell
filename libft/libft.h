@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:45:35 by tnakas            #+#    #+#             */
-/*   Updated: 2024/06/07 14:16:10 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/23 13:32:02 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int			ft_isdigit(int c);
 int			ft_isprint(int c);
 int			ft_isspace(char c);
 char		*ft_itoa(int n);
-int			ft_isstrnum(char *s);
 //----------------PRINT------------------------------------------
 void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
@@ -55,6 +54,7 @@ char		*ft_strchr(const char *str, int c);
 char		*ft_strnstr(const char *str, const char *sub, size_t l);
 char		*ft_strrchr(char *str, int c);
 char		*ft_strdup(const char *s1);
+char		*ft_strndup(const char *s1, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
