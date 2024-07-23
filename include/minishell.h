@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/23 12:49:01 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/23 12:49:54 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ typedef enum	e_token_type
 	PIPE,
 	REDIR_OUT,
 	REDIR_IN,
-	DELIMITER, // what is it ???
-	APPEND_DELIMITER, // REDIR_OUT + append mode
-	DOUBLE_QUOTED, // why do we need it ???
-	SINGLE_QUOTED, // why do we need it ???
-	EXP_FIELD // expanding field
+	DELIMITER,
+	APPEND_DELIMITER,
+	DOUBLE_QUOTED,
+	SINGLE_QUOTED,
+	EXP_FIELD
 }	t_token_type;
 
 typedef struct	s_token
