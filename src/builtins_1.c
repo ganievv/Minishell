@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   builtins_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/22 18:47:34 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/22 22:49:52 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_echo(char **args)
 
 int	ft_exit(char **args)
 {
-	int	n_nbr;
+	long long	n_nbr;
 
 	/* in this case it will not exit*/
 	if (count_args(args) >= 2)
@@ -97,6 +97,6 @@ int	ft_exit(char **args)
 		write (STDERR_FILENO, "msh: exit: numeric argument required", 36);
 		exit(1);
 	}
-	n_nbr = ft_atoi(*args);
+	n_nbr = ft_atoll(*args);
 	exit(n_nbr % 256);
 }

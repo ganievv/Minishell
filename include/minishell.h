@@ -5,16 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 15:56:18 by tnakas            #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2024/07/22 21:04:57 by tnakas           ###   ########.fr       */
-=======
-/*   Updated: 2024/07/22 21:02:01 by sganiev          ###   ########.fr       */
->>>>>>> d50fdac6ab9220c001db9034ad1bdd55fce95cbc
-=======
-/*   Updated: 2024/07/22 21:02:01 by sganiev          ###   ########.fr       */
->>>>>>> d50fdac6ab9220c001db9034ad1bdd55fce95cbc
+/*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
+/*   Updated: 2024/07/23 12:49:01 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +26,7 @@
 
 /*-----------lexer-launch-----------*/
 
-typedef enum e_token_type
+typedef enum	e_token_type
 {
 	WORD,
 	SEP,
@@ -48,15 +40,13 @@ typedef enum e_token_type
 	EXP_FIELD // expanding field
 }	t_token_type;
 
-typedef struct s_token
+typedef struct	s_token
 {
 	char			*token_start;
 	int				len;
 	t_token_type	type;
 	struct s_token	*next;
 }	t_token;
-
-// here we should handle heredoc
 
 /*-----------parser-launch----------*/
 
@@ -95,25 +85,22 @@ typedef struct	s_pipe_group
 *	'echo hello >'
 *	bash: syntax error near unexpected token `newline'
 *
-*
-*
-*
-*
-*
-*
 */
-
-/*------------executer-----------*/
 
 void		handle_signal(int signal);
 
+/*---------------builtins--------------*/
+# define BUILTIN_NUM 7
 
-/*------------builtins-----------*/
 int			ft_pwd(char **args);
 int			ft_cd(char **args);
 int			ft_echo(char **args);
+int			ft_exit(char **args);
+int			ft_export(char **args);
+int			ft_unset(char **args);
+int			ft_env(char **args);
 
-/*------------utils-----------*/
+/*--------------utils_exec-------------*/
 int			count_args(char **args);
 int			is_nbr(char *arg);
 int			is_valid_exit_range(char *nbr);
@@ -134,4 +121,5 @@ t_token	*	token_new(char *content);
 /*fgjk*/
 /*fgjk*/
 /*fgjk*/
+
 #endif
