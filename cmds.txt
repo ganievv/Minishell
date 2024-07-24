@@ -86,47 +86,27 @@ Environment variables:
                         1) (if we don't have T var) "abc"
                         2) (if we have T var) "(value of T var) abc"
 
+- export VAR= 789 -> invalid
 
-- should we handle it ? :
+- export VAR =789 -> invalid
 
-  setting the 'PATH' variable for a single command:
-  PATH="/usr/local/bin:$PATH" command_name
-
-  the PATH environment variable is temporarily prepended with /usr/local/bin
-  for the command_name command.
-
-  about it:
-  https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Environment
-
-- VAR=789 (without export) -> how should we handle it ?
-
-- VAR= 789 -> invalid
-
-- VAR =789 -> invalid
-
-- VAR = 789 -> invalid
-
-We should handle it in executor because of this:
-
-  echo hello | VAR = 7 | echo all    ->  output:
-
-  bash: VAR: command not found
-  all
+- export VAR = 789 -> invalid
 
 - this will create these variables and assign to them null string
 
-  my_variable=""
-  my_variable=
-
-  but they won't be exported to environment, so we can check them only with the 'set' cmd (not 'env' cmd)
+  export my_variable=""
+  export my_variable=
 
 - we can use ${environment variable} here also:
 
-  HYY=$HOME
+  export HYY=$HOME
   echo $HYY    -> output:   /Users/sganiev
 
-  VAR="hello     all"
-  echo $VAR         -> output: hello all (with one space)
+  export VAR="hello     all"
+  echo $VAR    -> output: hello all(with one space)
+                  (this is because 'echo' cmd sees this var
+                  like this -> VAR_1=hello          all ->
+                  without quotes (check this: env | grep VAR))
 
 --------------------------------------------------------------------------------------------------------------------------------
 
