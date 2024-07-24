@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/23 20:44:35 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/23 21:03:01 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	exec_one_cmd(t_msh *info)
 		i++;
 	}
 
-	return (exec_external_cmd(group));
+	return (exec_external_cmd(info));
 }
 
 int	exec_all_cmds(t_msh *info)
