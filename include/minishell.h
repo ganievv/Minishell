@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/24 20:36:46 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/24 20:49:47 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@
 
 # define BUILTIN_NUM 7
 
-/*-----------lexer-launch-----------*/
-
+/*--------------------------token_types-------------------------*/
 typedef enum e_token_type
 {
 	WORD,
@@ -42,6 +41,7 @@ typedef enum e_token_type
 	EXP_FIELD
 }	t_token_type;
 
+/*--------------------------tokens_list-------------------------*/
 typedef struct s_token
 {
 	char			*token_start;
@@ -50,6 +50,7 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+/*-------------------------commands_list------------------------*/
 typedef struct s_pipe_group
 {
 	char				*command;
@@ -60,18 +61,21 @@ typedef struct s_pipe_group
 	struct s_group_cmd	*next;
 }	t_pipe_group;
 
+/*---------------------environment_variable---------------------*/
 typedef struct s_env_var
 {
 	char	*name;
 	char	*value;
 }	t_env_var;
 
+/*-------------------environment_variable_list------------------*/
 typedef struct s_env_vars
 {
 	t_env_var			var;
 	struct s_env_vars	*next;
 }	t_env_vars;
 
+/*------------------all_important_project_vars------------------*/
 typedef struct s_msh
 {
 	char			*input;
