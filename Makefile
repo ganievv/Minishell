@@ -6,7 +6,7 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/07/24 16:34:07 by tnakas           ###   ########.fr        #
+#    Updated: 2024/07/24 16:35:18 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBFT_DIR = libft
 
 SRC = src/parser/parser.c src/main.c src/signals.c \
 		src/lexer/l_utils_one.c src/lexer/l_utils_two.c src/utils_exec.c \
-		src/lexer/lexer.c
+		src/lexer/lexer.c src/lexer/l_utils_three.c
 
 OBJ = $(SRC:.c=.o)
 
