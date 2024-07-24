@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/24 20:49:47 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/24 22:58:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int				count_cmds(t_pipe_group *cmds);
 void			init_builtin_names(char **builtin_names);
 void			init_builtin_ptrs(int (**builtin_ptrs)(char **));
 int				is_export_arg_valid(char *arg);
+void			init_env_vars_list(t_msh *info);
 
 /*----------------------------lexer-----------------------------*/
 t_token_type	token_find_type(char *str);

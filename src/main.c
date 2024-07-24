@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/23 17:25:36 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/24 21:00:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_msh	info;
 
-	info.envp = envp;
+	info.envp_buf = envp;
 	clear_screen();
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
