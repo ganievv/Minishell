@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/24 16:25:42 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/24 20:36:46 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,25 @@ typedef struct s_pipe_group
 	struct s_group_cmd	*next;
 }	t_pipe_group;
 
+typedef struct s_env_var
+{
+	char	*name;
+	char	*value;
+}	t_env_var;
+
+typedef struct s_env_vars
+{
+	t_env_var			var;
+	struct s_env_vars	*next;
+}	t_env_vars;
+
 typedef struct s_msh
 {
 	char			*input;
 	t_token			*tokens;
 	t_pipe_group	*cmds;
-	char			**envp;
+	char			**envp_buf;
+	t_env_vars		*env_vars;
 	int				last_exit_status;
 	char			*builtin_names[BUILTIN_NUM + 1];
 	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args);
