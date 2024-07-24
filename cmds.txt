@@ -81,6 +81,10 @@ cat < infile | cat >outfile_1 > outfile_2 > outfile_3
 
 Environment variables:
 
+- variable names should not start with a number
+
+- variable names should only contain letters (a-z, A-Z),
+  numbers (0-9), and underscores (_)
 
 - echo $T abc -> output:
                         1) (if we don't have T var) "abc"
