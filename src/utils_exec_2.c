@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:42:29 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/23 20:42:55 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/24 19:28:33 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,28 @@ void	init_builtin_ptrs(int (**builtin_ptrs)(char **))
 	builtin_ptrs[5] = ft_env;
 	builtin_ptrs[6] = ft_exit;
 	builtin_ptrs[7] = NULL;
+}
+
+static void	print_err_for_export(char *arg)
+{
+	write(STDERR_FILENO, "msh: export: `", 14);
+	write(STDERR_FILENO, arg, ft_strlen(arg));
+	write(STDERR_FILENO, "': not a valid identifier", 25);
+}
+
+int	is_export_arg_valid(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(arg[i]) && (arg[i] != '_'))
+		return (print_err_for_export(arg), 0);
+	i++;
+	while ((arg[i] != '=') && arg[i])
+	{
+		if (!ft_isalnum(arg[i]) && (arg[i] != '_'))
+			return (print_err_for_export(arg), 0);
+		arg++;
+	}
+	return (1);
 }
