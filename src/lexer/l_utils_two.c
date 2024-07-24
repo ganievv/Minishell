@@ -6,11 +6,16 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:37:12 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/23 14:20:07 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/24 15:46:15 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
+
+int	ft_isquote_dquote(char c)
+{
+	return (c = '\'' || c = '\"');
+}
 
 int	ft_isvar_dqoute(char *str, int i)
 {
