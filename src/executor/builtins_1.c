@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/23 13:14:52 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:54:44 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /* for pwd, cd commands:
 *  should we use -l c option to qcc when we compile the project ??? */

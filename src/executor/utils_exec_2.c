@@ -6,11 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:42:29 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/24 19:28:33 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/24 20:55:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	init_builtin_names(char **builtin_names)
 {
@@ -55,7 +55,7 @@ int	is_export_arg_valid(char *arg)
 	{
 		if (!ft_isalnum(arg[i]) && (arg[i] != '_'))
 			return (print_err_for_export(arg), 0);
-		arg++;
+		i++;
 	}
 	return (1);
 }

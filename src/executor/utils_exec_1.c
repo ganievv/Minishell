@@ -6,11 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/23 20:46:36 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/24 20:54:59 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	is_nbr(char *arg)
 {

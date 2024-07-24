@@ -1,43 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_2.c                                       :+:      :+:    :+:   */
+/*   utils_exec_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/24 20:54:50 by sganiev          ###   ########.fr       */
+/*   Created: 2024/07/24 20:53:07 by sganiev           #+#    #+#             */
+/*   Updated: 2024/07/24 20:54:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/* I am assuming that we skipped all flags
-*  in lexer or parser step*/
-
-int	ft_export(char **args)
-{
-	int	i;
-
-	i = 0;
-	if (!args[i])
-	{
-	}
-	else
-	{
-		while (args[i])
-		{
-			if (!is_export_arg_valid(args[i]))
-				return (1);
-			i++;
-		}
-	}
-}
-
-int	ft_unset(char **args)
-{
-}
-
-int	ft_env(char **args)
-{
-}

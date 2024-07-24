@@ -6,11 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/23 21:03:01 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/24 20:54:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static int	exec_external_cmd(t_msh *info)
 {
@@ -35,6 +35,7 @@ int	exec_all_cmds(t_msh *info)
 {
 	init_builtin_names(info->builtin_names);
 	init_builtin_ptrs(info->builtin_ptrs);
+	init_env_vars_list(info);
 	if (count_cmds(info->cmds) == 1)
 		exec_one_cmd(info);
 	else
