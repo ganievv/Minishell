@@ -6,11 +6,11 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/23 14:19:36 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/24 14:52:29 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 //a function that is giving you back what type of enum is the string
 
@@ -37,5 +37,6 @@ t_token_type	token_find_type(char *str)
 }
 
 // how to split
+
 // I need on the spaces split
 // on the | < > << >> $ "" '' and save them as they are
