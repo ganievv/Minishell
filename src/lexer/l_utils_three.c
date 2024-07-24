@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:39:49 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/24 16:30:16 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/24 16:43:12 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,13 @@
 // ex. "echo" "/"make       $HOME test/"" "|" "grep" "h" "|" "echo"
 //"/'done $USER making progress/'"
 
-//Simple_Seperators: "\, |, <, >, isspace"
+//Simple_Seperators: "|, <, >, isspace"
+// len 0
 // redir: >>, <<
+// len 1
 // VAR: $
-// ''
-// "" (I must handle it when I have a dollar)
-// nothing above
-int	seperate(char *rl, int i)
-{
-	return (ft_isdouble_lower_bigger(rl, i)
-		|| ft_issingle_pipe_lower_bigger(rl[i]) || ft_isquote_dquote(char c)
-		|| ft_isvar(char c));
-}
-
-//if it's a normal word pass if they are double 
-//quotes pass until to find doulbe quotes or single quotes or \0
-
-int	update_i_on_words(char *rl, int *i)
-{
-	while (!ft_isspace(rl[*i]))
-		*i++;
-}
-
+// len while(!ft_isspace)
+// '' || "" (I must handle it when I have a dollar)
 int	update_i_on_quoted(char *rl, int *i)
 {
 	if (ft_is_quoted(rl, *i) || ft_is_dquoted(rl, *i))
@@ -62,6 +47,16 @@ int	update_i_on_quoted(char *rl, int *i)
 	while (!ft_isspace(rl[*i]))
 		*i++;
 }
+
+// words
+int	update_i_on_words(char *rl, int *i)
+{
+	while (!ft_isspace(rl[*i]))
+		*i++;
+}
+
+//if it's a normal word pass if they are double 
+//quotes pass until to find doulbe quotes or single quotes or \0
 
 int	update_i_on_var(char *rl, int *i)
 {
