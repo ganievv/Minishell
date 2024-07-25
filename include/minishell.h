@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 16:07:58 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 17:30:59 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void			init_builtin_ptrs(int (**builtin_ptrs)(char **, t_env_vars **));
 int				is_export_arg_valid(char *arg);
 void			init_env_vars_list(t_msh *info);
 void			create_node(char *src, t_env_vars **head);
+void			remove_env_var(t_env_vars **head, char *data);
 
 /*----------------lexer---------------------*/
 t_token_type	token_find_type(char *str, int i, int len);

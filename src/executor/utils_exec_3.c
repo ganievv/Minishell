@@ -6,11 +6,48 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 20:53:07 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 16:07:42 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 17:30:32 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	cmp(char *var, char *data)
+{
+	int	i;
+
+	i = 0;
+	while (var[i] != '=')
+		i++;
+	return (ft_strncmp(var, data, i));
+}
+
+void remove_env_var(t_env_vars **head, char *data)
+{
+	t_env_vars	*cur;
+	t_env_vars	*next;
+	t_env_vars	*prev;
+
+	if (head == NULL || *head == NULL)
+		return ;
+	cur = *head;
+	prev = NULL;
+	while (cur)
+	{
+		next = cur->next;
+		if (cmp(cur->var, data) == 0)
+		{
+			if (prev == NULL)
+				*head = next;
+			else
+				prev->next = next;
+			free(cur);
+		}
+		else
+			prev = cur;
+		cur = next;
+	}
+}
 
 void	create_node(char *src, t_env_vars **head)
 {
