@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/24 20:54:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:07:13 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	exec_one_cmd(t_msh *info)
 	while (info->builtin_names[i] != NULL)
 	{
 		if (strcmp(info->cmds, info->builtin_names[i]) == 0)
-			return ((info->builtin_ptrs[i])(info->cmds->args));
+			return ((info->builtin_ptrs[i])(info->cmds->args, &info->env_vars));
 		i++;
 	}
 
@@ -40,9 +40,9 @@ int	exec_all_cmds(t_msh *info)
 		exec_one_cmd(info);
 	else
 	{
-		while (info->groups != NULL)
+		while (info->cmds != NULL)
 		{
-			info->groups = info->groups->next;
+			info->cmds = info->cmds->next;
 		}
 	}
 }

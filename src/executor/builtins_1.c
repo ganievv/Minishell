@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/25 15:02:42 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:47:32 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* for pwd, cd commands:
 *  should we use -l c option to qcc when we compile the project ??? */
 
-int	ft_pwd(char **args, char **envp)
+int	ft_pwd(char **args, t_env_vars **env_vars)
 {
 	char	buff[PATH_MAX];
 	char	*buff_ptr;
@@ -36,7 +36,7 @@ int	ft_pwd(char **args, char **envp)
 *
 *  We should change PWD env var in 'ft_cd()' */
 
-int	ft_cd(char **args, char **envp)
+int	ft_cd(char **args, t_env_vars **env_vars)
 {
 	char	*dir;
 
@@ -58,7 +58,7 @@ int	ft_cd(char **args, char **envp)
 
 /* '-n' flag should be in args[0] */
 
-int	ft_echo(char **args, char **envp)
+int	ft_echo(char **args, t_env_vars **env_vars)
 {
 	bool	put_new_line;
 
@@ -82,7 +82,7 @@ int	ft_echo(char **args, char **envp)
 /* we should do it in executor.c:
 *  if (args[0] == NULL) ->  args[0] = $?*/
 
-int	ft_exit(char **args, char **envp)
+int	ft_exit(char **args, t_env_vars **env_vars)
 {
 	long long	n_nbr;
 
