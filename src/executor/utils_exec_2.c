@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:42:29 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/24 20:55:02 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:01:13 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_builtin_names(char **builtin_names)
 	builtin_names[7] = NULL;
 }
 
-void	init_builtin_ptrs(int (**builtin_ptrs)(char **))
+void	init_builtin_ptrs(int (**builtin_ptrs)(char **, char **))
 {
 	builtin_ptrs[0] = ft_echo;
 	builtin_ptrs[1] = ft_cd;

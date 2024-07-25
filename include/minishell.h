@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 14:32:32 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:05:19 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_msh
 	t_env_vars		*env_vars;
 	int				last_exit_status;
 	char			*builtin_names[BUILTIN_NUM + 1];
-	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args);
+	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args, char **envp);
 }	t_msh;
 
 /*-----------------------------main-----------------------------*/
@@ -94,13 +94,13 @@ typedef struct s_msh
 int				exec_all_cmds(t_msh *info);
 
 /*---------------------------builtins---------------------------*/
-int				ft_pwd(char **args);
-int				ft_cd(char **args);
-int				ft_echo(char **args);
-int				ft_exit(char **args);
-int				ft_export(char **args);
-int				ft_unset(char **args);
-int				ft_env(char **args);
+int				ft_pwd(char **args, char **envp);
+int				ft_cd(char **args, char **envp);
+int				ft_echo(char **args, char **envp);
+int				ft_exit(char **args, char **envp);
+int				ft_export(char **args, char **envp);
+int				ft_unset(char **args, char **envp);
+int				ft_env(char **args, char **envp);
 
 /*--------------------------utils_exec--------------------------*/
 int				count_args(char **args);
@@ -109,7 +109,7 @@ int				is_valid_exit_range(char *nbr);
 long long		ft_atoll(char *str);
 int				count_cmds(t_pipe_group *cmds);
 void			init_builtin_names(char **builtin_names);
-void			init_builtin_ptrs(int (**builtin_ptrs)(char **));
+void			init_builtin_ptrs(int (**builtin_ptrs)(char **, char **));
 int				is_export_arg_valid(char *arg);
 void			init_env_vars_list(t_msh *info);
 

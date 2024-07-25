@@ -6,16 +6,16 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/24 20:54:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:03:00 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* I am assuming that we skipped all flags
+/* I am assuming that we have skipped all flags
 *  in lexer or parser step*/
 
-int	ft_export(char **args)
+int	ft_export(char **args, char **envp)
 {
 	int	i;
 
@@ -34,10 +34,10 @@ int	ft_export(char **args)
 	}
 }
 
-int	ft_unset(char **args)
+int	ft_unset(char **args, char **envp)
 {
 }
 
-int	ft_env(char **args)
+int	ft_env(char **args, char **envp)
 {
 }
