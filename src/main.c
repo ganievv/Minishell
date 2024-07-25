@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/24 21:00:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:38:18 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ void	handle_signal(int signal)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_msh	info;
+	t_msh		info;
+//	t_data		data; /added for testing
+//    t_token		*tokens = NULL; /added for testing
 
+//	tokens = NULL; /added for testing
 	info.envp_buf = envp;
 	clear_screen();
 	signal(SIGINT, handle_signal);
@@ -50,6 +53,7 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		if (ft_strlen(info.input) > 0)
 			add_history(info.input);
+//		token_list(&tokens, input); /added for testing
 		exec_all_cmds(&info);
 		free(info.input);
 	}
