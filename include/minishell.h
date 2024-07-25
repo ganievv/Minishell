@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 15:05:19 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:36:47 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,10 @@ typedef struct s_pipe_group
 	struct s_group_cmd	*next;
 }	t_pipe_group;
 
-/*---------------------environment_variable---------------------*/
-typedef struct s_env_var
-{
-	char	*name;
-	char	*value;
-}	t_env_var;
-
 /*-------------------environment_variable_list------------------*/
 typedef struct s_env_vars
 {
-	t_env_var			var;
+	char				*var;
 	struct s_env_vars	*next;
 }	t_env_vars;
 
