@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/25 18:40:56 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 20:36:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 /* for pwd, cd commands:
 *  should we use -l c option to qcc when we compile the project ??? */
-
 int	ft_pwd(char **args, t_env_vars **env_vars)
 {
 	char	buff[PATH_MAX];
@@ -35,7 +34,6 @@ int	ft_pwd(char **args, t_env_vars **env_vars)
 *  'cd with only a relative or absolute path'
 *
 *  We should change PWD env var in 'ft_cd()' */
-
 int	ft_cd(char **args, t_env_vars **env_vars)
 {
 	char	*dir;
@@ -57,7 +55,6 @@ int	ft_cd(char **args, t_env_vars **env_vars)
 }
 
 /* '-n' flag should be in args[0] */
-
 int	ft_echo(char **args, t_env_vars **env_vars)
 {
 	bool	put_new_line;
@@ -83,7 +80,6 @@ int	ft_echo(char **args, t_env_vars **env_vars)
 *  if (args[0] == NULL) ->  args[0] = $?*/
 
 /* if count_args(args) >= 2 it should not exit*/
-
 int	ft_exit(char **args, t_env_vars **env_vars)
 {
 	long long	n_nbr;

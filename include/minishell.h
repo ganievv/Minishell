@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 20:32:57 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 22:34:32 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <limits.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
