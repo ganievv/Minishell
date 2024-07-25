@@ -6,12 +6,18 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 20:53:07 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 19:02:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 19:49:20 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/* this function compares names of environment variables
+*  up to the '=' sign (which indicates the end of the name)
+*
+*  return values:
+*				  '0' 	  - variables names are the same
+*				  'not 0' - variables names are NOT the same */
 static int	cmp(char *var, char *data)
 {
 	int	i;
@@ -22,6 +28,8 @@ static int	cmp(char *var, char *data)
 	return (ft_strncmp(var, data, i));
 }
 
+/* this function removes a certain environment variable named 
+*  'data' from the linked list of them (info->env_vars)		*/
 void	remove_env_var(t_env_vars **head, char *data)
 {
 	t_env_vars	*cur;
@@ -49,6 +57,8 @@ void	remove_env_var(t_env_vars **head, char *data)
 	}
 }
 
+/* this function creates new node for the linked list of environment
+*  variables (info->env_vars) and assign to it certain value (src) */
 void	create_node(char *src, t_env_vars **head)
 {
 	t_env_vars	*new_node;
@@ -70,6 +80,8 @@ void	create_node(char *src, t_env_vars **head)
 	}
 }
 
+/* this function convert environment variables array from 'char**'
+*  (info->envp_buf) to the linked list of them (info->env_vars)		*/
 void	init_env_vars_list(t_msh *info)
 {
 	int	i;
@@ -80,6 +92,12 @@ void	init_env_vars_list(t_msh *info)
 		create_node(info->envp_buf[i++], &info->env_vars);
 }
 
+/* this function search certain environment variable in the linked
+*  list of all environment variables (info->env_vars);
+*
+*  return values:
+*				  1) environment var (char *)
+*				  2) NULL - if there is no such variable		  */
 char	*search_env_var(t_env_vars *env_vars, char *var_to_find)
 {
 	while (env_vars)

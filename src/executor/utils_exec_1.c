@@ -6,12 +6,14 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/24 20:54:59 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 20:06:15 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/* this function checks if a given string
+*  is a number						   */
 int	is_nbr(char *arg)
 {
 	if (!arg)
@@ -31,6 +33,8 @@ int	is_nbr(char *arg)
 	return (1);
 }
 
+/* this function convert a number from
+* 'char*' to 'long long'			*/
 long long	ft_atoll(char *arg)
 {
 	long long	nbr;
@@ -56,6 +60,8 @@ long long	ft_atoll(char *arg)
 *  if nbr < -999,999,999,999,999,999 -> valid range |-> 18 characters is MAX
 **/
 
+/* this function checks if a given number 
+*  is in correct range				   */
 int	is_valid_exit_range(char *nbr)
 {
 	int	i;
@@ -71,6 +77,8 @@ int	is_valid_exit_range(char *nbr)
 		return (1);
 }
 
+/* this function counts how many
+*  strings a given array has  */
 int	count_args(char **args)
 {
 	int	i;
@@ -81,6 +89,8 @@ int	count_args(char **args)
 	return (i);
 }
 
+/* this function counts how many
+*  nodes a given linked list has */
 int	count_cmds(t_pipe_group *cmds)
 {
 	int	count;

@@ -6,12 +6,13 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 20:42:29 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 15:48:01 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 19:59:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/* this function initializes an array of builtin names */
 void	init_builtin_names(char **builtin_names)
 {
 	builtin_names[0] = "echo";
@@ -24,6 +25,7 @@ void	init_builtin_names(char **builtin_names)
 	builtin_names[7] = NULL;
 }
 
+/* this function initializes an array of pointers to builtin functions */
 void	init_builtin_ptrs(int (**builtin_ptrs)(char **, t_env_vars **))
 {
 	builtin_ptrs[0] = ft_echo;
@@ -36,6 +38,8 @@ void	init_builtin_ptrs(int (**builtin_ptrs)(char **, t_env_vars **))
 	builtin_ptrs[7] = NULL;
 }
 
+/* this function prints error message if the given variable
+*  name for the 'export' command is not correct			 */
 static void	print_err_for_export(char *arg)
 {
 	write(STDERR_FILENO, "msh: export: `", 14);
@@ -43,6 +47,8 @@ static void	print_err_for_export(char *arg)
 	write(STDERR_FILENO, "': not a valid identifier", 25);
 }
 
+/* this function checks if the given variable name for the
+*  'export' command is correct							*/
 int	is_export_arg_valid(char *arg)
 {
 	int	i;
