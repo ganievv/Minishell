@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/25 18:40:10 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 19:03:23 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 static int	exec_external_cmd(t_msh *info)
 {
+	char	*path_env_v;
+
+	path_env_v = search_env_var(info->env_vars, "PATH");
+	if (!path_env_v) /* this var does not exists*/
+		return (1);
 }
 
 static int	exec_one_cmd(t_msh *info)
@@ -23,7 +28,7 @@ static int	exec_one_cmd(t_msh *info)
 	i = 0;
 	while (info->builtin_names[i] != NULL)
 	{
-		if (strcmp(info->cmds, info->builtin_names[i]) == 0)
+		if (strcmp(info->cmds->command, info->builtin_names[i]) == 0)
 			return ((info->builtin_ptrs[i])(info->cmds->args, &info->env_vars));
 		i++;
 	}

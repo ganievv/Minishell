@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 20:53:07 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 18:41:26 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 19:02:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,15 @@ void	init_env_vars_list(t_msh *info)
 	info->env_vars = NULL;
 	while (info->envp_buf[i])
 		create_node(info->envp_buf[i++], &info->env_vars);
+}
+
+char	*search_env_var(t_env_vars *env_vars, char *var_to_find)
+{
+	while (env_vars)
+	{
+		if (cmp(env_vars->var, var_to_find) == 0)
+			return (env_vars->var);
+		env_vars = env_vars->next;
+	}
+	return (NULL);
 }
