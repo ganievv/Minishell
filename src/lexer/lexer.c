@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/24 14:52:29 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:33:21 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,81 @@
 
 //a function that is giving you back what type of enum is the string
 
-t_token_type	token_find_type(char *str)
+t_token_type	token_find_type(char *str, int i, int len)
 {
-	if (!ft_strcmp("<", str))
-		return (REDIR_IN);
-	else if (!ft_strcmp(">", str))
-		return (REDIR_OUT);
-	else if (!ft_strcmp("<<", str))
-		return (DELIMITER);
-	else if (!ft_strcmp(">>", str))
-		return (APPEND_DELIMITER);
-	else if (!ft_strcmp("|", str))
-		return (PIPE);
-	else if (str[0] == 34 && str[ft_strlen(str) - 1] == 34)
-		return (DOUBLE_QUOTED);
-	else if (str[0] == 39 && str[ft_strlen(str) - 1] == 39)
-		return (SINGLE_QUOTED);
-	else if (!ft_strchr(str, 34) && !ft_strchr(str, 39) && ft_strchr(str, '$'))
-		return (EXP_FIELD);
+	char 			*temp;
+	t_token_type	type;
+
+	temp = ft_strndup(str + i, len);
+	if (!temp)
+		return (NULL);
+	if (!ft_strcmp("<", temp))
+		type = REDIR_IN;
+	else if (!ft_strcmp(">", temp))
+		type = REDIR_OUT;
+	else if (!ft_strcmp("<<", temp))
+		type = DELIMITER;
+	else if (!ft_strcmp(">>", temp))
+		type = APPEND_DELIMITER;
+	else if (!ft_strcmp("|", temp))
+		type = PIPE;
+	else if (str[0] == 34 && str[ft_strlen(temp) - 1] == 34)
+		type = DOUBLE_QUOTED;
+	else if (str[0] == 39 && str[ft_strlen(temp) - 1] == 39)
+		type = SINGLE_QUOTED;
+	else if (temp[0] == '$')
+		type = EXP_FIELD;
 	else
-		return (WORD);
+		type = WORD;
+	return (free(temp), type);
 }
 
-// how to split
+// how to add on the list
+void	token_list(t_token **head, char *rl)
+{
+	int		i;
+	int		len;
 
+	len = 0;
+	i = 0;
+	while (rl[i] && ft_isspace(rl[i]))
+		i++;
+	while (rl[i])
+	{
+		if (redir(rl, i))
+		{
+			ft_lstadd_back(temp, token_new(rl + i, i, 2));
+			i += 2;
+		}
+		else if (ft_isspace(rl[i]))
+		{
+			ft_lstadd_back(temp, token_new(rl + i, i, 1));
+			isspace_skip(rl + i, &i);
+		}
+		else if (simple_seperators(rl + i))
+		{
+			ft_lstadd_back(temp, token_new(rl + i, i, 1));
+			i++;
+		}
+		else if (rl[i] == '\'' || r[i] == '\"')
+		{
+			len_quoted(rl + i, &len);
+			ft_lstadd_back(temp, token_new(rl + i, i, len));
+			i += len;
+		}
+		else if (rl[i] == '$')
+		{
+			len_var(rl + i, &len);
+			ft_lstadd_back(temp, token_new(rl + i, i, len));
+			i += len;
+		}
+		else
+		{
+			len_words(rl + i, &len);
+			ft_lstadd_back(temp, token_new(rl + i, i, len));
+			i += len;
+		}
+	}
+}
 // I need on the spaces split
 // on the | < > << >> $ "" '' and save them as they are

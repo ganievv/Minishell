@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:13:11 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/24 15:45:14 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:42:52 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,17 @@
 
 //ft_isspace is already given
 
-//<< or >>
-int	ft_isdouble_lower_bigger(char *str, int i)
+// redir: >>, <<
+// len 2
+int	redir(char *str, int i)
 {
-	return (str[i] && ((str[i] == '<' && str[i + 1] == '<')
-			|| (str[i] == '>' && str[i + 1] == '>')));
-}
-
-//|><
-int	ft_is_pipe_lower_bigger(char c)
-{
-	return (c == '|' || c == '<' || c == '>');
+	return (str[i] && str[i] == '<'
+		&& str[i + 1] == '<'
+		&& (!str[i + 2] || (str[i + 2] && str[i + 2] != '<')));
 }
 
 //''
-int	ft_is_quoted(char *str, int i)
+int	is_quoted(char *str, int i)
 {
 	if (str[i] == 39)
 		while (str[++i] && str[i] != 39)
@@ -37,7 +33,7 @@ int	ft_is_quoted(char *str, int i)
 }
 
 //""
-int	ft_is_dquoted(char *str, int i)
+int	is_d_quoted(char *str, int i)
 {
 	if (str[i] == 34)
 		while (str[++i] && str[i] != 34)
@@ -45,11 +41,6 @@ int	ft_is_dquoted(char *str, int i)
 	return (str[i] == 34);
 }
 
-//$ without checking if it's unquoted, in double quotes or in single quotes
-int	ft_isvar(char c)
-{
-	return (c == '$');
-}
 // I'll combine all the seperators
 // spaces || double_lower_bigger || pipe_lower_bigger ||
 // single_quotes || double_quotes || is_var

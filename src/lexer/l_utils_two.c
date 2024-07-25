@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:37:12 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/24 15:46:15 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:06:58 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ int	ft_isvar_dqoute(char *str, int i)
 	return (0);
 }
 
-t_token	*token_new(char *content)
+t_token	*token_new(char *rl, int i, int len)
 {
 	t_token	*new;
 
 	new = (t_token *)malloc(sizeof(t_token));
 	if (!new)
 		return (NULL);
-	new->token_start = content;
-	new->len = ft_strlen(content);
-	new->type = token_find_type(content);
+	new->token_start = rl + i;
+	new->len = len;
+	new->type = token_find_type(rl, i, len);
 	new->next = NULL;
 	return (new);
 }
