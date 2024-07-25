@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 15:36:47 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:07:58 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_msh
 	t_env_vars		*env_vars;
 	int				last_exit_status;
 	char			*builtin_names[BUILTIN_NUM + 1];
-	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args, char **envp);
+	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args, t_env_vars **env_vars);
 }	t_msh;
 
 /*-----------------------------main-----------------------------*/
@@ -87,13 +87,13 @@ typedef struct s_msh
 int				exec_all_cmds(t_msh *info);
 
 /*---------------------------builtins---------------------------*/
-int				ft_pwd(char **args, char **envp);
-int				ft_cd(char **args, char **envp);
-int				ft_echo(char **args, char **envp);
-int				ft_exit(char **args, char **envp);
-int				ft_export(char **args, char **envp);
-int				ft_unset(char **args, char **envp);
-int				ft_env(char **args, char **envp);
+int				ft_pwd(char **args, t_env_vars **env_vars);
+int				ft_cd(char **args, t_env_vars **env_vars);
+int				ft_echo(char **args, t_env_vars **env_vars);
+int				ft_exit(char **args, t_env_vars **env_vars);
+int				ft_export(char **args, t_env_vars **env_vars);
+int				ft_unset(char **args, t_env_vars **env_vars);
+int				ft_env(char **args, t_env_vars **env_vars);
 
 /*--------------------------utils_exec--------------------------*/
 int				count_args(char **args);
@@ -102,9 +102,10 @@ int				is_valid_exit_range(char *nbr);
 long long		ft_atoll(char *str);
 int				count_cmds(t_pipe_group *cmds);
 void			init_builtin_names(char **builtin_names);
-void			init_builtin_ptrs(int (**builtin_ptrs)(char **, char **));
+void			init_builtin_ptrs(int (**builtin_ptrs)(char **, t_env_vars **));
 int				is_export_arg_valid(char *arg);
 void			init_env_vars_list(t_msh *info);
+void			create_node(char *src, t_env_vars **head);
 
 /*----------------lexer---------------------*/
 t_token_type	token_find_type(char *str, int i, int len);
