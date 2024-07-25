@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 20:53:07 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 17:30:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:41:26 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	cmp(char *var, char *data)
 	return (ft_strncmp(var, data, i));
 }
 
-void remove_env_var(t_env_vars **head, char *data)
+void	remove_env_var(t_env_vars **head, char *data)
 {
 	t_env_vars	*cur;
 	t_env_vars	*next;

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/25 16:07:13 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:40:10 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static int	exec_one_cmd(t_msh *info)
 			return ((info->builtin_ptrs[i])(info->cmds->args, &info->env_vars));
 		i++;
 	}
-
 	return (exec_external_cmd(info));
 }
 

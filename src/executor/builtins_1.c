@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/25 15:47:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:40:56 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,12 @@ int	ft_echo(char **args, t_env_vars **env_vars)
 /* we should do it in executor.c:
 *  if (args[0] == NULL) ->  args[0] = $?*/
 
+/* if count_args(args) >= 2 it should not exit*/
+
 int	ft_exit(char **args, t_env_vars **env_vars)
 {
 	long long	n_nbr;
 
-	/* in this case it will not exit*/
 	if (count_args(args) >= 2)
 	{
 		write (STDERR_FILENO, "msh: exit: too many arguments", 29);

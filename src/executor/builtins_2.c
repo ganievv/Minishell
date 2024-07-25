@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 17:39:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:41:04 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	ft_export(char **args, t_env_vars **env_vars)
 {
-	t_env_vars *curr;
+	t_env_vars	*curr;
 
 	curr = *env_vars;
 	if (!*args)
