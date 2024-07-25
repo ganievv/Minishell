@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 17:36:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/25 17:39:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,14 @@ int	ft_unset(char **args, t_env_vars **env_vars)
 
 int	ft_env(char **args, t_env_vars **env_vars)
 {
+	t_env_vars	*cur;
+
+	cur = *env_vars;
+	while (cur)
+	{
+		write (STDOUT_FILENO, cur->var, ft_strlen(cur->var));
+		write (STDOUT_FILENO, "\n", 1);
+		cur = cur->next;
+	}
+	return (0);
 }
