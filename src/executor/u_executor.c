@@ -1,16 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_exec_2.c                                     :+:      :+:    :+:   */
+/*   u_executor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/23 20:42:29 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 19:59:17 by sganiev          ###   ########.fr       */
+/*   Created: 2024/07/26 15:03:55 by sganiev           #+#    #+#             */
+/*   Updated: 2024/07/26 15:07:27 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/* this function checks if a given command is a builtin;
+*
+*  return values:
+*				  '-1'   -> not a builtin cmd
+*				  '>= 0' -> a builtin cmd			  */
+int	is_cmd_builtin(char *cmd, t_msh *info)
+{
+	int	i;
+
+	i = 0;
+	while (info->builtin_names[i] != NULL)
+	{
+		if (strcmp(cmd, info->builtin_names[i]) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+/* this function counts how many
+*  strings a given array has  */
+int	count_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	return (i);
+}
+
+/* this function counts how many
+*  nodes a given linked list has */
+int	count_cmds(t_pipe_group *cmds)
+{
+	int	count;
+
+	count = 0;
+	while (cmds != NULL)
+	{
+		count++;
+		cmds = cmds->next;
+	}
+	return (count);
+}
 
 /* this function initializes an array of builtin names */
 void	init_builtin_names(char **builtin_names)
@@ -36,32 +82,4 @@ void	init_builtin_ptrs(int (**builtin_ptrs)(char **, t_env_vars **))
 	builtin_ptrs[5] = ft_env;
 	builtin_ptrs[6] = ft_exit;
 	builtin_ptrs[7] = NULL;
-}
-
-/* this function prints error message if the given variable
-*  name for the 'export' command is not correct			 */
-static void	print_err_for_export(char *arg)
-{
-	write(STDERR_FILENO, "msh: export: `", 14);
-	write(STDERR_FILENO, arg, ft_strlen(arg));
-	write(STDERR_FILENO, "': not a valid identifier", 25);
-}
-
-/* this function checks if the given variable name for the
-*  'export' command is correct							*/
-int	is_export_arg_valid(char *arg)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(arg[i]) && (arg[i] != '_'))
-		return (print_err_for_export(arg), 0);
-	i++;
-	while ((arg[i] != '=') && arg[i])
-	{
-		if (!ft_isalnum(arg[i]) && (arg[i] != '_'))
-			return (print_err_for_export(arg), 0);
-		i++;
-	}
-	return (1);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_exec_1.c                                     :+:      :+:    :+:   */
+/*   u_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/25 20:06:15 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/26 15:08:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,29 +77,30 @@ int	is_valid_exit_range(char *nbr)
 		return (1);
 }
 
-/* this function counts how many
-*  strings a given array has  */
-int	count_args(char **args)
+/* this function prints error message if the given variable
+*  name for the 'export' command is not correct			 */
+static void	print_err_for_export(char *arg)
+{
+	write(STDERR_FILENO, "msh: export: `", 14);
+	write(STDERR_FILENO, arg, ft_strlen(arg));
+	write(STDERR_FILENO, "': not a valid identifier", 25);
+}
+
+/* this function checks if the given variable name for the
+*  'export' command is correct							*/
+int	is_export_arg_valid(char *arg)
 {
 	int	i;
 
 	i = 0;
-	while (args[i])
-		i++;
-	return (i);
-}
-
-/* this function counts how many
-*  nodes a given linked list has */
-int	count_cmds(t_pipe_group *cmds)
-{
-	int	count;
-
-	count = 0;
-	while (cmds != NULL)
+	if (!ft_isalpha(arg[i]) && (arg[i] != '_'))
+		return (print_err_for_export(arg), 0);
+	i++;
+	while ((arg[i] != '=') && arg[i])
 	{
-		count++;
-		cmds = cmds->next;
+		if (!ft_isalnum(arg[i]) && (arg[i] != '_'))
+			return (print_err_for_export(arg), 0);
+		i++;
 	}
-	return (count);
+	return (1);
 }
