@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:31:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/26 17:35:22 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/26 17:43:04 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*is_file_present(DIR *dir, char *file)
 *				  NULL  ->  if an error occurs or if 'file' is
 *							not found in any directory;
 *				  [dir]	->  path to the directory containing the
-*							executable file (allocated with malloc()) **/
+*							executable file (allocated with malloc()) */
 char	*search_exec_dir(char *file, char *path_env_v)
 {
 	DIR				*dir;

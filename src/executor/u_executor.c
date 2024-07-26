@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:03:55 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/26 15:21:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/26 18:16:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	count_args(char **args)
 	return (i);
 }
 
-/* this function counts how many
-*  nodes a given linked list has */
+/* this function counts the number of nodes in
+*  a given linked list; the count represents
+*  the total number of commands				*/
 int	count_cmds(t_pipe_group *cmds)
 {
 	int	count;
