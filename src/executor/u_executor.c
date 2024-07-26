@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:03:55 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/26 15:07:27 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/26 15:21:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_cmd_builtin(char *cmd, t_msh *info)
 	i = 0;
 	while (info->builtin_names[i] != NULL)
 	{
-		if (strcmp(cmd, info->builtin_names[i]) == 0)
+		if (ft_strcmp(cmd, info->builtin_names[i]) == 0)
 			return (i);
 		i++;
 	}

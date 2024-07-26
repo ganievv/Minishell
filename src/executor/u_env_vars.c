@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_exec_3.c                                     :+:      :+:    :+:   */
+/*   u_env_vars.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 20:53:07 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/25 19:49:20 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/26 15:38:49 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 *  return values:
 *				  '0' 	  - variables names are the same
 *				  'not 0' - variables names are NOT the same */
-static int	cmp(char *var, char *data)
+static int	cmp_env_vars_names(char *var, char *data)
 {
 	int	i;
 
@@ -102,7 +102,7 @@ char	*search_env_var(t_env_vars *env_vars, char *var_to_find)
 {
 	while (env_vars)
 	{
-		if (cmp(env_vars->var, var_to_find) == 0)
+		if (cmp_env_vars_names(env_vars->var, var_to_find) == 0)
 			return (env_vars->var);
 		env_vars = env_vars->next;
 	}

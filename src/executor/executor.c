@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/25 22:19:26 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/26 15:40:26 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static int	exec_external_cmd(char *cmd, t_msh *info)
 	char	*dir_of_exec;
 
 	path_env_v = search_env_var(info->env_vars, "PATH");
-	if (!path_env_v)
-		;
-	else
+	if (path_env_v)
 		dir_of_exec = search_exec_dir(cmd, (ft_strchr(path_env_v, '=') + 1));
+	else
+		;
 }
 
 static int	exec_one_cmd(t_msh *info)
