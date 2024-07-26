@@ -6,11 +6,22 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/26 19:01:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/26 21:00:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	processes_pipes_creat(t_msh *info)
+{
+	int	cmds_num;
+
+	cmds_num = count_cmds(info->cmds);
+	if (cmds_num > 1)
+		pipes_create(info, cmds_num);
+	processes_create(info, cmds_num);
+	wait_for_processes(info, cmds_num);
+}
 
 static void	exec_cmd(char *absolute_path, char **args, t_env_vars *envp)
 {

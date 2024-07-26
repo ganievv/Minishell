@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/26 15:23:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/26 20:56:05 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ typedef struct s_msh
 	char			**envp_buf;
 	t_env_vars		*env_vars;
 	int				last_exit_status;
+	int				*pids;
+	int				**pipes;
 	char			*builtin_names[BUILTIN_NUM + 1];
 	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args,
 			t_env_vars **env_vars);
