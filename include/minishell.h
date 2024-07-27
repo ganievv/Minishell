@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 18:33:40 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 18:36:29 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ void			remove_env_var(t_env_vars **head, char *data);
 char			*search_env_var(t_env_vars *env_vars, char *var_to_find);
 int				is_cmd_builtin(char *cmd, t_msh *info);
 char			*search_exec_dir(char *file, char *path_env_v);
-char	*search_cmd_path(char *cmd, t_msh *info);
-void	make_redirection(char *file, int redir_fd, int mode);
-char	**linked_list_to_arr(t_env_vars *list);
-char	**args_to_argv(char **args);
-void	pipes_close(t_msh *info, int cmds_num);
-void	wait_for_processes(t_msh *info, int cmds_num);
-void	pipes_create(t_msh *info, int cmds_num);
+char			*search_cmd_path(char *cmd, t_msh *info);
+char			**linked_list_to_arr(t_env_vars *list);
+char			**args_to_argv(char **args);
+void			make_redirection(char *file, int redir_fd, int mode);
+void			pipes_create(t_msh *info, int cmds_num);
+void			pipes_close(t_msh *info, int cmds_num);
+void			wait_for_processes(t_msh *info, int cmds_num);
 
 /*----------------lexer---------------------*/
 t_token_type	token_find_type(char *str, int i, int len);
