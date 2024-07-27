@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 18:36:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 19:55:16 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char			*search_exec_dir(char *file, char *path_env_v);
 char			*search_cmd_path(char *cmd, t_msh *info);
 char			**linked_list_to_arr(t_env_vars *list);
 char			**args_to_argv(char **args);
-void			make_redirection(char *file, int redir_fd, int mode);
+void			make_redirections(t_pipe_group *cmd);
 void			pipes_create(t_msh *info, int cmds_num);
 void			pipes_close(t_msh *info, int cmds_num);
 void			wait_for_processes(t_msh *info, int cmds_num);

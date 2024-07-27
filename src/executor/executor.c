@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/27 18:34:35 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 20:59:27 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,12 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 	i = -1;
 	while (++i < cmds_num)
 	{
-		if (info->cmds[i].file_in)
-			make_redirection(info->cmds[i].file_in, info->cmds[i].redir_in,
-				info->cmds[i].mode_in);
-		if (info->cmds[i].file_out)
-			make_redirection(info->cmds[i].file_out, info->cmds[i].redir_out,
-				info->cmds[i].mode_out);
+		make_redirections(&info->cmds[i]);
 		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
 		exec_multiple_cmds(i, cmd_ptr_i, info);
 	}
 	wait_for_processes(info, cmds_num);
+	clean_pids_and_pipes();
 }
 
 /* this function creates a new process and executes
@@ -92,12 +88,7 @@ static int	process_one_cmd(t_msh *info)
 	char	*cmd_path;
 	int		index;
 
-	if (info->cmds->file_in)
-		make_redirection(info->cmds->file_in, info->cmds->redir_in,
-			info->cmds->mode_in);
-	if (info->cmds->file_out)
-		make_redirection(info->cmds->file_out, info->cmds->redir_out,
-			info->cmds->mode_out);
+	make_redirections(&info->cmds[0]);
 	index = is_cmd_builtin(info->cmds->command, info);
 	if (index >= 0)
 		(info->builtin_ptrs[index])(info->cmds->args, &info->env_vars);
