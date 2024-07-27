@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/27 16:50:41 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 17:03:39 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,12 @@ static int	process_one_cmd(t_msh *info)
 	char	*cmd_path;
 	int		index;
 
-	if (info->cmds->file)
-		make_redirection(info->cmds);
+	if (info->cmds->file_in)
+		make_redirection(info->cmds->file_in, info->cmds->redir_in,
+			info->cmds->mode_in);
+	if (info->cmds->file_out)
+		make_redirection(info->cmds->file_out, info->cmds->redir_out,
+			info->cmds->mode_out);
 	index = is_cmd_builtin(info->cmds->command, info);
 	if (index >= 0)
 		(info->builtin_ptrs[index])(info->cmds->args, &info->env_vars);

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 14:40:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 17:01:22 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ typedef struct s_pipe_group
 {
 	char				*command;
 	char				**args;
-	char				*file;
-	int					redir_fd;
-	int					mode;
+	char				*file_in;
+	char				*file_out;
+	int					redir_in;
+	int					redir_out;
+	int					mode_in;
+	int					mode_out;
 	struct s_group_cmd	*next;
 }	t_pipe_group;
 

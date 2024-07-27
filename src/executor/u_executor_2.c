@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 16:53:24 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 17:05:24 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ char	*search_cmd_path(char *cmd, t_msh *info)
 	return (cmd_path);
 }
 
-void	make_redirection(t_pipe_group *cmd)
+void	make_redirection(char *file, int redir_fd, int mode)
 {
-	int	file_fd;
+	int	fd;
 
-	file_fd = open(cmd->file, cmd->mode); /* what permissioms should I specify ?*/
-	if (file_fd == -1)
+	fd = open(file, mode); /* what permissioms should I specify ?*/
+	if (fd == -1)
 		return ;
-	dup2(file_fd, cmd->redir_fd);
-	close(file_fd);
+	dup2(fd, redir_fd);
+	close(fd);
 }
 
 char	**linked_list_to_arr(t_env_vars *list)
