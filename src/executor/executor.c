@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/27 21:47:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 21:54:48 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ static void	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 	char	**argv;
 	char	*cmd_path;
 
+	cmd_path = search_cmd_path(info->cmds[i].command, info);
+	envp_arr = linked_list_to_arr(info->env_vars);
+	argv = args_to_argv(info->cmds[i].args, cmd_path);
 	info->pids[i] = fork();
 	if (info->pids[i] == -1)
 		return ;
@@ -27,16 +30,17 @@ static void	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 			(info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args, &info->env_vars);
 		else
 		{
-			cmd_path = search_cmd_path(info->cmds[i].command, info);
-			envp_arr = linked_list_to_arr(info->env_vars);
-			argv = args_to_argv(info->cmds[i].args, cmd_path);
 			if (execve(cmd_path, argv, envp_arr) == -1)
 				perror("msh: "); /* what should I do in this case ?*/
 		}
 		return (0);
 	}
+	/* I think that if I will free it here without waiting for child to stop
+	* this arr won't existing in execve() */
 	if (cmd_path)  /* when should I free it ?*/
 		free(cmd_path);
+	free_arr_str(envp_arr); /* where should you free it ? */
+	free_arr_str(argv); 	/* where should you free it ? */
 }
 
 static void	process_multiple_cmds(t_msh *info, int cmds_num)
