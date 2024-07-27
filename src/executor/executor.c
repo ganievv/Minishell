@@ -6,11 +6,62 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/27 17:03:39 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 18:34:35 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
+{
+	char	**envp_arr;
+	char	**argv;
+	char	*cmd_path;
+
+	envp_arr = linked_list_to_arr(info->env_vars);
+	argv = args_to_argv(info->cmds->args);
+	info->pids[i] = fork();
+	if (info->pids[i] == -1)
+		return ;
+	if (info->pids[i] == 0) /* child process*/
+	{
+		if (cmd_ptr_i >= 0)
+			(info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args, &info->env_vars);
+		else
+		{
+			cmd_path = search_cmd_path(info->cmds[i].command, info);
+			if (execve(cmd_path, argv, envp_arr) == -1)
+				perror("msh: "); /* what should I do in this case ?*/
+		}
+		return (0);
+	}
+	if (cmd_path)  /* when should I free it ?*/
+		free(cmd_path);
+}
+
+static void	process_multiple_cmds(t_msh *info, int cmds_num)
+{
+	int		cmd_ptr_i;
+	int		i;
+
+	info->pids = (int *)malloc(sizeof(int) * cmds_num);
+	if (!info->pids)
+		return ;
+	pipes_create(info, cmds_num);
+	i = -1;
+	while (++i < cmds_num)
+	{
+		if (info->cmds[i].file_in)
+			make_redirection(info->cmds[i].file_in, info->cmds[i].redir_in,
+				info->cmds[i].mode_in);
+		if (info->cmds[i].file_out)
+			make_redirection(info->cmds[i].file_out, info->cmds[i].redir_out,
+				info->cmds[i].mode_out);
+		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
+		exec_multiple_cmds(i, cmd_ptr_i, info);
+	}
+	wait_for_processes(info, cmds_num);
+}
 
 /* this function creates a new process and executes
 *  a command there using 'cmd_path', which is
@@ -66,13 +117,9 @@ int	exec_all_cmds(t_msh *info)
 	init_builtin_names(info->builtin_names);
 	init_builtin_ptrs(info->builtin_ptrs);
 	init_env_vars_list(info);
-	if (count_cmds(info->cmds) == 1)
+	info->cmds = count_cmds(info->cmds);
+	if (info->cmds == 1)
 		process_one_cmd(info);
 	else
-	{
-		while (info->cmds != NULL)
-		{
-			info->cmds = info->cmds->next;
-		}
-	}
+		process_multiple_cmds(info, info->cmds);
 }

@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_executor.c                                       :+:      :+:    :+:   */
+/*   u_executor_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:03:55 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/26 18:16:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 18:20:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* this function checks if a given command is a builtin;
+/* this function checks if a given command is a builtin command;
 *
 *  return values:
 *				  '-1'   -> not a builtin cmd
-*				  '>= 0' -> a builtin cmd			  */
+*				  '>= 0' -> an index in the 'builtin_names' array
+*							where the name of the command is found */
 int	is_cmd_builtin(char *cmd, t_msh *info)
 {
 	int	i;
