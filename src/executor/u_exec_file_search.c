@@ -6,14 +6,14 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:31:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 18:02:37 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 21:19:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /* this function frees an array of strings */
-static void	free_arr_str(char **arr)
+void	free_arr_str(char **arr)
 {
 	int	i;
 

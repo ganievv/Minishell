@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 19:55:39 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 21:49:05 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,61 @@ void	make_redirections(t_pipe_group *cmd)
 	}
 }
 
-char	**linked_list_to_arr(t_env_vars *list)
+int	env_vars_count(t_env_vars *list)
 {
+	int	num;
+
+	num = 0;
+	while (list)
+	{
+		num++;
+		list = list->next;
+	}
+	return (num);
 }
 
-char	**args_to_argv(char **args)
+char	**linked_list_to_arr(t_env_vars *list)
 {
+	char	**envp_arr;
+	int		num;
+	int		i;
+
+	num = env_vars_count(list) + 1;
+	envp_arr = (char **)malloc(sizeof(char *) * num);
+	if (!envp_arr)
+		return (NULL);
+	i = 0;
+	while (list)
+	{
+		envp_arr[i] = ft_strdup(list->var);
+		if (!envp_arr[i++])
+			return (free_arr_str(envp_arr), NULL);
+		list = list->next;
+	}
+	envp_arr[i] = NULL;
+	return (envp_arr);
+}
+
+char	**args_to_argv(char **args, char *cmd_path)
+{
+	char	**argv;
+	int		num;
+	int		i;
+
+	i = 0;
+	num = count_args(args) + 2;
+	argv = (char **)malloc(sizeof(char *) * num);
+	if (!argv)
+		return (NULL);
+	argv[0] = ft_strdup(cmd_path);
+	if (!argv[0])
+		return (free(argv), NULL);
+	while (args[i])
+	{
+		argv[i + 1] = ft_strdup(args[i]);
+		if (argv[i + 1] == NULL)
+			return (free_arr_str(argv), NULL);
+		i++;
+	}
+	return (argv);
 }

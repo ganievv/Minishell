@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/27 20:59:27 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/27 21:47:04 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static void	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 	char	**argv;
 	char	*cmd_path;
 
-	envp_arr = linked_list_to_arr(info->env_vars);
-	argv = args_to_argv(info->cmds->args);
 	info->pids[i] = fork();
 	if (info->pids[i] == -1)
 		return ;
@@ -30,6 +28,8 @@ static void	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 		else
 		{
 			cmd_path = search_cmd_path(info->cmds[i].command, info);
+			envp_arr = linked_list_to_arr(info->env_vars);
+			argv = args_to_argv(info->cmds[i].args, cmd_path);
 			if (execve(cmd_path, argv, envp_arr) == -1)
 				perror("msh: "); /* what should I do in this case ?*/
 		}
@@ -69,13 +69,15 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 	int		pid;
 
 	envp_arr = linked_list_to_arr(info->env_vars);
-	argv = args_to_argv(info->cmds->args);
+	argv = args_to_argv(info->cmds->args, cmd_path);
 	pid = fork();
 	if (pid == 0)
 	{
 		if (execve(cmd_path, argv, envp_arr) == -1)
 			perror("msh: "); /* what should I do in this case ?*/
 	}
+	free_arr_str(envp_arr); /* where should you free it ? */
+	free_arr_str(argv); 	/* where should you free it ? */
 	wait(NULL);
 }
 
