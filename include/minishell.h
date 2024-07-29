@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 21:49:20 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 15:40:42 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,11 @@ char			*search_cmd_path(char *cmd, t_msh *info);
 char			**linked_list_to_arr(t_env_vars *list);
 char			**args_to_argv(char **args, char *cmd_path);
 void			make_redirections(t_pipe_group *cmd);
-void			pipes_create(t_msh *info, int cmds_num);
+int				pipes_create(t_msh *info, int cmds_num);
 void			pipes_close(t_msh *info, int cmds_num);
 void			wait_for_processes(t_msh *info, int cmds_num);
 void			free_arr_str(char **arr);
+void			free_int_arr(int **arr, int num);
 
 /*----------------lexer---------------------*/
 t_token_type	token_find_type(char *str, int i, int len);
