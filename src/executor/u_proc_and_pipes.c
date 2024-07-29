@@ -6,11 +6,35 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:52:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/29 19:41:24 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 19:46:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/* this function handles redirections for an input
+*  file and an output file, if they exist		*/
+void	make_files_redir(t_pipe_group *cmd)
+{
+	int	fd;
+
+	if (cmd->file_in)
+	{
+		fd = open(cmd->file_in, cmd->mode_in); /* what permissioms should I specify ?*/
+		if (fd == -1)
+			return ;
+		dup2(fd, cmd->redir_in); /* is that correct order of fds ?*/
+		close(fd);
+	}
+	if (cmd->file_out)
+	{
+		fd = open(cmd->file_out, cmd->mode_out); /* what permissioms should I specify ?*/
+		if (fd == -1)
+			return ;
+		dup2(fd, cmd->redir_out);
+		close(fd);
+	}
+}
 
 /* this function closes all unused pipes for the command with
 *  the specified 'cmd_index'; it ensures that only the pipes
