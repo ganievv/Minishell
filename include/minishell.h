@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/29 18:35:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 19:48:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void			free_arr_str(char **arr);
 void			free_int_arr(int **arr, int num);
 void			clean_pids_and_pipes(t_msh *info);
 void			make_pipes_redir(t_msh *info, int cmd_index);
+void			free_all_prog_vars(t_msh *info);
 
 /*----------------lexer---------------------*/
 t_token_type	token_find_type(char *str, int i, int len);
