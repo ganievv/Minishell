@@ -6,12 +6,15 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:52:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/29 18:43:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 19:41:24 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/* this function closes all unused pipes for the command with
+*  the specified 'cmd_index'; it ensures that only the pipes
+*  relevant to the command at 'cmd_index' are kept open	   */
 static void	pipes_close(t_msh *info, int cmd_index)
 {
 	int	i;
@@ -41,6 +44,7 @@ static void	pipes_close(t_msh *info, int cmd_index)
 	}
 }
 
+/* this function waits for all command to finish their execution*/
 void	wait_for_processes(t_msh *info, int cmds_num)
 {
 	int	i;
@@ -50,6 +54,9 @@ void	wait_for_processes(t_msh *info, int cmds_num)
 		wait(NULL);
 }
 
+/* this function allocates memory for the pipes and
+*  opens them; it creates `cmds_num - 1` pipes, each
+*  represented by an array of two integers		 */
 int	pipes_create(t_msh *info, int cmds_num)
 {
 	int	pipes_num;
@@ -77,6 +84,8 @@ int	pipes_create(t_msh *info, int cmds_num)
 	return (1);
 }
 
+/* this function handles redirection of standard input
+*  and output to the write and read ends of pipes	*/
 void	make_pipes_redir(t_msh *info, int cmd_index)
 {
 	pipes_close(info, cmd_index);

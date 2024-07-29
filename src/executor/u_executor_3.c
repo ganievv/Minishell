@@ -6,12 +6,15 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 21:24:03 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/29 15:45:16 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 19:32:46 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/* this function frees allocated memory for an array
+*  of 'int' pointers; the 'num' parameter specifies
+*  the number of elements in the 'arr' array	  */
 void	free_int_arr(int **arr, int num)
 {
 	int	i;
@@ -27,6 +30,8 @@ void	free_int_arr(int **arr, int num)
 	free(arr);
 }
 
+/* this function invokes clean up
+*  functions for the pipes and PIDs*/
 void	clean_pids_and_pipes(t_msh *info)
 {
 	free_int_arr(info->pipes, info->cmds_num - 1);

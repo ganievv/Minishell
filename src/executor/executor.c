@@ -6,12 +6,15 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/29 17:02:49 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 19:11:22 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/* this function converts command args to argv, linked list of
+*  environment variables to 'char**'; creates a new process to
+*  execute a command and handles pipes and file redirections*/
 static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 {
 	char	**envp_arr;
@@ -45,6 +48,11 @@ static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 	free_arr_str(argv); 	/* where should you free it ? */
 }
 
+/* this function allocates memory for PIDs of processes; invokes a
+*  function to allocate memory for pipes array; invokes a function
+*  in a loop for each command to execute it in a new process;
+*  invokes a function to wait for each command to finish; invokes a
+*  function to clean up an array of PIDs and pipes				 */
 static void	process_multiple_cmds(t_msh *info, int cmds_num)
 {
 	int		cmd_ptr_i;
@@ -64,9 +72,8 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 	clean_pids_and_pipes(info);
 }
 
-/* this function creates a new process and executes
-*  a command there using 'cmd_path', which is
-*  the path to the command executable file		 */
+/* this function creates a new process, performs
+*  redirection and executes a command there	  */
 static void	exec_one_cmd(char *cmd_path, t_msh *info)
 {
 	char	**envp_arr;
@@ -78,6 +85,7 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 	pid = fork();
 	if (pid == 0)
 	{
+		make_redirections(&info->cmds[0]);
 		if (execve(cmd_path, argv, envp_arr) == -1)
 			perror("msh: "); /* what should I do in this case ?*/
 	}
@@ -86,16 +94,15 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 	free_arr_str(argv); 	/* where should you free it ? */
 }
 
-/* this function performs redirection, executes a command in the shell
-*  process if it is a builtin command, or invokes a function to create
-*  and execute an external command in a new process;
-*  this function is only executed when the number of commands is 1	*/
+/* this function executes a command in the shell process if it is a
+*  builtin command, or invokes a function to create and execute an
+*  external command in a new process;
+*  this function is only executed when the number of commands is 1*/
 static int	process_one_cmd(t_msh *info)
 {
 	char	*cmd_path;
 	int		index;
 
-	make_redirections(&info->cmds[0]);
 	index = is_cmd_builtin(info->cmds[0].command, info);
 	if (index >= 0)
 		(info->builtin_ptrs[index])(info->cmds[0].args, &info->env_vars);

@@ -6,12 +6,21 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/29 18:04:28 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 19:28:14 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/* this function searches for the directory of a command (char *cmd)
+*  in the 'PATH' environment variable.
+*
+*  return values:
+*				  [path to a command] - a string which consists of [dir + cmd];
+*				  [copy of a command] - if there is no executable file in the
+*										directories of 'PATH' (meaning that it
+*										was already an executable with its path)
+*				  NULL                - if it failed to allocate memory*/
 char	*search_cmd_path(char *cmd, t_msh *info)
 {
 	char	*path_env_v;
@@ -32,6 +41,8 @@ char	*search_cmd_path(char *cmd, t_msh *info)
 	return (cmd_path);
 }
 
+/* this function handles redirections for an input
+*  file and an output file, if they exist		*/
 void	make_files_redir(t_pipe_group *cmd)
 {
 	int	fd;
@@ -54,6 +65,9 @@ void	make_files_redir(t_pipe_group *cmd)
 	}
 }
 
+/* this function counts the number of
+*  environment variables in the linked
+*  list (t_env_vars *list)			*/
 int	env_vars_count(t_env_vars *list)
 {
 	int	num;
@@ -67,6 +81,8 @@ int	env_vars_count(t_env_vars *list)
 	return (num);
 }
 
+/* this function converts the linked list of environment
+*  variables (info->env_vars) to an array of strings (char **) */
 char	**linked_list_to_arr(t_env_vars *list)
 {
 	char	**envp_arr;
@@ -89,6 +105,8 @@ char	**linked_list_to_arr(t_env_vars *list)
 	return (envp_arr);
 }
 
+/* this function converts command arguments 'args' to an
+*  'argv' list, adding the file name to the [0] element */
 char	**args_to_argv(char **args, char *cmd_path)
 {
 	char	**argv;
