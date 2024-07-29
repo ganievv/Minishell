@@ -6,13 +6,13 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/29 15:22:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 15:54:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
+static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 {
 	char	**envp_arr;
 	char	**argv;
@@ -23,7 +23,7 @@ static void	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 	argv = args_to_argv(info->cmds[i].args, cmd_path);
 	info->pids[i] = fork();
 	if (info->pids[i] == -1)
-		return ;
+		return (free_arr_str(argv), free_arr_str(envp_arr), free(cmd_path), 0);
 	if (info->pids[i] == 0) /* child process*/
 	{
 		if (cmd_ptr_i >= 0)
@@ -60,7 +60,7 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 		exec_multiple_cmds(i, cmd_ptr_i, info);
 	}
 	wait_for_processes(info, cmds_num);
-	clean_pids_and_pipes();
+	clean_pids_and_pipes(info);
 }
 
 /* this function creates a new process and executes
