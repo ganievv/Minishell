@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/29 19:48:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 20:09:40 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ typedef struct s_pipe_group
 	int					redir_out;
 	int					mode_in;
 	int					mode_out;
+	char				**envp_arr;//|
+	char				**argv;    //|-> this 3 vars we need in executor
+	char				*cmd_path; //|
 	struct s_group_cmd	*next;
 }	t_pipe_group;
 
@@ -127,7 +130,7 @@ int				pipes_create(t_msh *info, int cmds_num);
 void			wait_for_processes(t_msh *info, int cmds_num);
 void			free_arr_str(char **arr);
 void			free_int_arr(int **arr, int num);
-void			clean_pids_and_pipes(t_msh *info);
+void			free_pids_and_pipes(t_msh *info);
 void			make_pipes_redir(t_msh *info, int cmd_index);
 void			free_all_prog_vars(t_msh *info);
 

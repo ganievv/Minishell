@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/29 19:11:22 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 20:11:16 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,12 @@
 *  execute a command and handles pipes and file redirections*/
 static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 {
-	char	**envp_arr;
-	char	**argv;
-	char	*cmd_path;
-
-	cmd_path = search_cmd_path(info->cmds[i].command, info);
-	envp_arr = linked_list_to_arr(info->env_vars);
-	argv = args_to_argv(info->cmds[i].args, cmd_path);
+	info->cmds[i].cmd_path = search_cmd_path(info->cmds[i].command, info);
+	info->cmds[i].envp_arr = linked_list_to_arr(info->env_vars);
+	info->cmds[i].argv = args_to_argv(info->cmds[i].args, info->cmds[i].cmd_path);
 	info->pids[i] = fork();
 	if (info->pids[i] == -1)
-		return (free_arr_str(argv), free_arr_str(envp_arr), free(cmd_path), 0);
+		return (0);
 	if (info->pids[i] == 0) /* child process*/
 	{
 		make_pipes_redir(info, i);
@@ -35,17 +31,11 @@ static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 			(info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args, &info->env_vars);
 		else
 		{
-			if (execve(cmd_path, argv, envp_arr) == -1)
+			if (execve(info->cmds[i].cmd_path, info->cmds[i].argv, info->cmds[i].envp_arr) == -1)
 				perror("msh: "); /* what should I do in this case ?*/
 		}
 		return (0);
 	}
-	/* I think that if I will free it here without waiting for child to stop
-	* this arr won't existing in execve() */
-	if (cmd_path)  /* when should I free it ?*/
-		free(cmd_path);
-	free_arr_str(envp_arr); /* where should you free it ? */
-	free_arr_str(argv); 	/* where should you free it ? */
 }
 
 /* this function allocates memory for PIDs of processes; invokes a
@@ -69,7 +59,7 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 		exec_multiple_cmds(i, cmd_ptr_i, info);
 	}
 	wait_for_processes(info, cmds_num);
-	clean_pids_and_pipes(info);
+	free_pids_and_pipes(info);
 }
 
 /* this function creates a new process, performs

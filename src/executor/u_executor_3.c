@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 21:24:03 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/29 19:51:22 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 20:12:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_int_arr(int **arr, int num)
 
 /* this function invokes clean up
 *  functions for the pipes and PIDs*/
-void	clean_pids_and_pipes(t_msh *info)
+void	free_pids_and_pipes(t_msh *info)
 {
 	free_int_arr(info->pipes, info->cmds_num - 1);
 	free(info->pids);
