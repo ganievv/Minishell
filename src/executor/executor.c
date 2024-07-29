@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/27 21:54:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 15:22:44 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,16 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 	int		pid;
 
 	envp_arr = linked_list_to_arr(info->env_vars);
-	argv = args_to_argv(info->cmds->args, cmd_path);
+	argv = args_to_argv(info->cmds[0].args, cmd_path);
 	pid = fork();
 	if (pid == 0)
 	{
 		if (execve(cmd_path, argv, envp_arr) == -1)
 			perror("msh: "); /* what should I do in this case ?*/
 	}
+	wait(NULL);
 	free_arr_str(envp_arr); /* where should you free it ? */
 	free_arr_str(argv); 	/* where should you free it ? */
-	wait(NULL);
 }
 
 /* this function performs redirection, executes a command in the shell
@@ -95,12 +95,12 @@ static int	process_one_cmd(t_msh *info)
 	int		index;
 
 	make_redirections(&info->cmds[0]);
-	index = is_cmd_builtin(info->cmds->command, info);
+	index = is_cmd_builtin(info->cmds[0].command, info);
 	if (index >= 0)
-		(info->builtin_ptrs[index])(info->cmds->args, &info->env_vars);
+		(info->builtin_ptrs[index])(info->cmds[0].args, &info->env_vars);
 	else
 	{
-		cmd_path = search_cmd_path(info->cmds->command, info);
+		cmd_path = search_cmd_path(info->cmds[0].command, info);
 		exec_one_cmd(cmd_path, info);
 		if (cmd_path)
 			free(cmd_path);
