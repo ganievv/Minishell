@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:52:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 18:02:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 15:40:37 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	wait_for_processes(t_msh *info, int cmds_num)
 		wait(NULL);
 }
 
-void	pipes_create(t_msh *info, int cmds_num)
+int	pipes_create(t_msh *info, int cmds_num)
 {
 	int	pipes_num;
 	int	i;
@@ -36,10 +36,18 @@ void	pipes_create(t_msh *info, int cmds_num)
 	while (++i < pipes_num)
 		info->pipes[i] = (int *)malloc(sizeof(int) * 2);
 	i = -1;
-	while (++i < cmds_num)
+	while (++i < pipes_num)
 	{
 		if (pipe(info->pipes[i]) == -1)
-			return ;
+		{
+			i = -1;
+			while (++i < pipes_num)
+			{
+				close(info->pipes[i][0]);
+				close(info->pipes[i][1]);
+			}
+			return (free_int_arr(info->pipes, pipes_num), 0);
+		}
 	}
+	return (1);
 }
-
