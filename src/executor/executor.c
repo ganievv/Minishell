@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/29 15:54:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 17:02:49 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 		return (free_arr_str(argv), free_arr_str(envp_arr), free(cmd_path), 0);
 	if (info->pids[i] == 0) /* child process*/
 	{
+		make_pipes_redir(info, i);
+		make_files_redir(&info->cmds[i]);
 		if (cmd_ptr_i >= 0)
 			(info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args, &info->env_vars);
 		else
@@ -55,7 +57,6 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 	i = -1;
 	while (++i < cmds_num)
 	{
-		make_redirections(&info->cmds[i]);
 		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
 		exec_multiple_cmds(i, cmd_ptr_i, info);
 	}
@@ -119,4 +120,5 @@ int	exec_all_cmds(t_msh *info)
 		process_one_cmd(info);
 	else
 		process_multiple_cmds(info, info->cmds);
+	free_all_prog_vars(info);
 }

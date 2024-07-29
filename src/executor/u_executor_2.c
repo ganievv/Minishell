@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 21:49:05 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/29 18:04:28 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*search_cmd_path(char *cmd, t_msh *info)
 	return (cmd_path);
 }
 
-void	make_redirections(t_pipe_group *cmd)
+void	make_files_redir(t_pipe_group *cmd)
 {
 	int	fd;
 
@@ -41,7 +41,7 @@ void	make_redirections(t_pipe_group *cmd)
 		fd = open(cmd->file_in, cmd->mode_in); /* what permissioms should I specify ?*/
 		if (fd == -1)
 			return ;
-		dup2(fd, cmd->redir_in);
+		dup2(fd, cmd->redir_in); /* is that correct order of fds ?*/
 		close(fd);
 	}
 	if (cmd->file_out)
