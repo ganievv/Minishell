@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/24 20:33:21 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/30 16:26:10 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ void	token_list(t_token **head, char *rl)
 			len_var(rl + i, &len);
 			ft_lstadd_back(temp, token_new(rl + i, i, len));
 			i += len;
+		}
+		else if (rl[i] == '\\')
+		{
+			len_escape(rl, &i, &len);
+			ft_lstadd_back(head, token_new(rl, i - len, len));
 		}
 		else
 		{

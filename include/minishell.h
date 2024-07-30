@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 14:06:37 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 16:25:06 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int				redir(char *str, int i);
 int				is_quoted(char *str, int i);
 int				is_d_quoted(char *str, int i);
 /*------------lexer-utils-two---------------*/
+void			len_escape(char *rl, int *i, int *len);
 int				ft_isquote_dquote(char c);
 int				ft_isvar_dqoute(char *str, int i);
 t_token			*token_new(char *rl, int i, int len);
