@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:03:55 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 18:20:12 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 17:41:39 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	count_args(char **args)
 	int	i;
 
 	i = 0;
-	while (args[i])
+	while (args && args[i])
 		i++;
 	return (i);
 }
@@ -74,7 +74,7 @@ void	init_builtin_names(char **builtin_names)
 }
 
 /* this function initializes an array of pointers to builtin functions */
-void	init_builtin_ptrs(int (**builtin_ptrs)(char **, t_env_vars **))
+void	init_builtin_ptrs(int (**builtin_ptrs)(char **, char ***))
 {
 	builtin_ptrs[0] = ft_echo;
 	builtin_ptrs[1] = ft_cd;

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/29 19:45:51 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 17:59:39 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 *				  NULL                - if it failed to allocate memory*/
 char	*search_cmd_path(char *cmd, t_msh *info)
 {
-	char	*path_env_v;
 	char	*dir_of_exec;
 	char	*cmd_path;
+	int		cmd_i;
 
 	dir_of_exec = NULL;
-	path_env_v = search_env_var(info->env_vars, "PATH");
-	if (path_env_v)
-		dir_of_exec = search_exec_dir(cmd, (ft_strchr(path_env_v, '=') + 1));
+	cmd_i = search_env_var("PATH", info->envp);
+	if (cmd_i != -1)
+		dir_of_exec = search_exec_dir(cmd, (ft_strchr(info->envp[cmd_i], '=') + 1));
 	if (dir_of_exec)
 	{
 		cmd_path = ft_strjoin(dir_of_exec, cmd);
@@ -39,46 +39,6 @@ char	*search_cmd_path(char *cmd, t_msh *info)
 	else
 		cmd_path = ft_strdup(cmd);
 	return (cmd_path);
-}
-
-/* this function counts the number of
-*  environment variables in the linked
-*  list (t_env_vars *list)			*/
-int	env_vars_count(t_env_vars *list)
-{
-	int	num;
-
-	num = 0;
-	while (list)
-	{
-		num++;
-		list = list->next;
-	}
-	return (num);
-}
-
-/* this function converts the linked list of environment
-*  variables (info->env_vars) to an array of strings (char **) */
-char	**linked_list_to_arr(t_env_vars *list)
-{
-	char	**envp_arr;
-	int		num;
-	int		i;
-
-	num = env_vars_count(list) + 1;
-	envp_arr = (char **)malloc(sizeof(char *) * num);
-	if (!envp_arr)
-		return (NULL);
-	i = 0;
-	while (list)
-	{
-		envp_arr[i] = ft_strdup(list->var);
-		if (!envp_arr[i++])
-			return (free_arr_str(envp_arr), NULL);
-		list = list->next;
-	}
-	envp_arr[i] = NULL;
-	return (envp_arr);
 }
 
 /* this function converts command arguments 'args' to an
@@ -105,4 +65,25 @@ char	**args_to_argv(char **args, char *cmd_path)
 		i++;
 	}
 	return (argv);
+}
+
+char	**copy_arr_str(char **src)
+{
+	char	**arr_cpy;
+	int		str_num;
+	int		i;
+
+	i = -1;
+	str_num = count_args(src) + 1;
+	arr_cpy = (char **)malloc(sizeof(char *) * str_num);
+	if (!arr_cpy)
+		return (NULL);
+	while (src[++i])
+	{
+		arr_cpy[i] = ft_strdup(src[i]);
+		if (!arr_cpy[i])
+			return (free_arr_str(arr_cpy), NULL);
+	}
+	arr_cpy[i] = NULL;
+	return (arr_cpy);
 }

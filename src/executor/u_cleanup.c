@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 21:24:03 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 14:10:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:10:32 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	free_arr_str(char **arr)
 	int	i;
 
 	i = -1;
+	if (!arr)
+		return ;
 	while (arr[++i])
 		free(arr[i]);
 	free(arr);

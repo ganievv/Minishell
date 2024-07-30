@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 15:44:55 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:05:52 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,47 @@
 /* I am assuming that we have skipped all flags
 *  in lexer or parser step*/
 
-int	ft_export(char **args, char **envp)
+/* if arg is not valid then return status of the
+*  command should be 1 or 0 ? */
+int	ft_export(char **args, char ***envp)
 {
 	if (!*args)
-		print_env_vars();
+		print_env_vars(*envp);
 	else
 	{
 		while (*args)
 		{
-			if (!is_export_arg_valid(*args))
-				return (1);
-			//create_node(*args, env_vars);
+			if (is_export_arg_valid(*args))
+				change_or_add_env_var(*args, envp);
 			args++;
 		}
 	}
 	return (0);
 }
 
-int	ft_unset(char **args, t_env_vars **env_vars)
+int	ft_unset(char **args, char ***envp)
 {
 	if (!*args)
 		return (0);
 	while (*args)
 	{
-		remove_env_var(env_vars, *args);
+		//remove_env_var(env_vars, *args);
 		args++;
 	}
 }
 
-int	ft_env(char **args, t_env_vars **env_vars)
+int	ft_env(char **args, char ***envp)
 {
-	t_env_vars	*cur;
+	char	**cur;
 
-	cur = *env_vars;
-	while (cur)
+	if (!envp || !*envp)
+		return (0);
+	cur = *envp;
+	while (*cur)
 	{
-		write (STDOUT_FILENO, cur->var, ft_strlen(cur->var));
+		write (STDOUT_FILENO, *cur, ft_strlen(*cur));
 		write (STDOUT_FILENO, "\n", 1);
-		cur = cur->next;
+		cur++;
 	}
 	return (0);
 }

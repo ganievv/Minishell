@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/25 18:41:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 17:30:13 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[], char *envp[])
 //    t_token		*tokens = NULL; /added for testing
 
 //	tokens = NULL; /added for testing
-	info.envp_buf = envp;
+	info.envp = envp;
 	clear_screen();
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 14:06:37 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:05:48 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,10 @@ typedef struct s_pipe_group
 	int					redir_out;
 	int					mode_in;
 	int					mode_out;
-	char				**envp_arr;//|
-	char				**argv;    //|-> this 3 vars we need in executor
-	char				*cmd_path; //|
+	char				**argv;    //|
+	char				*cmd_path; //|-> this 2 vars we need in executor
 	struct s_group_cmd	*next;
 }	t_pipe_group;
-
-/*-------------------environment_variable_list------------------*/
-typedef struct s_env_vars
-{
-	char				*var;
-	struct s_env_vars	*next;
-}	t_env_vars;
 
 /*------------------all_important_project_vars------------------*/
 typedef struct s_msh
@@ -83,14 +75,13 @@ typedef struct s_msh
 	t_token			*tokens;
 	t_pipe_group	*cmds;
 	int				cmds_num;
-	char			**envp_buf;
-	t_env_vars		*env_vars;
+	char			**envp;
 	int				last_exit_status;
 	int				*pids;
 	int				**pipes;
 	char			*builtin_names[BUILTIN_NUM + 1];
 	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args,
-			t_env_vars **env_vars);
+			char ***envp);
 }	t_msh;
 
 /*-----------------------------main-----------------------------*/
@@ -99,13 +90,13 @@ typedef struct s_msh
 int				exec_all_cmds(t_msh *info);
 
 /*---------------------------builtins---------------------------*/
-int				ft_pwd(char **args, t_env_vars **env_vars);
-int				ft_cd(char **args, t_env_vars **env_vars);
-int				ft_echo(char **args, t_env_vars **env_vars);
-int				ft_exit(char **args, t_env_vars **env_vars);
-int				ft_export(char **args, t_env_vars **env_vars);
-int				ft_unset(char **args, t_env_vars **env_vars);
-int				ft_env(char **args, t_env_vars **env_vars);
+int				ft_pwd(char **args, char ***envp);
+int				ft_cd(char **args, char ***envp);
+int				ft_echo(char **args, char ***envp);
+int				ft_exit(char **args, char ***envp);
+int				ft_export(char **args, char ***envp);
+int				ft_unset(char **args, char ***envp);
+int				ft_env(char **args, char ***envp);
 
 /*--------------------------utils_exec--------------------------*/
 int				count_args(char **args);
@@ -114,25 +105,24 @@ int				is_valid_exit_range(char *nbr);
 long long		ft_atoll(char *str);
 int				count_cmds(t_pipe_group *cmds);
 void			init_builtin_names(char **builtin_names);
-void			init_builtin_ptrs(int (**builtin_ptrs)(char **, t_env_vars **));
+void			init_builtin_ptrs(int (**builtin_ptrs)(char **, char ***));
 int				is_export_arg_valid(char *arg);
-void			init_env_vars_list(t_msh *info);
-void			create_node(char *src, t_env_vars **head);
-void			remove_env_var(t_env_vars **head, char *data);
-char			*search_env_var(t_env_vars *env_vars, char *var_to_find);
+char			**copy_arr_str(char **src);
+int				search_env_var(char *var_to_find, char **envp);
 int				is_cmd_builtin(char *cmd, t_msh *info);
 char			*search_exec_dir(char *file, char *path_env_v);
 char			*search_cmd_path(char *cmd, t_msh *info);
-char			**linked_list_to_arr(t_env_vars *list);
 char			**args_to_argv(char **args, char *cmd_path);
-void			make_files_redir(t_pipe_group *cmd);
 int				pipes_create(t_msh *info, int cmds_num);
+void			make_pipes_redir(t_msh *info, int cmd_index);
+void			make_files_redir(t_pipe_group *cmd);
 void			wait_for_processes(t_msh *info, int cmds_num);
 void			free_arr_str(char **arr);
 void			free_arr_int(int **arr, int num);
 void			free_pids_and_pipes(t_msh *info);
-void			make_pipes_redir(t_msh *info, int cmd_index);
 void			free_all_prog_vars(t_msh *info);
+char			*print_env_vars(char **list);
+void			change_or_add_env_var(char *var, char ***envp);
 
 /*----------------lexer---------------------*/
 t_token_type	token_find_type(char *str, int i, int len);
