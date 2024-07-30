@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 18:05:52 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 19:23:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ int	ft_export(char **args, char ***envp)
 
 int	ft_unset(char **args, char ***envp)
 {
-	if (!*args)
+	if (!args)
 		return (0);
 	while (*args)
 	{
-		//remove_env_var(env_vars, *args);
+		remove_env_var(*args, envp);
 		args++;
 	}
+	return (0);
 }
 
 int	ft_env(char **args, char ***envp)

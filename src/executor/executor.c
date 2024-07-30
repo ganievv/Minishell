@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/30 18:24:25 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 19:21:11 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 /* this function converts command 'args' to 'argv'; creates a new process
 *  to execute a command and handles pipes and file redirections */
-/* maybe you can save the 'info->envp' address before launching all
-*  processes and use this var instead of info->envp directly */
-static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
+static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info, char **envp)
 {
 	info->cmds[i].cmd_path = search_cmd_path(info->cmds[i].command, info);
 	info->cmds[i].argv = args_to_argv(info->cmds[i].args, info->cmds[i].cmd_path);
@@ -28,10 +26,10 @@ static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 		make_pipes_redir(info, i);
 		make_files_redir(&info->cmds[i]);
 		if (cmd_ptr_i >= 0)
-			(info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args, &info->envp);
+			(info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args, &envp);
 		else
 		{
-			if (execve(info->cmds[i].cmd_path, info->cmds[i].argv, info->envp) == -1)
+			if (execve(info->cmds[i].cmd_path, info->cmds[i].argv, envp) == -1)
 				perror("msh: "); /* what should I do in this case ?*/
 		}
 		return (0);
@@ -45,9 +43,11 @@ static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 *  function to clean up an array of PIDs and pipes				 */
 static void	process_multiple_cmds(t_msh *info, int cmds_num)
 {
+	char	**envp_buf;
 	int		cmd_ptr_i;
 	int		i;
 
+	envp_buf = info->envp;
 	info->pids = (int *)malloc(sizeof(int) * cmds_num);
 	if (!info->pids)
 		return ;
@@ -56,8 +56,9 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 	while (++i < cmds_num)
 	{
 		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
-		exec_multiple_cmds(i, cmd_ptr_i, info);
+		exec_multiple_cmds(i, cmd_ptr_i, info, envp_buf);
 	}
+	/* here you should close all pipes*/
 	wait_for_processes(info, cmds_num);
 	free_pids_and_pipes(info);
 }
