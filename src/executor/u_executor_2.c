@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 18:26:55 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 20:35:26 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	**args_to_argv(char **args, char *cmd_path)
 	return (argv);
 }
 
+/* this function makes copy of the 'src'
+*  array of strings and return it	  */
 char	**copy_arr_str(char **src)
 {
 	char	**arr_cpy;

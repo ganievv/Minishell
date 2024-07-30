@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_export_cmd.c                                     :+:      :+:    :+:   */
+/*   u_export_cmd_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:15:19 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 15:42:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 20:36:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,6 @@ int	is_export_arg_valid(char *arg)
 		i++;
 	}
 	return (1);
-}
-
-/* this function returns an allocated
-*  string containing the value of the
-*  environment variable			   */
-char	*take_env_var_value(char *var)
-{
-	char	*begin;
-	char	*value;
-
-	value = NULL;
-	begin = ft_strchr(var, '=');
-	if (begin)
-		value = ft_strdup(begin + 1);
-	return (value);
-}
-
-/* this function returns an allocated
-*  string containing the name  of the
-*  environment variable			   */
-char	*take_env_var_name(char *var)
-{
-	char	*end;
-	char	*name;
-
-	name = NULL;
-	end = ft_strchr(var, '=');
-	if (end)
-		name = ft_strndup(var, end - var);
-	return (name);
 }
 
 /* this function prints all environment

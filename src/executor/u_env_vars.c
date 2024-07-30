@@ -6,51 +6,40 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 20:53:07 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 19:50:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 20:36:42 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* this function copies pointers to strings from the
-*  'src' array to the 'dst' array; it skips the string
-*  in 'src' at the index 'var_i'*/
-static void	rest_copy(int var_i, char **dst, char **src)
+/* this function returns an allocated
+*  string containing the value of the
+*  environment variable			   */
+char	*take_env_var_value(char *var)
 {
-	int	i;
-	int	y;
+	char	*begin;
+	char	*value;
 
-	i = 0;
-	y = 0;
-	while (y != var_i)
-		dst[i++] = src[y++];
-	if (y == var_i)
-		y++;
-	while (src[y])
-		dst[i++] = src[y++];
-	dst[i] = NULL;
+	value = NULL;
+	begin = ft_strchr(var, '=');
+	if (begin)
+		value = ft_strdup(begin + 1);
+	return (value);
 }
 
-/* this function removes a certain environment 
-*  variable named 'var' from the array 'envp'*/
-void	remove_env_var(char *var, char ***envp)
+/* this function returns an allocated
+*  string containing the name  of the
+*  environment variable			   */
+char	*take_env_var_name(char *var)
 {
-	char	**envp_new;
-	int		var_i;
-	int		len;
+	char	*end;
+	char	*name;
 
-	var_i = search_env_var(var, *envp);
-	if (var_i != -1)
-	{
-		len = count_args(*envp) + 2;
-		envp_new = (char **)malloc(sizeof(char *) * len);
-		if (envp_new)
-		{
-			rest_copy(var_i, envp_new, *envp);
-			free(*envp);
-			*envp = envp_new;
-		}
-	}
+	name = NULL;
+	end = ft_strchr(var, '=');
+	if (end)
+		name = ft_strndup(var, end - var);
+	return (name);
 }
 
 /* this function compares names of environment variables
