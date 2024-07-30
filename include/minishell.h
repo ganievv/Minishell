@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 18:05:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:16:43 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int				redir(char *str, int i);
 int				is_quoted(char *str, int i);
 int				is_d_quoted(char *str, int i);
 /*------------lexer-utils-two---------------*/
+void			len_escape(char *rl, int *i, int *len);
 int				ft_isquote_dquote(char c);
 int				ft_isvar_dqoute(char *str, int i);
 t_token			*token_new(char *rl, int i, int len);

@@ -6,11 +6,28 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:37:12 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/24 20:06:58 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/30 16:25:32 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	len_escape(char *rl, int *i, int *len)
+{
+	*len = 0;
+	while (rl[*i])
+	{
+		if (rl[*i] == '\\' && rl[*i + 1] != '\0')
+		{
+			(*i)++;
+			(*len)++;
+		}
+		(*i)++;
+		(*len)++;
+		if (ft_isspace(rl[*i]) || simple_separators(rl[*i]))
+			break ;
+	}
+}
 
 int	ft_isquote_dquote(char c)
 {
