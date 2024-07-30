@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 21:24:03 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/29 20:12:03 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 14:05:55 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* this function frees allocated memory for an array
 *  of 'int' pointers; the 'num' parameter specifies
 *  the number of elements in the 'arr' array	  */
-void	free_int_arr(int **arr, int num)
+void	free_arr_int(int **arr, int num)
 {
 	int	i;
 
@@ -45,4 +45,15 @@ void	free_all_prog_vars(t_msh *info)
 	free_env_vars_list();
 	/* 'info->builtin_names' arr*/
 	/* 'info->builtin_ptrs' arr*/
+}
+
+/* this function frees an array of strings */
+void	free_arr_str(char **arr)
+{
+	int	i;
+
+	i = -1;
+	while (arr[++i])
+		free(arr[i]);
+	free(arr);
 }

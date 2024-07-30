@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:52:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/29 19:46:03 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 14:05:46 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	pipes_create(t_msh *info, int cmds_num)
 				close(info->pipes[i][0]);
 				close(info->pipes[i][1]);
 			}
-			return (free_int_arr(info->pipes, pipes_num), 0);
+			return (free_arr_int(info->pipes, pipes_num), 0);
 		}
 	}
 	return (1);

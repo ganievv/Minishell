@@ -6,22 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:31:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/27 21:19:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 14:02:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/* this function frees an array of strings */
-void	free_arr_str(char **arr)
-{
-	int	i;
-
-	i = -1;
-	while (arr[++i])
-		free(arr[i]);
-	free(arr);
-}
 
 /* this function makes a copy of the directory path where the 'is_file_present()'
 *  function found an executable file; frees the array of strings 'path_arr';
