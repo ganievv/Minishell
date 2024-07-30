@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_exit_and_export.c                                :+:      :+:    :+:   */
+/*   u_exit_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/27 18:02:22 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 14:17:16 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,32 +75,4 @@ int	is_valid_exit_range(char *nbr)
 		return (0);
 	else
 		return (1);
-}
-
-/* this function prints error message if the given variable
-*  name for the 'export' command is not correct			 */
-static void	print_err_for_export(char *arg)
-{
-	write(STDERR_FILENO, "msh: export: `", 14);
-	write(STDERR_FILENO, arg, ft_strlen(arg));
-	write(STDERR_FILENO, "': not a valid identifier", 25);
-}
-
-/* this function checks if the given variable name for the
-*  'export' command is correct							*/
-int	is_export_arg_valid(char *arg)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(arg[i]) && (arg[i] != '_'))
-		return (print_err_for_export(arg), 0);
-	i++;
-	while ((arg[i] != '=') && arg[i])
-	{
-		if (!ft_isalnum(arg[i]) && (arg[i] != '_'))
-			return (print_err_for_export(arg), 0);
-		i++;
-	}
-	return (1);
 }

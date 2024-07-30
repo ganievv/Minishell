@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_executor_3.c                                     :+:      :+:    :+:   */
+/*   u_cleanup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 21:24:03 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 14:05:55 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 14:10:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free_arr_int(int **arr, int num)
 *  functions for the pipes and PIDs*/
 void	free_pids_and_pipes(t_msh *info)
 {
-	free_int_arr(info->pipes, info->cmds_num - 1);
+	free_arr_int(info->pipes, info->cmds_num - 1);
 	free(info->pids);
 }
 
