@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 20:18:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 20:24:29 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ char			*print_env_vars(char **list);
 void			change_or_add_env_var(char *var, char ***envp);
 void			remove_env_var(char *var, char ***envp);
 void			update_pwd_var(char ***envp);
+char			*take_env_var_value(char *var);
+char			*take_env_var_name(char *var);
 
 /*----------------lexer---------------------*/
 t_token_type	token_find_type(char *str, int i, int len);

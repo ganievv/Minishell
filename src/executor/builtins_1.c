@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/30 20:10:36 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 20:27:22 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,24 @@ int	ft_pwd(char **args, char ***envp)
 int	ft_cd(char **args, char ***envp)
 {
 	char	*dir;
+	int		home_i;
 
 	if (!args[0])
 	{
-		dir = getenv("HOME"); /* I think you should replace it with your own*/
-		if (!dir)
+		home_i = search_env_var("HOME", *envp);
+		if (home_i == -1)
 			return (1);
+		else
+			dir = take_env_var_value(*envp[home_i]);
 	}
 	else
-		dir = args[0];
-	if (chdir(dir) == -1)
+		dir = ft_strdup(args[0]);
+	if (dir && chdir(dir) == -1)
 	{
 		perror("Error changing directory");
 		return (1);
 	}
-	update_pwd_var(envp);
-	return (0);
+	return (update_pwd_var(envp), free(dir), 0);
 }
 
 /* '-n' flag should be in args[0] */
