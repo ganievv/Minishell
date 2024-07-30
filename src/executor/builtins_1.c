@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/30 17:38:45 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 20:10:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_cd(char **args, char ***envp)
 
 	if (!args[0])
 	{
-		dir = getenv("HOME");
+		dir = getenv("HOME"); /* I think you should replace it with your own*/
 		if (!dir)
 			return (1);
 	}
@@ -51,6 +51,7 @@ int	ft_cd(char **args, char ***envp)
 		perror("Error changing directory");
 		return (1);
 	}
+	update_pwd_var(envp);
 	return (0);
 }
 
@@ -80,6 +81,7 @@ int	ft_echo(char **args, char ***envp)
 *  if (args[0] == NULL) ->  args[0] = $?*/
 
 /* if count_args(args) >= 2 it should not exit*/
+/* 'exit 5 f'; 'exit f 5'; 'exit r t' */
 int	ft_exit(char **args, char ***envp)
 {
 	long long	n_nbr;
