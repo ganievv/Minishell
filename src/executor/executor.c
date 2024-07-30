@@ -6,16 +6,15 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/30 18:03:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:24:25 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* this function converts command args to argv, linked list of
-*  environment variables to 'char**'; creates a new process to
-*  execute a command and handles pipes and file redirections*/
-/* maybe you can save adress of info->envp before launching all
+/* this function converts command 'args' to 'argv'; creates a new process
+*  to execute a command and handles pipes and file redirections */
+/* maybe you can save the 'info->envp' address before launching all
 *  processes and use this var instead of info->envp directly */
 static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info)
 {

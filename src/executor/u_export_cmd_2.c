@@ -6,12 +6,14 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:45:27 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 18:12:12 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:47:09 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/* this function copies addresses of environment
+*  variables to their new positions in the array*/
 static void	rest_copy(char **dst, char **src)
 {
 	int	i;
@@ -22,6 +24,9 @@ static void	rest_copy(char **dst, char **src)
 	dst[i] = NULL;
 }
 
+/* this function creates a new array from the 'envp'
+*  list of environment variables and adds the new
+*  variable at the first position */
 static void	add_var(char *var, char ***envp)
 {
 	char	**copy;
@@ -37,12 +42,23 @@ static void	add_var(char *var, char ***envp)
 	*envp = copy;
 }
 
+/* this function frees the old value of the variable 'var'
+*  at the 'var_i' index in the 'envp' array and copies
+*  a new value to this position in the 'envp' array		*/
 static void	change_var_value(char *var, int var_i, char ***envp)
 {
 	free(*envp[var_i]);
 	*envp[var_i] = ft_strdup(var);
 }
 
+/* this function searches for the 'var' environment
+*  variable in the 'envp' array of strings:
+*
+*  - if the variable is found, it invokes a function 
+*	 to replace the current value with the new value;
+*
+*  - if the variable is not found, it invokes a function
+*	 to add the variable to the string array		  */
 void	change_or_add_env_var(char *var, char ***envp)
 {
 	char	*new_envp;

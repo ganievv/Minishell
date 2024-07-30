@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 17:59:39 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:26:55 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 *										was already an executable with its path)
 *				  NULL                - if it failed to allocate memory*/
 char	*search_cmd_path(char *cmd, t_msh *info)
-{
+{ 
 	char	*dir_of_exec;
 	char	*cmd_path;
 	int		cmd_i;
