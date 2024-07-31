@@ -6,17 +6,19 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/31 15:05:18 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 19:54:25 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/* are there any args in pwd ?*/
 int	ft_pwd(char **args, char ***envp)
 {
 	char	buff[PATH_MAX];
 	char	*buff_ptr;
 
+	args = NULL;
 	buff_ptr = getcwd(buff, sizeof(buff));
 	if (!buff_ptr)
 	{
@@ -27,13 +29,12 @@ int	ft_pwd(char **args, char ***envp)
 	return (0);
 }
 
-/* maybe you should add a function that
-*  will skip all flags in args		 */
 int	ft_cd(char **args, char ***envp)
 {
 	char	*dir;
 	int		home_i;
 
+	args = skip_all_flags(args);
 	if (!args[0])
 	{
 		home_i = search_env_var("HOME", *envp);
