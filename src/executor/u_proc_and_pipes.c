@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:52:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 14:05:46 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 14:31:29 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	make_files_redir(t_pipe_group *cmd)
 /* this function closes all unused pipes for the command with
 *  the specified 'cmd_index'; it ensures that only the pipes
 *  relevant to the command at 'cmd_index' are kept open	   */
-static void	pipes_close(t_msh *info, int cmd_index)
+static void	cmd_pipes_close(t_msh *info, int cmd_index)
 {
 	int	i;
 
@@ -112,7 +112,7 @@ int	pipes_create(t_msh *info, int cmds_num)
 *  and output to the write and read ends of pipes	*/
 void	make_pipes_redir(t_msh *info, int cmd_index)
 {
-	pipes_close(info, cmd_index);
+	cmd_pipes_close(info, cmd_index);
 	if (cmd_index == 0)
 	{
 		dup2(info->pipes[cmd_index][1], STDOUT_FILENO);

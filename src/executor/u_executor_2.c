@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 20:35:26 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 14:36:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,16 @@ char	**copy_arr_str(char **src)
 	}
 	arr_cpy[i] = NULL;
 	return (arr_cpy);
+}
+
+void	close_all_pipes(int **pipes, int len)
+{
+	int	i;
+
+	i = -1;
+	while (++i < len)
+	{
+		close(pipes[i][0]);
+		close(pipes[i][1]);
+	}
 }

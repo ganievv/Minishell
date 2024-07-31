@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/30 19:21:11 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 14:38:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
 		exec_multiple_cmds(i, cmd_ptr_i, info, envp_buf);
 	}
-	/* here you should close all pipes*/
+	close_all_pipes(info->pipes, cmds_num - 1);
 	wait_for_processes(info, cmds_num);
 	free_pids_and_pipes(info);
 }
