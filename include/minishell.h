@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 14:37:52 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 18:18:41 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_h_token
+{
+	int	i;
+	int	start;
+	int	len;
+}	t_h_token;
 /*-------------------------commands_list------------------------*/
 typedef struct s_pipe_group
 {
@@ -130,24 +136,20 @@ char			*take_env_var_name(char *var);
 void			close_all_pipes(int **pipes, int len);
 
 /*----------------lexer---------------------*/
-t_token_type	token_find_type(char *str, int i, int len);
-void			token_list(t_token **head, char *rl);
+void			token_h_sep(char *input, t_token **head, t_h_token *var);
+void			token_h_quote(char *input, t_token **head, t_h_token *var);
+void			token_h_word(char *input, t_token **head, t_h_token *var);
+void			token_h_variable(char *input, t_token **head, t_h_token *var);
+void			tokenize(char *input, t_token **head);
 /*------------lexer-utils-one---------------*/
-int				redir(char *str, int i);
-int				is_quoted(char *str, int i);
-int				is_d_quoted(char *str, int i);
+int				is_seperator(char c);
+int				is_quote(char c);
+t_token_type	token_type(char *str, int len);
 /*------------lexer-utils-two---------------*/
-void			len_escape(char *rl, int *i, int *len);
-int				ft_isquote_dquote(char c);
-int				ft_isvar_dqoute(char *str, int i);
-t_token			*token_new(char *rl, int i, int len);
-void			ft_lstadd_back(t_token **lst, t_token *new);
-/*------------lexer-utils-three---------------*/
-int				simple_seperators(char c);
-void			isspace_skip(char *rl, int *i);
-void			len_quoted(char *rl, int *len);
-void			len_var(char *rl, int *len);
-int				len_words(char *rl, int *len);
+t_token			*token_create(char *start, int len, t_token_type type);
+void			token_lstadd(t_token **head, t_token *new_token);
+/*-------------lexer-utils-three--------------*/
+void			token_h_escape(char *input, int *i, int *len);
 /*fgjk*/
 /*fgjk*/
 /*fgjk*/

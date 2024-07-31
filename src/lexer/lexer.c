@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 16:26:10 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/31 18:14:24 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,86 +14,122 @@
 
 //a function that is giving you back what type of enum is the string
 
-t_token_type	token_find_type(char *str, int i, int len)
+void	token_h_sep(char *input, t_token **head, t_h_token *var)
 {
-	char 			*temp;
-	t_token_type	type;
-
-	temp = ft_strndup(str + i, len);
-	if (!temp)
-		return (NULL);
-	if (!ft_strcmp("<", temp))
-		type = REDIR_IN;
-	else if (!ft_strcmp(">", temp))
-		type = REDIR_OUT;
-	else if (!ft_strcmp("<<", temp))
-		type = DELIMITER;
-	else if (!ft_strcmp(">>", temp))
-		type = APPEND_DELIMITER;
-	else if (!ft_strcmp("|", temp))
-		type = PIPE;
-	else if (str[0] == 34 && str[ft_strlen(temp) - 1] == 34)
-		type = DOUBLE_QUOTED;
-	else if (str[0] == 39 && str[ft_strlen(temp) - 1] == 39)
-		type = SINGLE_QUOTED;
-	else if (temp[0] == '$')
-		type = EXP_FIELD;
-	else
-		type = WORD;
-	return (free(temp), type);
+	var->len = 1;
+	if ((input[var->i] == '>' && input[var->i + 1] == '>')
+		|| (input[var->i] == '<' && input[var->i + 1] == '<'))
+		var->len = 2;
+	token_lstadd(head, token_create(input + (var->start), var->len,
+			token_type(input + (var->start), var->len)));
+	var->i += var->len;
 }
 
-// how to add on the list
-void	token_list(t_token **head, char *rl)
+void	token_h_quote(char *input, t_token **head, t_h_token *var)
 {
-	int		i;
-	int		len;
+	char	q_type;
 
-	len = 0;
-	i = 0;
-	while (rl[i] && ft_isspace(rl[i]))
-		i++;
-	while (rl[i])
+	q_type = input[var->i];
+	var->start = var->i;
+	(var->i)++;
+	while (input[(var->i)] && input[var->i] != q_type)
 	{
-		if (redir(rl, i))
-		{
-			ft_lstadd_back(temp, token_new(rl + i, i, 2));
-			i += 2;
-		}
-		else if (ft_isspace(rl[i]))
-		{
-			ft_lstadd_back(temp, token_new(rl + i, i, 1));
-			isspace_skip(rl + i, &i);
-		}
-		else if (simple_seperators(rl + i))
-		{
-			ft_lstadd_back(temp, token_new(rl + i, i, 1));
-			i++;
-		}
-		else if (rl[i] == '\'' || r[i] == '\"')
-		{
-			len_quoted(rl + i, &len);
-			ft_lstadd_back(temp, token_new(rl + i, i, len));
-			i += len;
-		}
-		else if (rl[i] == '$')
-		{
-			len_var(rl + i, &len);
-			ft_lstadd_back(temp, token_new(rl + i, i, len));
-			i += len;
-		}
-		else if (rl[i] == '\\')
-		{
-			len_escape(rl, &i, &len);
-			ft_lstadd_back(head, token_new(rl, i - len, len));
-		}
+		if (input[var->i] == '\\' && input[var->i + 1] != '\0')
+			token_h_escape(input, &var->i, &var->len);
 		else
-		{
-			len_words(rl + i, &len);
-			ft_lstadd_back(temp, token_new(rl + i, i, len));
-			i += len;
-		}
+			(var->i)++;
+	}
+	if (input[var->i] == q_type)
+	{
+		var->len = var->i - var->start + 1;
+		token_lstadd(head, token_create(input + (var->start), var->len,
+				(q_type == '\'') * S_QUOTED + (q_type == '\"') * D_QUOTED));
+		(var->i)++;
+	}
+	else
+	{
+		ft_putstr_fd("Error: Unmatched quote\n", 2);
+		exit(1);
 	}
 }
-// I need on the spaces split
-// on the | < > << >> $ "" '' and save them as they are
+
+void	token_h_word(char *input, t_token **head, t_h_token *var)
+{
+	while (input[var->i] && !ft_isspace(input[var->i])
+		&& !is_seperator(input[var->i]))
+	{
+		if (input[var->i] == '\\' && input[var->i + 1] != '\0')
+			token_h_escape(input, &var->i, &var->len);
+		else
+			(var->i)++;
+	}
+	var->len = var->i - var->start;
+	token_lstadd(head, token_create(input + (var->start), var->len,
+			token_type(input + (var->start), var->len)));
+}
+
+void	token_h_variable(char *input, t_token **head, t_h_token *var)
+{
+	(var->i)++;
+	var->start = var->i;
+	if (input[var->i] == '?' || ft_isdigit(input[var->i]))
+		(var->i)++;
+	else
+		while (input[var->i] && (ft_isalnum(input[var->i])
+				|| input[var->i] == '_'))
+			(var->i)++ ;
+	var->len = var->i - var->start;
+	token_lstadd(head, token_create(input + (var->start) - 1,
+			var->len + 1, EXP_FIELD));
+}
+
+void	tokenize(char *input, t_token **head)
+{
+	t_h_token	var;
+
+	var.i = 0;
+	var.len = 0;
+	while (input[var.i] != '\0')
+	{
+		while (input[var.i] && ft_isspace(input[var.i]))
+			var.i++;
+		var.start = var.i;
+		if (is_seperator(input[var.i]))
+			token_h_sep(input, head, &var);
+		else if (is_quote(input[var.i]))
+			token_h_quote(input, head, &var);
+		else if (input[var.i] == '$')
+			token_h_variable(input, head, &var);
+		else
+			token_h_word(input, head, &var);
+	}
+}
+
+// void	print_tokens(t_token *head) 
+// {
+// 	t_token	*current = head;
+
+// 	current = head;
+// 	while (current) {
+// 		printf("Token: %.*s, Type: %d\n", current->len, current->token_start, current->type);
+// 		current = current->next;
+// 	}
+// }
+
+// int main() {
+//     char *input = "echo 'Hello \\\\$USER'\"Path with space quoted\" > file.txt";
+//     t_token *head = NULL;
+
+//     tokenize(input, &head);
+//     print_tokens(head);
+
+//     // Free the tokens
+//     t_token *current = head;
+//     while (current) {
+//         t_token *next = current->next;
+//         free(current);
+//         current = next;
+//     }
+
+//     return (0);
+// }

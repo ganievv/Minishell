@@ -5,60 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 14:39:49 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/25 14:25:08 by tnakas           ###   ########.fr       */
+/*   Created: 2024/07/22 15:13:11 by tnakas            #+#    #+#             */
+/*   Updated: 2024/07/31 17:49:22 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//Simple_Seperators: "|, <, >, isspace"
-// len 1
-int	simple_seperators(char c)
+void	token_h_escape(char *input, int *i, int *len)
 {
-	return (c == '\\' || c == '|'
-		|| c == '<' || c == '>');
-}
+	char	*valid_escape;
 
-void	isspace_skip(char *rl, int *i)
-{
-	if (ft_isspace(rl[*i]))
-		while (rl[++(*i)] && ft_isspace(rl[*i]))
-			;
-}
-
-void	len_quoted(char *rl, int *len)
-{
-	(*len) = 0;
-	if (is_quoted(rl, i) || is_d_quoted(rl, i))
+	(*i)++ ;
+	if (input[*i] == '\0')
 	{
-		(*len)++;
-		if (is_quoted(rl, i))
-			while (rl[++i] != '\'')
-				(*len)++;
-		else
-			while (rl[++i] != '\"')
-				(*len)++;
+		(*len)++ ;
 		return ;
 	}
-	while (!ft_isspace(rl[++i]))
-		(*len)++;
-}
-
-// var
-void	len_var(char *rl, int *len)
-{
-	(*len) = 0;
-	*i--;
-	while (!ft_isspace(rl[++*i]))
-		(*len)++;
-}
-
-// words
-int	len_words(char *rl, int *len)
-{
-	(*len) = 0;
-	*i--;
-	while (!ft_isspace(rl[++*i]))
-		(*len)++;
+	valid_escape = "nt\\\'\"";
+	(*i)++ ;
+	if (ft_strchr(valid_escape, input[*i]))
+		*len += 1;
+	else
+		*len += 2;
+	(*i)++;
 }

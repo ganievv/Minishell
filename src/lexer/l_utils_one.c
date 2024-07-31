@@ -6,43 +6,40 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:13:11 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/24 20:42:52 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/31 17:23:17 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//ft_isspace is already given
-
-// redir: >>, <<
-// len 2
-int	redir(char *str, int i)
+int	is_seperator(char c)
 {
-	return (str[i] && str[i] == '<'
-		&& str[i + 1] == '<'
-		&& (!str[i + 2] || (str[i + 2] && str[i + 2] != '<')));
+	return (c == '|' || c == '<' || c == '>');
 }
 
-//''
-int	is_quoted(char *str, int i)
+int	is_quote(char c)
 {
-	if (str[i] == 39)
-		while (str[++i] && str[i] != 39)
-			;
-	return (str[i] == 39);
+	return (c == '\'' || c == '\"');
 }
 
-//""
-int	is_d_quoted(char *str, int i)
+t_token_type	token_type(char *str, int len)
 {
-	if (str[i] == 34)
-		while (str[++i] && str[i] != 34)
-			;
-	return (str[i] == 34);
+	if (len == 1)
+	{
+		if (str[0] == '|')
+			return (PIPE);
+		if (str[0] == '<')
+			return (REDIR_IN);
+		if (str[0] == '>')
+			return (REDIR_OUT);
+		if (is_quote(str[0]) && str[0] == '\'')
+			return (S_QUOTED);
+		if (is_quote(str[0]) && str[0] == '\"')
+			return (D_QUOTED);
+	}
+	if (len == 2 && (ft_strncmp(str, ">>", 2) == 0))
+		return (APPEND_DELIMITER);
+	if (len == 2 && (ft_strncmp(str, "<<", 2) == 0))
+		return (DELIMITER);
+	return (WORD);
 }
-
-// I'll combine all the seperators
-// spaces || double_lower_bigger || pipe_lower_bigger ||
-// single_quotes || double_quotes || is_var
-
-// $HOME or "go      to the directory $HOME" 
