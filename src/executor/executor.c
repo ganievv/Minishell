@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/31 14:38:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 14:55:32 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,28 @@
 
 /* this function converts command 'args' to 'argv'; creates a new process
 *  to execute a command and handles pipes and file redirections */
-static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info, char **envp)
+static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 {
-	info->cmds[i].cmd_path = search_cmd_path(info->cmds[i].command, info);
-	info->cmds[i].argv = args_to_argv(info->cmds[i].args, info->cmds[i].cmd_path);
+	int	cmd_ptr_i;
+
 	info->pids[i] = fork();
 	if (info->pids[i] == -1)
 		return (0);
-	if (info->pids[i] == 0) /* child process*/
+	if (info->pids[i] == 0)
 	{
 		make_pipes_redir(info, i);
 		make_files_redir(&info->cmds[i]);
+		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
 		if (cmd_ptr_i >= 0)
 			(info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args, &envp);
 		else
 		{
+			info->cmds[i].cmd_path = search_cmd_path(info->cmds[i].command,
+					info);
+			info->cmds[i].argv = args_to_argv(info->cmds[i].args,
+					info->cmds[i].cmd_path);
 			if (execve(info->cmds[i].cmd_path, info->cmds[i].argv, envp) == -1)
-				perror("msh: "); /* what should I do in this case ?*/
+				perror("msh: ");
 		}
 		return (0);
 	}
@@ -39,12 +44,12 @@ static int	exec_multiple_cmds(int i, int cmd_ptr_i, t_msh *info, char **envp)
 /* this function allocates memory for PIDs of processes; invokes a
 *  function to allocate memory for pipes array; invokes a function
 *  in a loop for each command to execute it in a new process;
+*  invokes a function to close all pipes for the shell process;
 *  invokes a function to wait for each command to finish; invokes a
 *  function to clean up an array of PIDs and pipes				 */
 static void	process_multiple_cmds(t_msh *info, int cmds_num)
 {
 	char	**envp_buf;
-	int		cmd_ptr_i;
 	int		i;
 
 	envp_buf = info->envp;
@@ -54,10 +59,7 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 	pipes_create(info, cmds_num);
 	i = -1;
 	while (++i < cmds_num)
-	{
-		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
-		exec_multiple_cmds(i, cmd_ptr_i, info, envp_buf);
-	}
+		exec_multiple_cmds(i, info, envp_buf);
 	close_all_pipes(info->pipes, cmds_num - 1);
 	wait_for_processes(info, cmds_num);
 	free_pids_and_pipes(info);
@@ -74,12 +76,12 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 	pid = fork();
 	if (pid == 0)
 	{
-		make_redirections(&info->cmds[0]);
+		make_files_redir(&info->cmds[0]);
 		if (execve(cmd_path, argv, info->envp) == -1)
-			perror("msh: "); /* what should I do in this case ?*/
+			perror("msh: ");
 	}
 	wait(NULL);
-	free_arr_str(argv); 	/* where should you free it ? */
+	free_arr_str(argv);
 }
 
 /* this function executes a command in the shell process if it is a

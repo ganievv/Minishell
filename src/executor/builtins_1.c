@@ -6,14 +6,12 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/30 20:27:22 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 15:05:18 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* for pwd, cd commands:
-*  should we use -l c option to qcc when we compile the project ??? */
 int	ft_pwd(char **args, char ***envp)
 {
 	char	buff[PATH_MAX];
@@ -29,11 +27,8 @@ int	ft_pwd(char **args, char ***envp)
 	return (0);
 }
 
-/* We should skip all flags in the parser or lexer,
-*  because of this sentence in the subject:
-*  'cd with only a relative or absolute path'
-*
-*  We should change PWD env var in 'ft_cd()' */
+/* maybe you should add a function that
+*  will skip all flags in args		 */
 int	ft_cd(char **args, char ***envp)
 {
 	char	*dir;

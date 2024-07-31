@@ -6,16 +6,15 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 19:23:12 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 15:07:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* I am assuming that we have skipped all flags
-*  in lexer or parser step*/
-
-/* if arg is not valid then return status of the
+/* I assume that we have skipped all flags
+*  in lexer or parser step;
+*  if arg is not valid then return status of the
 *  command should be 1 or 0 ? */
 int	ft_export(char **args, char ***envp)
 {
