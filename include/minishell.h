@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 19:10:12 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 19:56:26 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void			update_pwd_var(char ***envp);
 char			*take_env_var_value(char *var);
 char			*take_env_var_name(char *var);
 void			close_all_pipes(int **pipes, int len);
+char			**skip_all_flags(char **args);
 
 /*----------------lexer---------------------*/
 void			token_h_sep(char *input, t_token **head, t_h_token *var);
