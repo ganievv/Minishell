@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/31 14:55:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 19:26:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@
 static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 {
 	int	cmd_ptr_i;
+	int	estatus;
 
 	info->pids[i] = fork();
 	if (info->pids[i] == -1)
-		return (0);
+		return (1);
 	if (info->pids[i] == 0)
 	{
 		make_pipes_redir(info, i);
 		make_files_redir(&info->cmds[i]);
 		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
 		if (cmd_ptr_i >= 0)
-			(info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args, &envp);
+			estatus = (info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args, &envp);
 		else
 		{
 			info->cmds[i].cmd_path = search_cmd_path(info->cmds[i].command,
@@ -37,7 +38,7 @@ static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 			if (execve(info->cmds[i].cmd_path, info->cmds[i].argv, envp) == -1)
 				perror("msh: ");
 		}
-		return (0);
+		return (estatus);
 	}
 }
 
@@ -80,7 +81,7 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 		if (execve(cmd_path, argv, info->envp) == -1)
 			perror("msh: ");
 	}
-	wait(NULL);
+	wait_for_processes(info, info->cmds_num);
 	free_arr_str(argv);
 }
 
@@ -88,14 +89,15 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 *  builtin command, or invokes a function to create and execute an
 *  external command in a new process;
 *  this function is only executed when the number of commands is 1*/
-static int	process_one_cmd(t_msh *info)
+static void	process_one_cmd(t_msh *info)
 {
 	char	*cmd_path;
 	int		index;
 
 	index = is_cmd_builtin(info->cmds[0].command, info);
 	if (index >= 0)
-		(info->builtin_ptrs[index])(info->cmds[0].args, &info->envp);
+		info->last_exit_status = (info->builtin_ptrs[index])
+			(info->cmds[0].args, &info->envp);
 	else
 	{
 		cmd_path = search_cmd_path(info->cmds[0].command, info);

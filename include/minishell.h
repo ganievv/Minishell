@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 18:18:41 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/07/31 19:10:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int				pipes_create(t_msh *info, int cmds_num);
 void			make_pipes_redir(t_msh *info, int cmd_index);
 void			make_files_redir(t_pipe_group *cmd);
 void			wait_for_processes(t_msh *info, int cmds_num);
+void			change_last_exit_status(t_msh *info, int status);
 void			free_arr_str(char **arr);
 void			free_arr_int(int **arr, int num);
 void			free_pids_and_pipes(t_msh *info);

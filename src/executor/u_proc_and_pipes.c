@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:52:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 14:31:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 18:44:00 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,6 @@ static void	cmd_pipes_close(t_msh *info, int cmd_index)
 				close(info->pipes[i][0]);
 		}
 	}
-}
-
-/* this function waits for all command to finish their execution*/
-void	wait_for_processes(t_msh *info, int cmds_num)
-{
-	int	i;
-
-	i = -1;
-	while (++i < cmds_num)
-		wait(NULL);
 }
 
 /* this function allocates memory for the pipes and
