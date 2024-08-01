@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 18:14:24 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/01 16:06:41 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ void	token_h_quote(char *input, t_token **head, t_h_token *var)
 	var->start = var->i;
 	(var->i)++;
 	while (input[(var->i)] && input[var->i] != q_type)
-	{
-		if (input[var->i] == '\\' && input[var->i + 1] != '\0')
-			token_h_escape(input, &var->i, &var->len);
-		else
-			(var->i)++;
-	}
+		(var->i)++;
 	if (input[var->i] == q_type)
 	{
 		var->len = var->i - var->start + 1;
@@ -57,12 +52,7 @@ void	token_h_word(char *input, t_token **head, t_h_token *var)
 {
 	while (input[var->i] && !ft_isspace(input[var->i])
 		&& !is_seperator(input[var->i]))
-	{
-		if (input[var->i] == '\\' && input[var->i + 1] != '\0')
-			token_h_escape(input, &var->i, &var->len);
-		else
-			(var->i)++;
-	}
+		(var->i)++;
 	var->len = var->i - var->start;
 	token_lstadd(head, token_create(input + (var->start), var->len,
 			token_type(input + (var->start), var->len)));
