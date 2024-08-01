@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/01 16:39:25 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/02 00:29:23 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,13 @@ void	tokenize(char *input, t_token **head)
 
 	var.i = 0;
 	var.len = 0;
+	pipe_error_start(input);
 	while (input[var.i] != '\0')
 	{
 		while (input[var.i] && ft_isspace(input[var.i]))
 			var.i++;
+		if (input[var.i] == '\0')
+			return ;
 		var.start = var.i;
 		if (is_seperator(input[var.i]))
 			token_h_sep(input, head, &var);
@@ -93,6 +96,7 @@ void	tokenize(char *input, t_token **head)
 		else
 			token_h_word(input, head, &var);
 	}
+	pipe_error_end(head);
 }
 
 // void	print_tokens(t_token *head) 
@@ -107,7 +111,7 @@ void	tokenize(char *input, t_token **head)
 // }
 
 // int main() {
-//     char *input = "echo 'Hello \\\\$USER'\"Path with space quoted\" > file.txt";
+//     char *input = "echo Hello ";
 //     t_token *head = NULL;
 
 //     tokenize(input, &head);
@@ -115,11 +119,11 @@ void	tokenize(char *input, t_token **head)
 
 //     // Free the tokens
 //     t_token *current = head;
-//     while (current) {
+//     while (current)
+// 	{
 //         t_token *next = current->next;
 //         free(current);
 //         current = next;
 //     }
-
 //     return (0);
 // }

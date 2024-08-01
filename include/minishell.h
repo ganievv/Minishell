@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/01 17:13:59 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/02 00:31:26 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ t_token			*token_create(char *start, int len, t_token_type type);
 void			token_lstadd(t_token **head, t_token *new_token);
 /*-------------lexer-utils-three--------------*/
 void			pipe_error_start(char *input);
-void			pipe_error_end(char *input, t_token **head);
+void			pipe_error_end(t_token **head);
 void			token_free(t_token **head);
 /*fgjk*/
 /*fgjk*/

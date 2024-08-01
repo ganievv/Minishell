@@ -6,22 +6,24 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:13:11 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/01 23:28:09 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/02 00:28:33 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+// error for pipes
+
 void	pipe_error_start(char *input)
 {
 	if (input[0] == '|')
 	{
-		ft_putstr_fd("The prompt must no start with '|'", 2);
+		ft_putstr_fd("The prompt must not start with '|'", 2);
 		exit(1);
 	}
 }
 
-void	pipe_error_end(char *input, t_token **head)
+void	pipe_error_end(t_token **head)
 {
 	t_token	*temp;
 
@@ -30,7 +32,7 @@ void	pipe_error_end(char *input, t_token **head)
 		temp = temp->next;
 	if (temp->type == PIPE)
 	{
-		ft_putstr_fd("Syntax Error: The prompt should not end with a pipe", 2);
+		ft_putstr_fd("Syntax Error: The prompt should not end with '|'", 2);
 		token_free(head);
 		exit(1);
 	}
