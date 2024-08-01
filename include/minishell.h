@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/02 00:31:26 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/02 00:34:03 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,14 +154,7 @@ void			token_lstadd(t_token **head, t_token *new_token);
 void			pipe_error_start(char *input);
 void			pipe_error_end(t_token **head);
 void			token_free(t_token **head);
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-
+/*--------------Unix-Signals------------------*/
 void			handle_signal(int signal);
 
 #endif
