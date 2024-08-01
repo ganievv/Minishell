@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/01 16:06:41 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/01 16:39:25 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	token_h_quote(char *input, t_token **head, t_h_token *var)
 	}
 	else
 	{
-		ft_putstr_fd("Error: Unmatched quote\n", 2);
+		ft_putstr_fd("Error: Unmatched or Unterminated quotes\n", 2);
 		exit(1);
 	}
 }
