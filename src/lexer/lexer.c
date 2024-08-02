@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 18:14:24 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/02 00:29:23 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ void	token_h_quote(char *input, t_token **head, t_h_token *var)
 	var->start = var->i;
 	(var->i)++;
 	while (input[(var->i)] && input[var->i] != q_type)
-	{
-		if (input[var->i] == '\\' && input[var->i + 1] != '\0')
-			token_h_escape(input, &var->i, &var->len);
-		else
-			(var->i)++;
-	}
+		(var->i)++;
 	if (input[var->i] == q_type)
 	{
 		var->len = var->i - var->start + 1;
@@ -48,7 +43,7 @@ void	token_h_quote(char *input, t_token **head, t_h_token *var)
 	}
 	else
 	{
-		ft_putstr_fd("Error: Unmatched quote\n", 2);
+		ft_putstr_fd("Error: Unmatched or Unterminated quotes\n", 2);
 		exit(1);
 	}
 }
@@ -57,12 +52,7 @@ void	token_h_word(char *input, t_token **head, t_h_token *var)
 {
 	while (input[var->i] && !ft_isspace(input[var->i])
 		&& !is_seperator(input[var->i]))
-	{
-		if (input[var->i] == '\\' && input[var->i + 1] != '\0')
-			token_h_escape(input, &var->i, &var->len);
-		else
-			(var->i)++;
-	}
+		(var->i)++;
 	var->len = var->i - var->start;
 	token_lstadd(head, token_create(input + (var->start), var->len,
 			token_type(input + (var->start), var->len)));
@@ -89,10 +79,13 @@ void	tokenize(char *input, t_token **head)
 
 	var.i = 0;
 	var.len = 0;
+	pipe_error_start(input);
 	while (input[var.i] != '\0')
 	{
 		while (input[var.i] && ft_isspace(input[var.i]))
 			var.i++;
+		if (input[var.i] == '\0')
+			return ;
 		var.start = var.i;
 		if (is_seperator(input[var.i]))
 			token_h_sep(input, head, &var);
@@ -103,6 +96,7 @@ void	tokenize(char *input, t_token **head)
 		else
 			token_h_word(input, head, &var);
 	}
+	pipe_error_end(head);
 }
 
 // void	print_tokens(t_token *head) 
@@ -117,7 +111,7 @@ void	tokenize(char *input, t_token **head)
 // }
 
 // int main() {
-//     char *input = "echo 'Hello \\\\$USER'\"Path with space quoted\" > file.txt";
+//     char *input = "echo Hello ";
 //     t_token *head = NULL;
 
 //     tokenize(input, &head);
@@ -125,11 +119,11 @@ void	tokenize(char *input, t_token **head)
 
 //     // Free the tokens
 //     t_token *current = head;
-//     while (current) {
+//     while (current)
+// 	{
 //         t_token *next = current->next;
 //         free(current);
 //         current = next;
 //     }
-
 //     return (0);
 // }

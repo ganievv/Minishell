@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 19:56:26 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 00:34:03 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef enum e_token_type
 	REDIR_IN,
 	DELIMITER,
 	APPEND_DELIMITER,
-	DOUBLE_QUOTED,
-	SINGLE_QUOTED,
+	D_QUOTED,
+	S_QUOTED,
 	EXP_FIELD
 }	t_token_type;
 
@@ -151,15 +151,10 @@ t_token_type	token_type(char *str, int len);
 t_token			*token_create(char *start, int len, t_token_type type);
 void			token_lstadd(t_token **head, t_token *new_token);
 /*-------------lexer-utils-three--------------*/
-void			token_h_escape(char *input, int *i, int *len);
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-/*fgjk*/
-
+void			pipe_error_start(char *input);
+void			pipe_error_end(t_token **head);
+void			token_free(t_token **head);
+/*--------------Unix-Signals------------------*/
 void			handle_signal(int signal);
 
 #endif
