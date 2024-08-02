@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/02 21:01:05 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 21:03:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ int	ft_echo(char **args, char ***envp, t_msh *info)
 	return (0);
 }
 
-/* we should do it in executor.c:
-*  if (args[0] == NULL) ->  args[0] = $?*/
 int	ft_exit(char **args, char ***envp, t_msh *info)
 {
 	long long	n_nbr;
 
+	if (args[0] == NULL)
+		args[0] = info->last_exit_status;
 	if (!is_nbr(args[0]) || !is_valid_exit_range(args[0]))
 	{
 		write (STDERR_FILENO, "msh: exit: numeric argument required", 36);
