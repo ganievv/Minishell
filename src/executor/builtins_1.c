@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/02 20:45:25 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 20:50:09 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 *  return values:
 *				  0 -> successful retrieval of current dir
 *				  1 -> an error was encountered */
-int	ft_pwd(char **args, char ***envp)
+int	ft_pwd(char **args, char ***envp, t_msh *info)
 {
 	char	buff[PATH_MAX];
 	char	*buff_ptr;
@@ -35,7 +35,7 @@ int	ft_pwd(char **args, char ***envp)
 	return (0);
 }
 
-int	ft_cd(char **args, char ***envp)
+int	ft_cd(char **args, char ***envp, t_msh *info)
 {
 	char	*dir;
 	int		home_i;
@@ -60,7 +60,7 @@ int	ft_cd(char **args, char ***envp)
 }
 
 /* '-n' flag should be in args[0] */
-int	ft_echo(char **args, char ***envp)
+int	ft_echo(char **args, char ***envp, t_msh *info)
 {
 	bool	put_new_line;
 
@@ -83,7 +83,7 @@ int	ft_echo(char **args, char ***envp)
 
 /* we should do it in executor.c:
 *  if (args[0] == NULL) ->  args[0] = $?*/
-int	ft_exit(char **args, char ***envp)
+int	ft_exit(char **args, char ***envp, t_msh *info)
 {
 	long long	n_nbr;
 

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:03:55 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 17:41:39 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 20:47:55 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	init_builtin_names(char **builtin_names)
 }
 
 /* this function initializes an array of pointers to builtin functions */
-void	init_builtin_ptrs(int (**builtin_ptrs)(char **, char ***))
+void	init_builtin_ptrs(int (**builtin_ptrs)(char **, char ***, t_msh *))
 {
 	builtin_ptrs[0] = ft_echo;
 	builtin_ptrs[1] = ft_cd;

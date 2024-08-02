@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/02 17:52:12 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 20:50:26 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 *  return values:
 *				  0 -> if each arg was valid
 *				  1 -> if one or more args were not valid */
-int	ft_export(char **args, char ***envp)
+int	ft_export(char **args, char ***envp, t_msh *info)
 {
 	int	estatus;
 
@@ -40,7 +40,7 @@ int	ft_export(char **args, char ***envp)
 	return (estatus);
 }
 
-int	ft_unset(char **args, char ***envp)
+int	ft_unset(char **args, char ***envp, t_msh *info)
 {
 	args = skip_all_flags(args);
 	if (!args)
@@ -53,7 +53,7 @@ int	ft_unset(char **args, char ***envp)
 	return (0);
 }
 
-int	ft_env(char **args, char ***envp)
+int	ft_env(char **args, char ***envp, t_msh *info)
 {
 	char	**cur;
 

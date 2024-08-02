@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/02 16:58:59 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 20:53:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
 		if (cmd_ptr_i >= 0)
 			estatus = (info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args,
-					&envp);
+					&envp, info);
 		else
 		{
 			info->cmds[i].cmd_path = search_cmd_path(info->cmds[i].command,
@@ -98,7 +98,7 @@ static void	process_one_cmd(t_msh *info)
 	index = is_cmd_builtin(info->cmds[0].command, info);
 	if (index >= 0)
 		info->last_exit_status = (info->builtin_ptrs[index])
-			(info->cmds[0].args, &info->envp);
+			(info->cmds[0].args, &info->envp, info);
 	else
 	{
 		cmd_path = search_cmd_path(info->cmds[0].command, info);
