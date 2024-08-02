@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/02 20:50:09 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 21:01:05 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 	if (!is_nbr(args[0]) || !is_valid_exit_range(args[0]))
 	{
 		write (STDERR_FILENO, "msh: exit: numeric argument required", 36);
-		exit(1); /* you should free all prog data here */
+		free_all_prog_vars(info);
+		exit(1);
 	}
 	if (count_args(args) >= 2)
 	{
@@ -98,5 +99,6 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 		return (1);
 	}
 	n_nbr = ft_atoll(*args);
-	exit(n_nbr % 256); /* you should free all prog data here */
+	free_all_prog_vars(info);
+	exit(n_nbr % 256);
 }
