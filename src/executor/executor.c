@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/31 19:26:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 16:58:59 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 		make_files_redir(&info->cmds[i]);
 		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
 		if (cmd_ptr_i >= 0)
-			estatus = (info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args, &envp);
+			estatus = (info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args,
+					&envp);
 		else
 		{
 			info->cmds[i].cmd_path = search_cmd_path(info->cmds[i].command,

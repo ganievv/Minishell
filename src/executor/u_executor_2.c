@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 19:49:57 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 16:57:58 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 *										was already an executable with its path)
 *				  NULL                - if it failed to allocate memory*/
 char	*search_cmd_path(char *cmd, t_msh *info)
-{ 
+{
 	char	*dir_of_exec;
 	char	*cmd_path;
 	int		cmd_i;
@@ -30,7 +30,8 @@ char	*search_cmd_path(char *cmd, t_msh *info)
 	dir_of_exec = NULL;
 	cmd_i = search_env_var("PATH", info->envp);
 	if (cmd_i != -1)
-		dir_of_exec = search_exec_dir(cmd, (ft_strchr(info->envp[cmd_i], '=') + 1));
+		dir_of_exec = search_exec_dir(cmd,
+				(ft_strchr(info->envp[cmd_i], '=') + 1));
 	if (dir_of_exec)
 	{
 		cmd_path = ft_strjoin(dir_of_exec, cmd);

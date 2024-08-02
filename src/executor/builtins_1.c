@@ -6,13 +6,19 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/31 19:54:25 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 17:37:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* are there any args in pwd ?*/
+/* this function is an implemenation of the 'pwd' builtin;
+*  it prints the absolute pathname of the current working
+*  directory;
+*
+*  return values:
+*				  0 -> successful retrieval of current dir
+*				  1 -> an error was encountered */
 int	ft_pwd(char **args, char ***envp)
 {
 	char	buff[PATH_MAX];
@@ -25,7 +31,7 @@ int	ft_pwd(char **args, char ***envp)
 		perror("Error getting current directory");
 		return (1);
 	}
-	write(STDOUT_FILENO, buff_ptr, ft_strlen(buff_ptr));
+	write(STDOUT_FILENO, buff, ft_strlen(buff));
 	return (0);
 }
 
