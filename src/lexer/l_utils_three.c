@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:13:11 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/02 00:28:33 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/03 16:58:35 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,19 @@ void	token_free(t_token **head)
 		next_token = current->next;
 		free(current);
 		current = next_token;
+	}
+}
+
+void	print_tokens(t_token *head)
+{
+	t_token	*current;
+
+	current = head;
+
+	while (current)
+	{
+		printf("Token: %.*s, Type: %d\n", current->len,
+			current->token_start, current->type);
+		current = current->next;
 	}
 }

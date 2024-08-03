@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/02 00:29:23 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/03 19:07:00 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,8 @@ void	tokenize(char *input, t_token **head)
 	pipe_error_end(head);
 }
 
-// void	print_tokens(t_token *head) 
-// {
-// 	t_token	*current = head;
-
-// 	current = head;
-// 	while (current) {
-// 		printf("Token: %.*s, Type: %d\n", current->len, current->token_start, current->type);
-// 		current = current->next;
-// 	}
-// }
-
 // int main() {
-//     char *input = "echo Hello ";
+//     char *input = "echo Hello | cd $HOME";
 //     t_token *head = NULL;
 
 //     tokenize(input, &head);

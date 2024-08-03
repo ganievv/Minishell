@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/03 13:37:51 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/03 20:15:05 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ char			*take_env_var_value(char *var);
 char			*take_env_var_name(char *var);
 void			close_all_pipes(int **pipes, int len);
 char			**skip_all_flags(char **args);
-
 /*----------------lexer---------------------*/
 void			token_h_sep(char *input, t_token **head, t_h_token *var);
 void			token_h_quote(char *input, t_token **head, t_h_token *var);
@@ -150,19 +149,25 @@ int				is_quote(char c);
 t_token_type	token_type(char *str, int len);
 /*------------lexer-utils-two---------------*/
 t_token			*token_create(char *start, int len, t_token_type type);
+char			*token_content_extract(t_token *token);
 void			token_lstadd(t_token **head, t_token *new_token);
 /*-------------lexer-utils-three--------------*/
 void			pipe_error_start(char *input);
 void			pipe_error_end(t_token **head);
 void			token_free(t_token **head);
+void			print_tokens(t_token *head);
 /*----------------parser----------------------*/
 t_pipe_group	*pipe_group_init(void);
 void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);
-void			parse_command(t_token **tokens, t_pipe_group *group);
 t_pipe_group	*parse_pipeline(t_token **tokens);
 t_pipe_group	*parse(t_token *tokens);
 /*---------------parser-utils-one-------------*/
 void			parse_redir(t_token **tokens, t_pipe_group *group);
+void			pipe_group_free(t_pipe_group **head);
+void			print_pipe_group(t_pipe_group *group);
+/*---------------parser-utils-two-------------*/
+int				p_command_h_one(t_token *tokens);
+void			parse_command(t_token **tokens, t_pipe_group *group);
 /*--------------Unix-Signals------------------*/
 void			handle_signal(int signal);
 

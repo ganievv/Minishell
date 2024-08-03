@@ -6,7 +6,7 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/07/24 16:35:18 by tnakas           ###   ########.fr        #
+#    Updated: 2024/08/03 20:30:32 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,19 @@ CFLAGS = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 LIBFT_DIR = libft
 
 SRC = src/parser/parser.c src/main.c src/signals.c \
-		src/lexer/l_utils_one.c src/lexer/l_utils_two.c src/utils_exec.c \
-		src/lexer/lexer.c src/lexer/l_utils_three.c
+		src/lexer/l_utils_one.c src/lexer/l_utils_two.c \
+		src/executor/utils_exec.c 
+		src/lexer/lexer.c src/parser/p_utils_one.c src/parser/p_utils_two.c \
+		src/parser/p_utils_three.c
+		src/executor/builtins_1.c src/executor/builtins_2.c \
+		src/executor/executor.c src/executor/u_cleanup.c \
+		src/executor/u_env_vars.c \
+		src/executor/u_exec_file_search.c src/executor/u_executor_1.c \
+		src/executor/u_executor_2.c src/executor/u_executor_3.c \
+		src/executor/u_exit_cmd.c \
+		src/executor/u_export_cmd_1.c src/executor/u_export_cmd_2.c \
+		src/executor/u_proc_and_pipes.c src/executor/u_unset_cmd.c \
+		src/executor/u_wait_for_proc.c \
 
 OBJ = $(SRC:.c=.o)
 

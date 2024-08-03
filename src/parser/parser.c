@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_utils_one.c                                      :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:28:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/03 13:28:08 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/03 20:07:24 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,6 @@ void	pipe_group_add(t_pipe_group **head, t_pipe_group *new_group)
 	}
 }
 
-void	parse_command(t_token **tokens, t_pipe_group *group)
-{
-	char	**args;
-	int		arg_count;
-
-	args = NULL;
-	arg_count = 0;
-	while (*tokens && (*tokens)->type == WORD)
-	{
-		args = ft_realloc(args, sizeof(char *) * (arg_count),
-				sizeof(char *) * (arg_count + 2));
-		if (!args)
-			exit(1);
-		args[arg_count] = token_content_extract(*tokens);
-		if (!args[arg_count])
-			exit(1);
-		args[arg_count + 1] = NULL;
-		arg_count++;
-		*tokens = (*tokens)->next;
-	}
-	if (args)
-		group->command = args[0];
-	else
-		group->command = NULL;
-	group->args = args;
-}
-
 t_pipe_group	*parse_pipeline(t_token **tokens)
 {
 	t_pipe_group	*head;
@@ -89,7 +62,7 @@ t_pipe_group	*parse_pipeline(t_token **tokens)
 	{
 		group = pipe_group_init();
 		parse_command(tokens, group);
-		parse_redirection(tokens, group);
+		parse_redir(tokens, group);
 		if (!head)
 		{
 			head = group;
@@ -110,3 +83,87 @@ t_pipe_group	*parse(t_token *tokens)
 {
 	return (parse_pipeline(&tokens));
 }
+
+
+// int main() {
+//     char *input = "echo Hello World | echo  World $HOME";
+//     t_token *head = NULL;
+
+//     // Tokenize the input
+//     tokenize(input, &head);
+//     print_tokens(head);
+
+//     // Parse the tokens into pipe groups
+//     t_pipe_group *group = parse_pipeline(&head);
+
+//     // Print the parsed pipe groups
+//     t_pipe_group *current = group;
+//     while (current) {
+//         print_pipe_group(current);
+//         current = current->next;
+//     }
+
+//     // Free the tokens
+//     t_token *token_current = head;
+//     while (token_current) {
+//         t_token *next = token_current->next;
+//         free(token_current);
+//         token_current = next;
+//     }
+
+//     // Free the pipe groups
+//     while (group) {
+//         t_pipe_group *tmp = group;
+//         group = group->next;
+//         if (tmp->args) {
+//             for (int i = 0; tmp->args[i]; i++) {
+//                 free(tmp->args[i]);
+//             }
+//             free(tmp->args);
+//         }
+//         free(tmp);
+//     }
+
+//     return 0;
+// }
+
+// int main() {
+//     // Example tokens for testing different types
+//     t_token token6 = {"world", 5, WORD, NULL};
+//     t_token token5 = {"out.txt", 7, WORD, &token6};
+//     t_token token4 = {">", 1, REDIR_OUT, &token5};
+//     t_token token3 = {"|", 1, PIPE, &token4};
+//     t_token token2 = {"\"HOME\"", 5, EXP_FIELD, &token3};
+//     t_token token1 = {"cd", 2, WORD, &token2};
+
+//     // Parsing tokens into pipe groups
+//     t_pipe_group *group = parse(&token1);
+
+//     // Printing the parsed pipe groups
+//     t_pipe_group *current = group;
+//     while (current) {
+//         print_pipe_group(current);
+//         current = current->next;
+//     }
+
+//     // Freeing the pipe groups
+//     while (group) {
+//         t_pipe_group *tmp = group;
+//         group = group->next;
+//         if (tmp->args) {
+//             for (int i = 0; tmp->args[i]; i++) {
+//                 free(tmp->args[i]);
+//             }
+//             free(tmp->args);
+//         }
+//         free(tmp);
+//     }
+
+//     return 0;
+// }
+
+
+
+
+
+

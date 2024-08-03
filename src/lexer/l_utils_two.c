@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:37:12 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/31 17:21:41 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/02 15:39:54 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ t_token	*token_create(char *start, int len, t_token_type type)
 	new_token->type = type;
 	new_token->next = NULL;
 	return (new_token);
+}
+
+char	*token_content_extract(t_token *token)
+{
+	return (ft_strndup(token->token_start, token->len));
 }
 
 void	token_lstadd(t_token **head, t_token *new_token)

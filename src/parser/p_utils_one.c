@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_utils_two.c                                      :+:      :+:    :+:   */
+/*   p_utils_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/03 13:27:36 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/03 16:48:35 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	parse_redir(t_token **tokens, t_pipe_group *group)
 	type = -1;
 	temp = *tokens;
 	file = NULL;
-	while (parse_redir_h(temp))
+	while (parse_redir_h_one(temp))
 	{
 		type = temp->type;
-		tokens = temp->next;
+		temp = temp->next;
 		if (temp && temp->type == WORD)
 		{
 			file = token_content_extract(temp);
@@ -58,4 +58,36 @@ void	parse_redir(t_token **tokens, t_pipe_group *group)
 			temp = temp->next;
 		}
 	}
+	*tokens = temp;
+}
+
+void	pipe_group_free(t_pipe_group **head)
+{
+	t_pipe_group	*current;
+	t_pipe_group	*next;
+	int				i;
+
+	current = *head;
+	i = 0;
+	while (current)
+	{
+		next = current->next;
+		i = -1;
+		while (current->args && current->args[++i])
+			free(current->args[i]);
+		free(current->args);
+		free(current);
+		current = next;
+	}
+}
+
+void	print_pipe_group(t_pipe_group *group)
+{
+	int	i;
+
+	printf("Command: %s\n", group->command);
+	printf("Arguments:\n");
+	i = -1;
+	while (group->args && group->args[++i])
+		printf("  [%d]: %s\n", i, group->args[i]);
 }
