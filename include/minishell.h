@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/02 20:52:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/03 13:37:51 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,14 @@ void			token_lstadd(t_token **head, t_token *new_token);
 void			pipe_error_start(char *input);
 void			pipe_error_end(t_token **head);
 void			token_free(t_token **head);
+/*----------------parser----------------------*/
+t_pipe_group	*pipe_group_init(void);
+void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);
+void			parse_command(t_token **tokens, t_pipe_group *group);
+t_pipe_group	*parse_pipeline(t_token **tokens);
+t_pipe_group	*parse(t_token *tokens);
+/*---------------parser-utils-one-------------*/
+void			parse_redir(t_token **tokens, t_pipe_group *group);
 /*--------------Unix-Signals------------------*/
 void			handle_signal(int signal);
 

@@ -6,7 +6,7 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 16:40:40 by tnakas            #+#    #+#              #
-#    Updated: 2024/07/23 13:32:25 by tnakas           ###   ########.fr        #
+#    Updated: 2024/08/02 17:51:33 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SCRS			=	ft_isalnum.c ft_isprint.c ft_memcmp.c  ft_putchar_fd.c ft_split.c \
 					ft_memmove.c ft_putnbr_fd.c  ft_strdup.c  ft_strlen.c  ft_strrchr.c \
 					ft_toupper.c ft_calloc.c  ft_isdigit.c ft_memchr.c  ft_memset.c  \
 					ft_putstr_fd.c  ft_strjoin.c ft_strmapi.c ft_strtrim.c ft_striteri.c \
-					ft_isspace.c ft_strcmp.c ft_strndup.c
+					ft_isspace.c ft_strcmp.c ft_strndup.c ft_realloc.c
 OBJS			= $(SCRS:.c=.o)
 
 CC				= cc
