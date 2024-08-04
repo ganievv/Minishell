@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/03 16:48:35 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/04 21:37:10 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	parse_redir(t_token **tokens, t_pipe_group *group)
 		if (temp && temp->type == WORD)
 		{
 			file = token_content_extract(temp);
+			if (!file)
+				return ;
 			parse_redir_h_two(type, &group, file);
 			temp = temp->next;
 		}
