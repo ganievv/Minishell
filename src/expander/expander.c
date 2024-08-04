@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:45 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/04 21:21:29 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/04 21:30:41 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*var_exp(char *input, char **envp)
 	res = strdup("");
 	if (!res)
 		return (NULL);
-	return (strdup(""));
+	return (res);
 }
 
 char	*var_unquoted_exp(char *input, char **envp)
