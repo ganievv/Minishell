@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:45:35 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/03 13:21:35 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/04 21:09:05 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		*ft_strtrim(char const *s1, char const *set);
 size_t		ft_strlcat(char *dest, char *src, size_t size);
+void		ft_strcpy(char	*dst, char *src);
 size_t		ft_strlcpy(char *cpy, char *src, size_t l);
 size_t		ft_strlen(const char *str);
 char		**ft_split(char const *s, char c);
