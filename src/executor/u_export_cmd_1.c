@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:15:19 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/05 16:53:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 20:20:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	print_err_for_export(char *arg)
 	write(STDERR_FILENO, "msh: export: `", 14);
 	write(STDERR_FILENO, arg, ft_strlen(arg));
 	write(STDERR_FILENO, "': not a valid identifier", 25);
+	write(STDERR_FILENO, "\n", 1);
 }
 
 /* this function checks if the given variable
@@ -40,7 +41,7 @@ int	is_export_arg_valid(char *arg)
 	return (1);
 }
 
-void	form_output_str(char *name, char *value)
+static void	form_output_str(char *name, char *value)
 {
 	if (name)
 	{
@@ -48,7 +49,7 @@ void	form_output_str(char *name, char *value)
 		write (STDOUT_FILENO, name, ft_strlen(name));
 		if (value)
 		{
-			write (STDOUT_FILENO, "=\"", 1);
+			write (STDOUT_FILENO, "=\"", 2);
 			write (STDOUT_FILENO, value, ft_strlen(value));
 			write (STDOUT_FILENO, "\"", 1);
 		}
