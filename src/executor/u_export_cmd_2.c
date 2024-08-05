@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:45:27 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/05 16:55:03 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 17:59:49 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static void	add_var(char *var, char ***envp)
 *  a new value to this position in the 'envp' array		*/
 static void	change_var_value(char *var, int var_i, char ***envp)
 {
-	free(*envp[var_i]);
-	*envp[var_i] = ft_strdup(var);
+	free((*envp)[var_i]);
+	(*envp)[var_i] = ft_strdup(var);
 }
 
 /* this function searches for the 'var' environment

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/05 16:42:11 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 17:57:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ int	ft_pwd(char **args, char ***envp, t_msh *info)
 	if (!buff_ptr)
 	{
 		perror("Error getting current directory");
+		write(STDOUT_FILENO, "\n", 1);
 		return (1);
 	}
 	write(STDOUT_FILENO, buff, ft_strlen(buff));
+	write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
 
@@ -50,7 +52,7 @@ int	ft_cd(char **args, char ***envp, t_msh *info)
 		if (home_i == -1)
 			return (1);
 		else
-			dir = take_env_var_value(*envp[home_i]);
+			dir = take_env_var_value((*envp)[home_i]);
 	}
 	else
 		dir = ft_strdup(args[0]);

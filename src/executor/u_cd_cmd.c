@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 20:06:01 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 20:17:13 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 17:58:05 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	update_pwd_var(char ***envp)
 		var_i = search_env_var("PWD", *envp);
 		if (var_i != -1)
 		{
-			free(*envp[var_i]);
-			*envp[var_i] = new_path;
+			free((*envp)[var_i]);
+			(*envp)[var_i] = new_path;
 		}
 		else
 			free(new_path);
