@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/02 16:57:58 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 18:52:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	**args_to_argv(char **args, char *cmd_path)
 			return (free_arr_str(argv), NULL);
 		i++;
 	}
+	argv[i + 1] = NULL;
 	return (argv);
 }
 
