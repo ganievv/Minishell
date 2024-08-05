@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:45:27 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 18:47:09 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 16:55:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	add_var(char *var, char ***envp)
 	len = count_args(*envp) + 2;
 	copy = (char **)malloc(sizeof(char *) * len);
 	if (!copy)
-		return (copy);
+		return ;
 	copy[0] = ft_strdup(var);
 	rest_copy(copy + 1, *envp);
 	free(*envp);
@@ -61,8 +61,7 @@ static void	change_var_value(char *var, int var_i, char ***envp)
 *	 to add the variable to the string array		  */
 void	change_or_add_env_var(char *var, char ***envp)
 {
-	char	*new_envp;
-	int		var_i;
+	int	var_i;
 
 	var_i = search_env_var(var, *envp);
 	if (var_i != -1)

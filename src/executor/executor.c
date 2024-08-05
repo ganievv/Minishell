@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/02 20:53:36 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 16:51:34 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 {
 	int	cmd_ptr_i;
-	int	estatus;
 
 	info->pids[i] = fork();
 	if (info->pids[i] == -1)
@@ -28,8 +27,8 @@ static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 		make_files_redir(&info->cmds[i]);
 		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
 		if (cmd_ptr_i >= 0)
-			estatus = (info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args,
-					&envp, info);
+			return ((info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args,
+				&envp, info));
 		else
 		{
 			info->cmds[i].cmd_path = search_cmd_path(info->cmds[i].command,
@@ -39,8 +38,8 @@ static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 			if (execve(info->cmds[i].cmd_path, info->cmds[i].argv, envp) == -1)
 				perror("msh: ");
 		}
-		return (estatus);
 	}
+	return (0);
 }
 
 /* this function allocates memory for PIDs of processes; invokes a
@@ -115,10 +114,10 @@ int	exec_all_cmds(t_msh *info)
 	init_builtin_names(info->builtin_names);
 	init_builtin_ptrs(info->builtin_ptrs);
 	info->envp = copy_arr_str(info->envp);
-	info->cmds = count_cmds(info->cmds);
-	if (info->cmds == 1)
+	info->cmds_num = count_cmds(info->cmds);
+	if (info->cmds_num == 1)
 		process_one_cmd(info);
 	else
-		process_multiple_cmds(info, info->cmds);
-	free_all_prog_vars(info);
+		process_multiple_cmds(info, info->cmds_num);
+	//free_all_prog_vars(info);
 }

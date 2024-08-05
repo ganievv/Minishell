@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:15:19 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/05 15:29:52 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 16:53:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	form_output_str(char *name, char *value)
 
 /* this function prints all environment
 *  variables for the 'export' command*/
-char	*print_env_vars(char **list)
+void	print_env_vars(char **list)
 {
 	char	*name;
 	char	*value;

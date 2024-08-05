@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 21:24:03 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 18:10:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 16:52:22 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	free_pids_and_pipes(t_msh *info)
 	free(info->pids);
 }
 
-void	free_all_prog_vars(t_msh *info)
-{
-	free_tokens_list();
-	free_cmds_list();
-	free_env_vars_list();
-	/* 'info->builtin_names' arr*/
-	/* 'info->builtin_ptrs' arr*/
-}
+//void	free_all_prog_vars(t_msh *info)
+//{
+//	free_tokens_list();
+//	free_cmds_list();
+//	free_env_vars_list();
+//	/* 'info->builtin_names' arr*/
+//	/* 'info->builtin_ptrs' arr*/
+//}
 
 /* this function frees an array of strings */
 void	free_arr_str(char **arr)
