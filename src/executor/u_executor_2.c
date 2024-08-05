@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/05 18:52:03 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 19:10:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*search_cmd_path(char *cmd, t_msh *info)
 	char	*dir_of_exec;
 	char	*cmd_path;
 	int		cmd_i;
+	char	*tmp;
 
 	dir_of_exec = NULL;
 	cmd_i = search_env_var("PATH", info->envp);
@@ -34,8 +35,11 @@ char	*search_cmd_path(char *cmd, t_msh *info)
 				(ft_strchr(info->envp[cmd_i], '=') + 1));
 	if (dir_of_exec)
 	{
-		cmd_path = ft_strjoin(dir_of_exec, cmd);
+		cmd_path = ft_strjoin(dir_of_exec, "/");
+		tmp = cmd_path;
+		cmd_path = ft_strjoin(cmd_path, cmd);
 		free(dir_of_exec);
+		free(tmp);
 	}
 	else
 		cmd_path = ft_strdup(cmd);
