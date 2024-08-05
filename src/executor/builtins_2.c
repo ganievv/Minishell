@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/02 20:50:26 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:32:44 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ int	ft_env(char **args, char ***envp, t_msh *info)
 	cur = *envp;
 	while (*cur)
 	{
-		write (STDOUT_FILENO, *cur, ft_strlen(*cur));
-		write (STDOUT_FILENO, "\n", 1);
+		if (ft_strchr(*cur, '='))
+		{
+			write (STDOUT_FILENO, *cur, ft_strlen(*cur));
+			write (STDOUT_FILENO, "\n", 1);
+		}
 		cur++;
 	}
 	return (0);

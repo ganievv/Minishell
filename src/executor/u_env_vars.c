@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 20:53:07 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 20:36:42 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:22:00 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ char	*take_env_var_name(char *var)
 	end = ft_strchr(var, '=');
 	if (end)
 		name = ft_strndup(var, end - var);
+	else
+		name = ft_strdup(var);
 	return (name);
 }
 
 /* this function compares names of environment variables
-*  up to the '=' sign (which indicates the end of the name)
+*  up to the '=' or '\0' character
 *
 *  return values:
 *				  '0' 	  - variables names are the same
@@ -53,7 +55,7 @@ static int	cmp_env_vars_names(char *var, char *data)
 	int	i;
 
 	i = 0;
-	while (var[i] != '=')
+	while (var[i] && (var[i] != '='))
 		i++;
 	return (ft_strncmp(var, data, i));
 }

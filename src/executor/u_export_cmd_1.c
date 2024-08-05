@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:15:19 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/02 17:45:02 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:29:52 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,29 @@ int	is_export_arg_valid(char *arg)
 	if (!ft_isalpha(arg[i]) && (arg[i] != '_'))
 		return (print_err_for_export(arg), 0);
 	i++;
-	while ((arg[i] != '=') && arg[i])
+	while (arg[i] && (arg[i] != '='))
 	{
 		if (!ft_isalnum(arg[i]) && (arg[i] != '_'))
 			return (print_err_for_export(arg), 0);
 		i++;
 	}
 	return (1);
+}
+
+void	form_output_str(char *name, char *value)
+{
+	if (name)
+	{
+		write (STDOUT_FILENO, "declare -x ", 11);
+		write (STDOUT_FILENO, name, ft_strlen(name));
+		if (value)
+		{
+			write (STDOUT_FILENO, "=\"", 1);
+			write (STDOUT_FILENO, value, ft_strlen(value));
+			write (STDOUT_FILENO, "\"", 1);
+		}
+		write (STDOUT_FILENO, "\n", 1);
+	}
 }
 
 /* this function prints all environment
@@ -53,15 +69,7 @@ char	*print_env_vars(char **list)
 	{
 		name = take_env_var_name(list[i]);
 		value = take_env_var_value(list[i]);
-		if (name && value)
-		{
-			write (STDOUT_FILENO, "declare -x ", 11);
-			write (STDOUT_FILENO, name, ft_strlen(name));
-			write (STDOUT_FILENO, "=\"", 1);
-			write (STDOUT_FILENO, value, ft_strlen(value));
-			write (STDOUT_FILENO, "\"", 1);
-			write (STDOUT_FILENO, "\n", 1);
-		}
+		form_output_str(name, value);
 		if (name)
 			free(name);
 		if (value)
