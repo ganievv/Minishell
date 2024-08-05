@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/04 21:24:15 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/05 20:56:58 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,68 +85,70 @@ typedef struct s_pipe_group
 }	t_pipe_group;
 
 /*------------------all_important_project_vars------------------*/
-// typedef struct s_msh
-// {
-// 	char			*input;
-// 	t_token			*tokens;
-// 	t_pipe_group	*cmds;
-// 	int				cmds_num;
-// 	char			**envp;
-// 	int				last_exit_status;
-// 	int				*pids;
-// 	int				**pipes;
-// 	char			*builtin_names[BUILTIN_NUM + 1];
-// 	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args,
-// 			char ***envp, t_msh *info);
-// }	t_msh;
+
+typedef struct s_msh	t_msh;
+
+struct s_msh
+{
+	char			*input;
+	t_token			*tokens;
+	t_pipe_group	*cmds;
+	int				cmds_num;
+	char			**envp;
+	int				last_exit_status;
+	int				*pids;
+	int				**pipes;
+	char			*builtin_names[BUILTIN_NUM + 1];
+	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args,
+			char ***envp, t_msh *info);
+};
 
 /*-----------------------------main-----------------------------*/
 
-// /*---------------------------executor---------------------------*/
-// int				exec_all_cmds(t_msh *info);
+/*---------------------------executor---------------------------*/
+int				exec_all_cmds(t_msh *info);
 
-// /*---------------------------builtins---------------------------*/
-// int				ft_pwd(char **args, char ***envp, t_msh *info);
-// int				ft_cd(char **args, char ***envp, t_msh *info);
-// int				ft_echo(char **args, char ***envp, t_msh *info);
-// int				ft_exit(char **args, char ***envp, t_msh *info);
-// int				ft_export(char **args, char ***envp, t_msh *info);
-// int				ft_unset(char **args, char ***envp, t_msh *info);
-// int				ft_env(char **args, char ***envp, t_msh *info);
+/*---------------------------builtins---------------------------*/
+int				ft_pwd(char **args, char ***envp, t_msh *info);
+int				ft_cd(char **args, char ***envp, t_msh *info);
+int				ft_echo(char **args, char ***envp, t_msh *info);
+int				ft_exit(char **args, char ***envp, t_msh *info);
+int				ft_export(char **args, char ***envp, t_msh *info);
+int				ft_unset(char **args, char ***envp, t_msh *info);
+int				ft_env(char **args, char ***envp, t_msh *info);
 
-// /*--------------------------utils_exec--------------------------*/
-// int				count_args(char **args);
-// int				is_nbr(char *arg);
-// int				is_valid_exit_range(char *nbr);
-// long long		ft_atoll(char *str);
-// int				count_cmds(t_pipe_group *cmds);
-// void			init_builtin_names(char **builtin_names);
-// void			init_builtin_ptrs(int (**builtin_ptrs)(char **,
-// 						char ***, t_msh *));
-// int				is_export_arg_valid(char *arg);
-// char			**copy_arr_str(char **src);
-// int				search_env_var(char *var_to_find, char **envp);
-// int				is_cmd_builtin(char *cmd, t_msh *info);
-// char			*search_exec_dir(char *file, char *path_env_v);
-// char			*search_cmd_path(char *cmd, t_msh *info);
-// char			**args_to_argv(char **args, char *cmd_path);
-// int				pipes_create(t_msh *info, int cmds_num);
-// void			make_pipes_redir(t_msh *info, int cmd_index);
-// void			make_files_redir(t_pipe_group *cmd);
-// void			wait_for_processes(t_msh *info, int cmds_num);
-// void			change_last_exit_status(t_msh *info, int status);
-// void			free_arr_str(char **arr);
-// void			free_arr_int(int **arr, int num);
-// void			free_pids_and_pipes(t_msh *info);
-// void			free_all_prog_vars(t_msh *info);
-// char			*print_env_vars(char **list);
-// void			change_or_add_env_var(char *var, char ***envp);
-// void			remove_env_var(char *var, char ***envp);
-// void			update_pwd_var(char ***envp);
-// char			*take_env_var_value(char *var);
-// char			*take_env_var_name(char *var);
-// void			close_all_pipes(int **pipes, int len);
-// char			**skip_all_flags(char **args);
+/*--------------------------utils_exec--------------------------*/
+int				count_args(char **args);
+int				is_nbr(char *arg);
+int				is_valid_exit_range(char *nbr);
+long long		ft_atoll(char *str);
+int				count_cmds(t_pipe_group *cmds);
+void			init_builtin_names(char **builtin_names);
+void			init_builtin_ptrs(int (**builtin_ptrs)(char **,
+						char ***, t_msh *));
+int				is_export_arg_valid(char *arg);
+char			**copy_arr_str(char **src);
+int				search_env_var(char *var_to_find, char **envp);
+int				is_cmd_builtin(char *cmd, t_msh *info);
+char			*search_exec_dir(char *file, char *path_env_v);
+char			*search_cmd_path(char *cmd, t_msh *info);
+char			**args_to_argv(char **args, char *cmd_path);
+int				pipes_create(t_msh *info, int cmds_num);
+void			make_pipes_redir(t_msh *info, int cmd_index);
+void			make_files_redir(t_pipe_group *cmd);
+void			wait_for_processes(t_msh *info, int cmds_num);
+void			change_last_exit_status(t_msh *info, int status);
+void			free_arr_str(char **arr);
+void			free_arr_int(int **arr, int num);
+void			free_pids_and_pipes(t_msh *info);
+void			free_all_prog_vars(t_msh *info);
+void			print_env_vars(char **list);
+void			change_or_add_env_var(char *var, char ***envp);
+void			remove_env_var(char *var, char ***envp);
+void			update_pwd_var(char ***envp);
+char			*take_env_var_value(char *var);
+char			*take_env_var_name(char *var);
+void			close_all_pipes(int **pipes, int len);
 /*----------------lexer---------------------*/
 void			token_h_sep(char *input, t_token **head, t_h_token *var);
 void			token_h_quote(char *input, t_token **head, t_h_token *var);
