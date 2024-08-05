@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/05 18:30:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/05 20:01:58 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	ft_cd(char **args, char ***envp, t_msh *info)
 	int		home_i;
 
 	(void)info;
-	args = skip_all_flags(args);
 	if (!args[0])
 	{
 		home_i = search_env_var("HOME", *envp);
@@ -59,6 +58,7 @@ int	ft_cd(char **args, char ***envp, t_msh *info)
 	if (dir && chdir(dir) == -1)
 	{
 		perror("msh: cd: error changing directory");
+		write(STDOUT_FILENO, "\n", 1);
 		return (1);
 	}
 	return (update_pwd_var(envp), free(dir), 0);
@@ -99,12 +99,14 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 	if (!is_nbr(args[0]) || !is_valid_exit_range(args[0]))
 	{
 		write (STDERR_FILENO, "msh: exit: numeric argument required", 36);
+		write(STDOUT_FILENO, "\n", 1);
 		//free_all_prog_vars(info);
 		exit(1);
 	}
 	if (count_args(args) >= 2)
 	{
 		write (STDERR_FILENO, "msh: exit: too many arguments", 29);
+		write(STDOUT_FILENO, "\n", 1);
 		return (1);
 	}
 	n_nbr = ft_atoll(*args);
