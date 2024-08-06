@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/31 19:01:56 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/06 15:09:18 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	main(int argc, char *argv[], char *envp[])
 //    t_token		*tokens = NULL; /added for testing
 
 //	tokens = NULL; /added for testing
+	(void)argc;
+	(void)argv;
 	info.envp = envp;
 	info.last_exit_status = 0;
 	clear_screen();
@@ -54,7 +56,9 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		if (ft_strlen(info.input) > 0)
 			add_history(info.input);
-//		token_list(&tokens, input); /added for testing
+		t_token *head = NULL;
+    	tokenize(info.input, &head);
+		info.cmds = parse_pipeline(&head);
 		exec_all_cmds(&info);
 		free(info.input);
 	}
