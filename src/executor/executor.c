@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/06 14:12:16 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/06 17:20:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 	pid = fork();
 	if (pid == 0)
 	{
-		make_files_redir(&info->cmds[0]);
 		if (execve(cmd_path, argv, info->envp) == -1)
 			perror("msh: ");
 	}
@@ -94,6 +93,7 @@ static void	process_one_cmd(t_msh *info)
 	char	*cmd_path;
 	int		index;
 
+	make_files_redir(&info->cmds[0]);
 	index = is_cmd_builtin(info->cmds[0].command, info);
 	if (index >= 0)
 		info->last_exit_status = (info->builtin_ptrs[index])
