@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/05 21:07:58 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/06 16:39:35 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_cd(char **args, char ***envp, t_msh *info)
 	int		home_i;
 
 	(void)info;
-	if (!args[0])
+	if (!args || !args[0])
 	{
 		home_i = search_env_var("HOME", *envp);
 		if (home_i == -1)
@@ -72,12 +72,12 @@ int	ft_echo(char **args, char ***envp, t_msh *info)
 	(void)envp;
 	(void)info;
 	put_new_line = true;
-	if (*args && (ft_strcmp("-n", *args) == 0))
+	if (args && *args && (ft_strcmp("-n", *args) == 0))
 	{
 		put_new_line = false;
 		args++;
 	}
-	while (*args)
+	while (args && *args)
 	{
 		write (STDOUT_FILENO, *args, ft_strlen(*args));
 		args++;
@@ -92,24 +92,27 @@ int	ft_echo(char **args, char ***envp, t_msh *info)
 int	ft_exit(char **args, char ***envp, t_msh *info)
 {
 	long long	n_nbr;
+	char		*exit_arg;
 
 	(void)envp;
-	if (args[0] == NULL)
-		args[0] = ft_itoa(info->last_exit_status);
-	if (!is_nbr(args[0]) || !is_valid_exit_range(args[0]))
+	if (!args || !args[0])
+		exit_arg = ft_itoa(info->last_exit_status);
+	else
+		exit_arg = args[0];
+	if (!is_nbr(exit_arg) || !is_valid_exit_range(exit_arg))
 	{
 		write (STDERR_FILENO, "msh: exit: numeric argument required", 36);
 		write(STDOUT_FILENO, "\n", 1);
 		//free_all_prog_vars(info);
 		exit(1);
 	}
-	if (count_args(args) >= 2)
+	if (args && (count_args(args) >= 2))
 	{
 		write (STDERR_FILENO, "msh: exit: too many arguments", 29);
 		write(STDOUT_FILENO, "\n", 1);
 		return (1);
 	}
-	n_nbr = ft_atoll(*args);
+	n_nbr = ft_atoll(exit_arg);
 	//free_all_prog_vars(info);
 	exit(n_nbr % 256);
 }
