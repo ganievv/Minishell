@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/06 18:45:42 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/06 18:48:19 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ typedef struct s_h_token
 /*----------------expander-helper-struct------------------------*/
 typedef struct s_exp_helper
 {
-	char	*res;
-	char	*start;
-	char	*end;
-	char	*var_name;
-	char	*exp_var;
-	char	*temp;
+	char		*temp;
+	char		*var;
+	size_t		len;
+	const char	*end;
+	char		*result;
+	const char	*start;
 }	t_exp_helper;
 /*-------------------------commands_list------------------------*/
 typedef struct s_pipe_group
