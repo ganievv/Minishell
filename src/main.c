@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/06 21:23:09 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/06 21:28:33 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	main(int argc, char *argv[], char *envp[])
 		expand_parsed_commands(info.last_exit_status, info.cmds, envp);
 		exec_all_cmds(&info);
 		free(info.input);
+		pipe_group_free(&(info.cmds));
+		token_free(&head);
 	}
 	return (0);
 }
