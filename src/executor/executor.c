@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/05 16:51:34 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/06 14:12:16 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static void	process_one_cmd(t_msh *info)
 
 /* this function launches all commands from
 * 'info->cmds' linked list				 */
-int	exec_all_cmds(t_msh *info)
+void	exec_all_cmds(t_msh *info)
 {
 	init_builtin_names(info->builtin_names);
 	init_builtin_ptrs(info->builtin_ptrs);
