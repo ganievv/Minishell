@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/03 19:07:00 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/06 21:55:55 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	tokenize(char *input, t_token **head)
 			token_h_word(input, head, &var);
 	}
 	pipe_error_end(head);
+	check_syntax_errors(head);
 }
 
 // int main() {

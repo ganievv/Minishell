@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/06 21:14:02 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/06 21:57:10 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,8 @@ void			pipe_error_start(char *input);
 void			pipe_error_end(t_token **head);
 void			token_free(t_token **head);
 void			print_tokens(t_token *head);
+/*--------------lexer-utils-four---------------*/
+void			check_syntax_errors(t_token **head);
 /*----------------parser----------------------*/
 t_pipe_group	*pipe_group_init(void);
 void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);
