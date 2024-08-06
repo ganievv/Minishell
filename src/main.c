@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/06 16:59:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/06 21:23:09 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int argc, char *argv[], char *envp[])
 		t_token *head = NULL;
     	tokenize(info.input, &head);
 		info.cmds = parse_pipeline(&head);
+		expand_parsed_commands(info.last_exit_status, info.cmds, envp);
 		exec_all_cmds(&info);
 		free(info.input);
 	}
