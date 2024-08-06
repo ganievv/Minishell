@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/06 14:49:54 by sganiev          ###   ########.fr        #
+#    Updated: 2024/08/06 15:40:33 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC = src/parser/parser.c src/main.c src/signals.c \
 	src/executor/u_export_cmd_1.c src/executor/u_export_cmd_2.c \
 	src/executor/u_proc_and_pipes.c src/executor/u_unset_cmd.c \
 	src/executor/u_wait_for_proc.c \
-	#src/expander/e_utils_one.c src/expander/expander.c \
+	src/expander/e_utils_one.c src/expander/expander.c \
 
 OBJ = $(SRC:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/06 15:21:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/06 18:45:42 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,11 +181,11 @@ void			print_pipe_group(t_pipe_group *group);
 int				p_command_h_one(t_token *tokens);
 void			parse_command(t_token **tokens, t_pipe_group *group);
 /*---------------expander---------------------*/
-void			expand_tokens(t_token *tokens, char **envp);
-char			*var_exp(char *input, char **envp);
-char			*var_unquoted_exp(char *input, char **envp);
+char			*expand_var(char *input, char **envp);
+void			expand_parsed_commands(t_pipe_group *group, char **envp);
+char			*expand_unquoted(char *input, char **envp);
 /*---------------expander-utils-one-----------*/
-char			*var_d_quoted_exp(char *input, char **envp);
+char			*expand_double_quoted(char *input, char **envp);
 /*--------------Unix-Signals------------------*/
 void			handle_signal(int signal);
 
