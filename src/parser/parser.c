@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:28:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/03 20:59:19 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:40:15 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_pipe_group	*parse(t_token *tokens)
 //     // Print the parsed pipe groups
 //     t_pipe_group *current = group;
 //     while (current) {
-//         print_pipe_group(current);
+//         pipe_group_print(current);
 //         current = current->next;
 //     }
 
@@ -142,7 +142,7 @@ t_pipe_group	*parse(t_token *tokens)
 //     // Printing the parsed pipe groups
 //     t_pipe_group *current = group;
 //     while (current) {
-//         print_pipe_group(current);
+//         pipe_group_print(current);
 //         current = current->next;
 //     }
 

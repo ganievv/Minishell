@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/04 21:37:10 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:40:15 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	pipe_group_free(t_pipe_group **head)
 	}
 }
 
-void	print_pipe_group(t_pipe_group *group)
+void	pipe_group_print(t_pipe_group *group)
 {
 	int	i;
 
