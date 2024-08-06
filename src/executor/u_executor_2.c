@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/05 19:10:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/06 16:06:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**args_to_argv(char **args, char *cmd_path)
 	argv[0] = ft_strdup(cmd_path);
 	if (!argv[0])
 		return (free(argv), NULL);
-	while (args[i])
+	while (args && args[i])
 	{
 		argv[i + 1] = ft_strdup(args[i]);
 		if (argv[i + 1] == NULL)
