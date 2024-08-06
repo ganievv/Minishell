@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/06 15:09:18 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/06 16:59:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char *argv[], char *envp[])
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		info.input = readline("minishell$ ");
+		info.input = readline("\x1b[90mminishell$ \x1b[0m");
 		if (!info.input)
 		{
 			printf("exit\n");
