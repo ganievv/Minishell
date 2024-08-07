@@ -12,6 +12,17 @@
 
 #include "../include/minishell.h"
 
+static int	is_input_empty(char *input)
+{
+	while (*input)
+	{
+		if (!ft_isspace(*input))
+			return (0);
+		input++;
+	}
+	return (1);
+}
+
 /* clear screen before prompt */
 static void	clear_screen(void)
 {
@@ -57,14 +68,17 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		if (ft_strlen(info.input) > 0)
 			add_history(info.input);
-		t_token *head = NULL;
-		tokenize(info.input, &head);
-		info.cmds = parse_pipeline(&head);
-		expand_parsed_commands(info.last_exit_status, info.cmds, envp);
-		exec_all_cmds(&info);
+		if (!is_input_empty(info.input))
+		{
+			t_token *head = NULL;
+			tokenize(info.input, &head);
+			info.cmds = parse_pipeline(&head);
+			expand_parsed_commands(info.last_exit_status, info.cmds, envp);
+			exec_all_cmds(&info);
+			pipe_group_free(&(info.cmds));
+			token_free(&head);
+		}
 		free(info.input);
-		pipe_group_free(&(info.cmds));
-		token_free(&head);
 	}
 	return (0);
 }
