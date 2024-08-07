@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:45 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 18:11:46 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 18:17:19 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,26 @@ char	*expand_var(int l, char *input, char **envp)
 void	expand_parsed_commands(int l, t_pipe_group *group, char **envp)
 {
 	int		i;
-	char	*expanded_content;
+	char	*ex_cont;
 
-	expanded_content = NULL;
+	ex_cont = NULL;
 	while (group)
 	{
 		i = -1;
 		while (group->args[++i])
 		{
 			if (group->args[i][0] == '$')
-				expanded_content = expand_var(l, group->args[i], envp);
+				ex_cont = expand_var(l, group->args[i], envp);
 			else if (group->args[i][0] == '\"')
-				expanded_content = expand_double_quoted(l,
-						group->args[i], envp);
+				ex_cont = expand_double_quoted(l, group->args[i], envp);
 			else if (group->args[i][0] == '\'')
-				expanded_content = ft_strtrim(group->args[i],"\'");
+				ex_cont = ft_strtrim(group->args[i], "\'");
 			else
-				expanded_content = expand_unquoted(l, group->args[i], envp);
-			if (expanded_content)
+				ex_cont = expand_unquoted(l, group->args[i], envp);
+			if (ex_cont)
 			{
 				free(group->args[i]);
-				group->args[i] = expanded_content;
+				group->args[i] = ex_cont;
 			}
 		}
 		group = group->next;
