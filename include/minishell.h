@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/07 13:55:12 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/07 14:40:28 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ void			update_pwd_var(char ***envp);
 char			*take_env_var_value(char *var);
 char			*take_env_var_name(char *var);
 void			close_all_pipes(int **pipes, int len);
+char			*str_to_lower_case(const char *cmd);
+char			*make_absolute_path(char *dir, char *file);
 /*----------------lexer---------------------*/
 void			token_h_sep(char *input, t_token **head, t_h_token *var);
 void			token_h_quote(char *input, t_token **head, t_h_token *var);

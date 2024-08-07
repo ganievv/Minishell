@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:45 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 13:51:49 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/07 14:51:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	expand_parsed_commands(int l, t_pipe_group *group, char **envp)
 
 char	*expand_unquoted(int l, char *input, char **envp)
 {
-	return (expand_var(input, envp));
+	return (expand_var(l, input, envp));
 }
 
 //int main()

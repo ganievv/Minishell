@@ -6,20 +6,24 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:31:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/06 21:04:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/07 14:50:33 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* this function makes a copy of the directory path where the 'is_file_present()'
-*  function found an executable file; frees the array of strings 'path_arr';
-*  and closes the directory stream referred to by the parameter 'dir'			*/
-static void	clean_and_copy(DIR *dir, char **path_arr, int i, char **e_dir)
+char	*make_absolute_path(char *dir, char *file)
 {
-	*e_dir = ft_strdup(path_arr[i]);
-	free_arr_str(path_arr);
-	closedir(dir);
+	char	*absolute_path;
+	char	*tmp;
+
+	absolute_path = ft_strjoin(dir, "/");
+	if (!absolute_path)
+		return (NULL);
+	tmp = absolute_path;
+	absolute_path = ft_strjoin(absolute_path, file);
+	free(tmp);
+	return (absolute_path);
 }
 
 /* this function checks if 'file' is present
@@ -28,25 +32,48 @@ static void	clean_and_copy(DIR *dir, char **path_arr, int i, char **e_dir)
 *  return values:
 *				  [file_ptr] -> if 'file' is present
 *				  NULL       ->	if 'file' is not present */
-static char	*is_file_present(DIR *dir, char *file)
+static char	*is_file_present(DIR *dir, char *file, char **path_arr, int i)
 {
 	struct dirent	*entry;
-	char			*file_cp;
+	char			*lfile;
+	char			*absolute_path;
 
-	file_cp = str_to_lower_case(file);
+	absolute_path = NULL;
+	lfile = str_to_lower_case(file);
 	while (true)
 	{
 		entry = readdir(dir);
 		if (!entry)
 			break ;
 		if (ft_strcmp(entry->d_name, file) == 0)
-			return (file);
-		if (file_cp && ft_strcmp(entry->d_name, file_cp) == 0)
 		{
-			
+			absolute_path = make_absolute_path(path_arr[i], file);
+			break ;
+		}
+		else if (lfile && ft_strcmp(entry->d_name, lfile) == 0)
+		{
+			absolute_path = make_absolute_path(path_arr[i], lfile);
+			break ;
 		}
 	}
-	return (NULL);
+	if (lfile)
+		free(lfile);
+	return (absolute_path);
+}
+
+static char	**dirs_to_str_arr(char *path_env_v)
+{
+	char	**path_arr;
+	char	*start;
+
+	start = ft_strchr(path_env_v, '=');
+	if (!start)
+		return (NULL);
+	start++;
+	if (*start == '\0')
+		return (NULL);
+	path_arr = ft_split(start, ':');
+	return (path_arr);
 }
 
 /* this function searches for the executable 'file' in directories
@@ -64,11 +91,7 @@ char	*search_exec_dir(char *file, char *path_env_v)
 	char			*e_dir;
 	int				i;
 
-	if (ft_strchr(info->envp[cmd_i], '=') + 1)
-		;
-	if (*path_env_v == '\0')
-		return (NULL);
-	path_arr = ft_split(path_env_v, ':');
+	path_arr = dirs_to_str_arr(path_env_v);
 	if (!path_arr)
 		return (NULL);
 	i = -1;
@@ -78,8 +101,9 @@ char	*search_exec_dir(char *file, char *path_env_v)
 		dir = opendir(path_arr[i]);
 		if (dir)
 		{
-			if (is_file_present(dir, file))
-				return (clean_and_copy(dir, path_arr, i, &e_dir), e_dir);
+			e_dir = is_file_present(dir, file, path_arr, i);
+			if (e_dir)
+				return (free_arr_str(path_arr), closedir(dir), e_dir);
 			closedir(dir);
 		}
 	}

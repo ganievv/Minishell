@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/06 21:04:18 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/07 14:50:43 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,16 @@
 *				  NULL                - if it failed to allocate memory*/
 char	*search_cmd_path(char *cmd, t_msh *info)
 {
-	char	*dir_of_exec;
-	char	*cmd_path;
+	char	*absolute_path;
 	int		cmd_i;
-	char	*tmp;
 
-	dir_of_exec = NULL;
+	absolute_path = NULL;
 	cmd_i = search_env_var("PATH", info->envp);
 	if (cmd_i != -1)
-		dir_of_exec = search_exec_dir(cmd, info->envp[cmd_i]);
-	if (dir_of_exec)
-	{
-		cmd_path = ft_strjoin(dir_of_exec, "/");
-		tmp = cmd_path;
-		cmd_path = ft_strjoin(cmd_path, cmd);
-		free(dir_of_exec);
-		free(tmp);
-	}
-	else
-		cmd_path = ft_strdup(cmd);
-	return (cmd_path);
+		absolute_path = search_exec_dir(cmd, info->envp[cmd_i]);
+	if (!absolute_path)
+		absolute_path = ft_strdup(cmd);
+	return (absolute_path);
 }
 
 /* this function converts command arguments 'args' to an
