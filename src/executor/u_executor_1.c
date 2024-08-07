@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:03:55 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/02 20:47:55 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/06 20:53:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,25 @@
 *							where the name of the command is found */
 int	is_cmd_builtin(char *cmd, t_msh *info)
 {
-	int	i;
+	char	*cmd_cp;
+	int		i;
 
-	i = 0;
-	while (info->builtin_names[i] != NULL)
+	i = -1;
+	while (info->builtin_names[++i] != NULL)
 	{
 		if (ft_strcmp(cmd, info->builtin_names[i]) == 0)
 			return (i);
-		i++;
 	}
-	return (-1);
+	i = -1;
+	cmd_cp = str_to_lower_case(cmd);
+	if (!cmd_cp)
+		return (-1);
+	while (info->builtin_names[++i] != NULL)
+	{
+		if (ft_strcmp(cmd_cp, info->builtin_names[i]) == 0)
+			return (free(cmd_cp), i);
+	}
+	return (free(cmd_cp), -1);
 }
 
 /* this function counts how many
