@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:43 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 17:58:49 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 18:03:30 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*expand_double_quoted(int l, char *input, char **envp)
 		else
 			expand_double_quoted_helper_two(&h);
 	}
-	temp = ft_strtrim(h.result, "\"\'");
+	temp = ft_strtrim(h.result, "\"");
 	if (!temp)
 	{
 		free(h.result);

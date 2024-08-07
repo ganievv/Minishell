@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:45 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 17:58:36 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 18:05:26 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	expand_parsed_commands(int l, t_pipe_group *group, char **envp)
 			else if (group->args[i][0] == '\"')
 				expanded_content = expand_double_quoted(l,
 						group->args[i], envp);
+			else if (group->args[i][0] == '\'')
+				expanded_content = ft_strtrim(group->args[i],"\'");
 			else
 				expanded_content = expand_unquoted(l, group->args[i], envp);
 			if (expanded_content)
