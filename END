@@ -1,0 +1,13 @@
+
+
+int arr[2];
+
+arr[0] - read
+arr[1] - write
+
+
+pipe(arr);
+
+write(arr[1], "hello", 5);
+read(arr[0], buff, 5);
+
