@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 20:31:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/30 14:02:08 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/06 21:04:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ static void	clean_and_copy(DIR *dir, char **path_arr, int i, char **e_dir)
 static char	*is_file_present(DIR *dir, char *file)
 {
 	struct dirent	*entry;
+	char			*file_cp;
 
+	file_cp = str_to_lower_case(file);
 	while (true)
 	{
 		entry = readdir(dir);
@@ -39,6 +41,10 @@ static char	*is_file_present(DIR *dir, char *file)
 			break ;
 		if (ft_strcmp(entry->d_name, file) == 0)
 			return (file);
+		if (file_cp && ft_strcmp(entry->d_name, file_cp) == 0)
+		{
+			
+		}
 	}
 	return (NULL);
 }
@@ -58,6 +64,8 @@ char	*search_exec_dir(char *file, char *path_env_v)
 	char			*e_dir;
 	int				i;
 
+	if (ft_strchr(info->envp[cmd_i], '=') + 1)
+		;
 	if (*path_env_v == '\0')
 		return (NULL);
 	path_arr = ft_split(path_env_v, ':');
