@@ -6,7 +6,7 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/06 21:57:23 by tnakas           ###   ########.fr        #
+#    Updated: 2024/08/07 13:50:01 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 LIBFT_DIR = libft
 
-SRC = src/parser/parser.c src/main.c src/signals.c \
+SRC = src/header.c \
+	src/parser/parser.c src/main.c src/signals.c \
 	src/lexer/l_utils_one.c src/lexer/l_utils_two.c \
 	src/lexer/l_utils_three.c src/lexer/l_utils_four.c\
 	src/lexer/lexer.c src/parser/p_utils_one.c src/parser/p_utils_two.c \
@@ -44,7 +45,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	@echo "$(BLUE)Linking $@...$(RESET)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIBFT_DIR) -lft -lreadline
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIBFT_DIR) \
+	-lft -lreadline > /dev/null
 	@echo "$(GREEN)Executable $(NAME) created successfully!$(RESET)"
 
 $(LIBFT):
@@ -54,7 +56,7 @@ $(LIBFT):
 
 %.o: %.c
 	@echo "$(BLUE)Compiling $<...$(RESET)"
-	@$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $< > /dev/null
 
 clean:
 	@echo "$(YELLOW)Cleaning object files...$(RESET)"
