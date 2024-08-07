@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_builtins_2.c                                     :+:      :+:    :+:   */
+/*   u_builtins_two.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 19:29:01 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 19:59:19 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 20:02:13 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	double_array_sort(char **array, int size)
 	while (++i < size - 1)
 	{
 		j = -1;
-		while (++j < size - 1 - i )
+		while (++j < size - 1 - i)
 			if (ft_strcmp(array[j], array[j + 1]) > 0)
 				double_array_swap(&array[j], &array[j + 1]);
 	}
