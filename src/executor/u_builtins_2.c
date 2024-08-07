@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 19:29:01 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 19:56:54 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 19:57:37 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,41 +39,41 @@ void	double_array_sort(char **array, int size)
 
 //function that is sorting
 
-int main()
-{
-    // Sample array of strings
-    char *strings[] = {
-        "banana",
-        "apple",
-        "grape",
-        "cherry",
-        "mango",
-        NULL // Ensure the array ends with NULL
-    };
+// int main()
+// {
+//     // Sample array of strings
+//     char *strings[] = {
+//         "banana",
+//         "apple",
+//         "grape",
+//         "cherry",
+//         "mango",
+//         NULL // Ensure the array ends with NULL
+//     };
 
-    // Calculate the size of the array
-    int size = 0;
-    while (strings[size] != NULL)
-    {
-        size++;
-    }
+//     // Calculate the size of the array
+//     int size = 0;
+//     while (strings[size] != NULL)
+//     {
+//         size++;
+//     }
 
-    // Print before sorting
-    printf("Before sorting:\n");
-    for (int i = 0; i < size; i++)
-    {
-        printf("%s\n", strings[i]);
-    }
+//     // Print before sorting
+//     printf("Before sorting:\n");
+//     for (int i = 0; i < size; i++)
+//     {
+//         printf("%s\n", strings[i]);
+//     }
 
-    // Sort the array
-    double_array_sort(strings, size);
+//     // Sort the array
+//     double_array_sort(strings, size);
 
-    // Print after sorting
-    printf("\nAfter sorting:\n");
-    for (int i = 0; i < size; i++)
-    {
-        printf("%s\n", strings[i]);
-    }
+//     // Print after sorting
+//     printf("\nAfter sorting:\n");
+//     for (int i = 0; i < size; i++)
+//     {
+//         printf("%s\n", strings[i]);
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
