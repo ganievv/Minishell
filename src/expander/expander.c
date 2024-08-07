@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:45 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 18:17:19 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 18:18:38 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	expand_parsed_commands(int l, t_pipe_group *group, char **envp)
 	while (group)
 	{
 		i = -1;
-		while (group->args[++i])
+		while (group->args && group->args[++i])
 		{
 			if (group->args[i][0] == '$')
 				ex_cont = expand_var(l, group->args[i], envp);
