@@ -6,7 +6,7 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/07 18:40:37 by tnakas           ###   ########.fr        #
+#    Updated: 2024/08/07 20:01:17 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC = src/header.c \
 	src/lexer/l_utils_three.c src/lexer/l_utils_four.c\
 	src/lexer/lexer.c src/parser/p_utils_one.c src/parser/p_utils_two.c \
 	src/executor/builtins_1.c src/executor/builtins_2.c \
+	src/executor/u_builtins_two.c \
 	src/executor/executor.c src/executor/u_cleanup.c \
 	src/executor/u_env_vars.c src/executor/u_cd_cmd.c\
 	src/executor/u_exec_file_search.c src/executor/u_executor_1.c \

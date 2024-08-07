@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/07 19:02:20 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 19:58:58 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	ft_export(char **args, char ***envp, t_msh *info)
 	(void)info;
 	estatus = 0;
 	if (!args || !*args)
+	{
+		
 		print_env_vars(*envp);
+	}
 	else
 	{
 		while (*args)

@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/07 18:59:02 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 20:00:17 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ int				ft_exit(char **args, char ***envp, t_msh *info);
 int				ft_export(char **args, char ***envp, t_msh *info);
 int				ft_unset(char **args, char ***envp, t_msh *info);
 int				ft_env(char **args, char ***envp, t_msh *info);
-
 /*--------------------------utils_exec--------------------------*/
+void			double_array_sort(char **array, int size);
 int				count_args(char **args);
 int				is_nbr(char *arg);
 int				is_valid_exit_range(char *nbr);

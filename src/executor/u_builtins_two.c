@@ -6,14 +6,14 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 19:29:01 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 19:57:37 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 19:59:19 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //function that is swaping
-void	double_array_swap(char **s1, char **s2)
+static void	double_array_swap(char **s1, char **s2)
 {
 	char	*temp;
 
