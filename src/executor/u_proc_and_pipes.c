@@ -28,7 +28,7 @@ void	make_files_redir(t_pipe_group *cmd)
 	}
 	if (cmd->file_out)
 	{
-		fd = open(cmd->file_out, cmd->mode_out); /* what permissioms should I specify ?*/
+		fd = open(cmd->file_out, cmd->mode_out, 0666); /* what permissioms should I specify ?*/
 		if (fd == -1)
 			return ;
 		dup2(fd, cmd->redir_out);

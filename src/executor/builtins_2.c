@@ -26,7 +26,7 @@ int	ft_export(char **args, char ***envp, t_msh *info)
 	estatus = 0;
 	if (!args || !*args)
 	{
-		
+		double_array_sort(*envp, count_args(*envp));
 		print_env_vars(*envp);
 	}
 	else

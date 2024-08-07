@@ -27,8 +27,9 @@ static void	parse_redir_h_two(t_token_type type,
 	{
 		(*group)->file_out = file;
 		(*group)->redir_out = 1;
-		(*group)->mode_out = (type == 6) * O_APPEND
-			+ (type == 3) * O_TRUNC;
+		(*group)->mode_out = O_CREAT | O_WRONLY
+			| (type == 6) * O_APPEND
+			| (type == 3) * O_TRUNC;
 	}
 	else
 	{
@@ -77,7 +78,8 @@ void	pipe_group_free(t_pipe_group **head)
 		i = -1;
 		while (current->args && current->args[++i])
 			free(current->args[i]);
-		free(current->args);
+		if (current->args)
+			free(current->args);
 		free(current);
 		current = next;
 	}
