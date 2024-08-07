@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 13:51:36 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:54:53 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int argc, char *argv[], char *envp[])
 	clear_screen();
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
+	print_header();
 	while (1)
 	{
 		info.input = readline("\x1b[90mminishell$ \x1b[0m");
@@ -58,7 +59,6 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(info.input);
 		t_token *head = NULL;
 		tokenize(info.input, &head);
-		//after tokenizer checking for pipes errors and for redir errors by running the head
 		info.cmds = parse_pipeline(&head);
 		expand_parsed_commands(info.last_exit_status, info.cmds, envp);
 		exec_all_cmds(&info);
