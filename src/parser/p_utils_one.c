@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/06 19:40:15 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 15:34:54 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	parse_redir_h_two(t_token_type type,
 {
 	if (type == 3 || type == 6)
 	{
-		(*group)->file_in = file;
+		(*group)->file_out = file;
 		(*group)->redir_out = 1;
 		(*group)->mode_out = (type == 6) * O_APPEND
 			+ (type == 3) * O_TRUNC;
