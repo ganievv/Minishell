@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:42:25 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 16:19:34 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 16:24:46 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	pipe_after_pipe(t_token *head)
 {
-	printf("head->type == pipe || %d\n", head->type == 2);
-	printf("head->next->type == pipe || %d\n", head->next->type == 2);
 	return (head->type == 2 && (!(head->next) || head->next->type == 2));
 }
 
@@ -34,7 +32,6 @@ void	check_syntax_errors(t_token **head)
 	current = *head;
 	while (current)
 	{
-		printf("type : %d\n", current->type);
 		if (pipe_after_pipe(current))
 		{
 			ft_putstr_fd("Syntax error:  consecutive pipes or pipe at the end\n", 2);
