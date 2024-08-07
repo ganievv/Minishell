@@ -6,7 +6,7 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/07 13:50:01 by tnakas           ###   ########.fr        #
+#    Updated: 2024/08/07 18:40:37 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,6 @@ $(LIBFT):
 	@echo "$(GREEN)Library libft created successfully!$(RESET)"
 
 %.o: %.c
-	@echo "$(BLUE)Compiling $<...$(RESET)"
 	@$(CC) $(CFLAGS) -c -o $@ $< > /dev/null
 
 clean:
