@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:43 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 18:03:30 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 18:24:24 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*expand_double_quoted(int l, char *input, char **envp)
 
 	h.result = ft_strdup("");
 	if (!h.result)
-		return NULL;
+		return (NULL);
 	(h.start) = input;
 	while (*(h.start))
 	{
@@ -62,6 +62,8 @@ char	*expand_double_quoted(int l, char *input, char **envp)
 		else
 			expand_double_quoted_helper_two(&h);
 	}
+	if (!h.result)
+		return (NULL);
 	temp = ft_strtrim(h.result, "\"");
 	if (!temp)
 	{

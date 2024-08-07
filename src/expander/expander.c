@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:45 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 18:18:38 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/07 18:34:32 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ char	*expand_var(int l, char *input, char **envp)
 	return (ft_strdup(""));
 }
 
+static void	ex_par_com_h_one(char **src, char *dest)
+{
+	if (!dest)
+		return ;
+	if (dest)
+	{
+		free(*src);
+		*src = dest;
+	}
+}
+
 void	expand_parsed_commands(int l, t_pipe_group *group, char **envp)
 {
 	int		i;
@@ -57,11 +68,7 @@ void	expand_parsed_commands(int l, t_pipe_group *group, char **envp)
 				ex_cont = ft_strtrim(group->args[i], "\'");
 			else
 				ex_cont = expand_unquoted(l, group->args[i], envp);
-			if (ex_cont)
-			{
-				free(group->args[i]);
-				group->args[i] = ex_cont;
-			}
+			ex_par_com_h_one(&(group->args[i]), ex_cont);
 		}
 		group = group->next;
 	}
