@@ -26,7 +26,7 @@ static void	parse_redir_h_two(t_token_type type,
 	if (type == 3 || type == 6)
 	{
 		(*group)->file_out = file;
-		(*group)->redir_out = 1;
+		(*group)->redir_out = STDOUT_FILENO;
 		(*group)->mode_out = O_CREAT | O_WRONLY
 			| (type == 6) * O_APPEND
 			| (type == 3) * O_TRUNC;
@@ -34,7 +34,7 @@ static void	parse_redir_h_two(t_token_type type,
 	else
 	{
 		(*group)->file_in = file;
-		(*group)->redir_in = 1;
+		(*group)->redir_in = STDIN_FILENO;
 		(*group)->mode_in = O_RDONLY;
 	}
 }
