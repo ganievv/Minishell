@@ -86,13 +86,9 @@ int	pipes_create(t_msh *info, int cmds_num)
 	{
 		if (pipe(info->pipes[i]) == -1)
 		{
-			i = -1;
-			while (++i < pipes_num)
-			{
-				close(info->pipes[i][0]);
-				close(info->pipes[i][1]);
-			}
-			return (free_arr_int(info->pipes, pipes_num), 0);
+			close_all_pipes(info->pipes, pipes_num);
+			free_arr_int(info->pipes, pipes_num);
+			return (0);
 		}
 	}
 	return (1);
