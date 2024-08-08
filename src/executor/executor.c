@@ -77,6 +77,7 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 	pid = fork();
 	if (pid == 0)
 	{
+		make_files_redir(&info->cmds[0]);
 		if (execve(cmd_path, argv, info->envp) == -1)
 			perror("msh: ");
 	}
@@ -93,11 +94,13 @@ static void	process_one_cmd(t_msh *info)
 	char	*cmd_path;
 	int		index;
 
-	make_files_redir(&info->cmds[0]);
 	index = is_cmd_builtin(info->cmds[0].command, info);
 	if (index >= 0)
+	{
+		make_files_redir(&info->cmds[0]);
 		info->last_exit_status = (info->builtin_ptrs[index])
 			(info->cmds[0].args, &info->envp, info);
+	}
 	else
 	{
 		cmd_path = search_cmd_path(info->cmds[0].command, info);
