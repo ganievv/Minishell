@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/08 17:49:18 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/08 18:27:18 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 	}
 	close_all_pipes(info->pipes, cmds_num - 1);
 	wait_for_processes(info, cmds_num);
-	free_pids_and_pipes(info);
 }
 
 /* this function creates a new process, performs
@@ -87,7 +86,6 @@ static void	exec_one_cmd(t_msh *info)
 		perror("msh: ");
 		exit(EXIT_FAILURE);
 	}
-	wait_for_processes(info, info->cmds_num);
 }
 
 /* this function executes a command in the shell process if it is a
@@ -110,6 +108,7 @@ static void	process_one_cmd(t_msh *info)
 	}
 	else
 		exec_one_cmd(info);
+	wait_for_processes(info, info->cmds_num);
 }
 
 /* this function launches all commands from
@@ -126,5 +125,4 @@ void	exec_all_cmds(t_msh *info)
 		process_one_cmd(info);
 	else
 		process_multiple_cmds(info, info->cmds_num);
-	//free_all_prog_vars(info);
 }

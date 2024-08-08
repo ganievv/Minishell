@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:41:25 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 19:32:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/08 18:25:33 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	wait_for_processes(t_msh *info, int cmds_num)
 		{
 			wait(&wstatus);
 			if (WIFEXITED(wstatus))
+			{
 				estatus = WEXITSTATUS(wstatus);
-			info->last_exit_status = estatus;
+				info->last_exit_status = estatus;
+			}
 		}
 	}
 }
