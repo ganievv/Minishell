@@ -23,3 +23,34 @@ char	*str_to_lower_case(const char *cmd)
 		cmd_cp[i] = ft_tolower(cmd_cp[i]);
 	return (cmd_cp);
 }
+
+int	*save_io_fds(t_pipe_group *cmd)
+{
+	int	*fds;
+
+	fds = (int *)malloc(sizeof(int) * 2);
+	if (!fds)
+		return (NULL);
+	if (cmd->file_in)
+		fds[0] = dup(cmd->redir_in);
+	if (cmd->file_out)
+		fds[1] = dup(cmd->redir_out);
+	return (fds);
+}
+
+void	restore_io_fds(int *fds, t_pipe_group *cmd)
+{
+	if (!fds)
+		return ;
+	if (cmd->file_in)
+	{
+		dup2(fds[0], cmd->redir_in);
+		close(fds[0]);
+	}
+	if (cmd->file_out)
+	{
+		dup2(fds[1], cmd->redir_out);
+		close(fds[1]);
+	}
+	free(fds);
+}

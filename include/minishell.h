@@ -152,6 +152,8 @@ char			*take_env_var_name(char *var);
 void			close_all_pipes(int **pipes, int len);
 char			*str_to_lower_case(const char *cmd);
 char			*make_absolute_path(char *dir, char *file);
+int				*save_io_fds(t_pipe_group *cmd);
+void			restore_io_fds(int *fds, t_pipe_group *cmd);
 /*----------------lexer---------------------*/
 void			token_h_sep(char *input, t_token **head, t_h_token *var);
 void			token_h_quote(char *input, t_token **head, t_h_token *var);

@@ -95,13 +95,16 @@ static void	process_one_cmd(t_msh *info)
 {
 	char	*cmd_path;
 	int		index;
+	int		*fds;
 
 	index = is_cmd_builtin(info->cmds[0].command, info);
 	if (index >= 0)
 	{
+		fds = save_io_fds(&info->cmds[0]);
 		make_files_redir(&info->cmds[0]);
 		info->last_exit_status = (info->builtin_ptrs[index])
 			(info->cmds[0].args, &info->envp, info);
+		restore_io_fds(fds, &info->cmds[0]);
 	}
 	else
 	{
