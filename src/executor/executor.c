@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/08 16:03:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/08 17:06:35 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* this function converts command 'args' to 'argv'; creates a new process
 *  to execute a command and handles pipes and file redirections */
-static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
+static int	exec_multiple_cmds(int i, t_msh *info, char **envp, t_pipe_group *cmd)
 {
 	int	cmd_ptr_i;
 
@@ -24,18 +24,16 @@ static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 	if (info->pids[i] == 0)
 	{
 		make_pipes_redir(info, i);
-		make_files_redir(&info->cmds[i]);
-		cmd_ptr_i = is_cmd_builtin(info->cmds[i].command, info);
+		make_files_redir(cmd);
+		cmd_ptr_i = is_cmd_builtin(cmd->command, info);
 		if (cmd_ptr_i >= 0)
-			return ((info->builtin_ptrs[cmd_ptr_i])(info->cmds[i].args,
+			return ((info->builtin_ptrs[cmd_ptr_i])(cmd->args,
 				&envp, info));
 		else
 		{
-			info->cmds[i].cmd_path = search_cmd_path(info->cmds[i].command,
-					info);
-			info->cmds[i].argv = args_to_argv(info->cmds[i].args,
-					info->cmds[i].cmd_path);
-			execve(info->cmds[i].cmd_path, info->cmds[i].argv, envp);
+			cmd->cmd_path = search_cmd_path(cmd->command, info);
+			cmd->argv = args_to_argv(cmd->args, cmd->cmd_path);
+			execve(cmd->cmd_path, cmd->argv, envp);
 			perror("msh: ");
 			exit(EXIT_FAILURE);
 		}
@@ -51,8 +49,9 @@ static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 *  function to clean up an array of PIDs and pipes				 */
 static void	process_multiple_cmds(t_msh *info, int cmds_num)
 {
-	char	**envp_buf;
-	int		i;
+	t_pipe_group	*cmd;
+	char			**envp_buf;
+	int				i;
 
 	envp_buf = info->envp;
 	info->pids = (int *)malloc(sizeof(int) * cmds_num);
@@ -61,8 +60,12 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 	if (!pipes_create(info, cmds_num))
 		return ;
 	i = -1;
-	while (++i < cmds_num)
-		exec_multiple_cmds(i, info, envp_buf);
+	cmd = info->cmds;
+	while ((++i < cmds_num) && cmd)
+	{
+		exec_multiple_cmds(i, info, envp_buf, cmd);
+		cmd = cmd->next;
+	}
 	close_all_pipes(info->pipes, cmds_num - 1);
 	wait_for_processes(info, cmds_num);
 	free_pids_and_pipes(info);
@@ -70,22 +73,21 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 
 /* this function creates a new process, performs
 *  redirection and executes a command there	  */
-static void	exec_one_cmd(char *cmd_path, t_msh *info)
+static void	exec_one_cmd(t_msh *info)
 {
-	char	**argv;
-	int		pid;
+	int	pid;
 
-	argv = args_to_argv(info->cmds[0].args, cmd_path);
+	info->cmds->cmd_path = search_cmd_path(info->cmds->command, info);
+	info->cmds->argv = args_to_argv(info->cmds->args, info->cmds->cmd_path);
 	pid = fork();
 	if (pid == 0)
 	{
-		make_files_redir(&info->cmds[0]);
-		execve(cmd_path, argv, info->envp);
+		make_files_redir(info->cmds);
+		execve(info->cmds->cmd_path, info->cmds->argv, info->envp);
 		perror("msh: ");
 		exit(EXIT_FAILURE);
 	}
 	wait_for_processes(info, info->cmds_num);
-	free_arr_str(argv);
 }
 
 /* this function executes a command in the shell process if it is a
@@ -94,26 +96,20 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 *  this function is only executed when the number of commands is 1*/
 static void	process_one_cmd(t_msh *info)
 {
-	char	*cmd_path;
-	int		index;
-	int		*fds;
+	int	index;
+	int	*fds;
 
-	index = is_cmd_builtin(info->cmds[0].command, info);
+	index = is_cmd_builtin(info->cmds->command, info);
 	if (index >= 0)
 	{
-		fds = save_io_fds(&info->cmds[0]);
-		make_files_redir(&info->cmds[0]);
+		fds = save_io_fds(info->cmds);
+		make_files_redir(info->cmds);
 		info->last_exit_status = (info->builtin_ptrs[index])
-			(info->cmds[0].args, &info->envp, info);
-		restore_io_fds(fds, &info->cmds[0]);
+			(info->cmds->args, &(info->envp), info);
+		restore_io_fds(fds, info->cmds);
 	}
 	else
-	{
-		cmd_path = search_cmd_path(info->cmds[0].command, info);
-		exec_one_cmd(cmd_path, info);
-		if (cmd_path)
-			free(cmd_path);
-	}
+		exec_one_cmd(info);
 }
 
 /* this function launches all commands from
@@ -124,6 +120,8 @@ void	exec_all_cmds(t_msh *info)
 	init_builtin_ptrs(info->builtin_ptrs);
 	info->envp = copy_arr_str(info->envp);
 	info->cmds_num = count_cmds(info->cmds);
+	info->pids = NULL;
+	info->pipes = NULL;
 	if (info->cmds_num == 1)
 		process_one_cmd(info);
 	else
