@@ -35,8 +35,9 @@ static int	exec_multiple_cmds(int i, t_msh *info, char **envp)
 					info);
 			info->cmds[i].argv = args_to_argv(info->cmds[i].args,
 					info->cmds[i].cmd_path);
-			if (execve(info->cmds[i].cmd_path, info->cmds[i].argv, envp) == -1)
-				perror("msh: ");
+			execve(info->cmds[i].cmd_path, info->cmds[i].argv, envp);
+			perror("msh: ");
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (0);
@@ -78,8 +79,9 @@ static void	exec_one_cmd(char *cmd_path, t_msh *info)
 	if (pid == 0)
 	{
 		make_files_redir(&info->cmds[0]);
-		if (execve(cmd_path, argv, info->envp) == -1)
-			perror("msh: ");
+		execve(cmd_path, argv, info->envp);
+		perror("msh: ");
+		exit(EXIT_FAILURE);
 	}
 	wait_for_processes(info, info->cmds_num);
 	free_arr_str(argv);
