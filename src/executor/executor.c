@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/06 20:36:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/08 16:03:48 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 	info->pids = (int *)malloc(sizeof(int) * cmds_num);
 	if (!info->pids)
 		return ;
-	pipes_create(info, cmds_num);
+	if (!pipes_create(info, cmds_num))
+		return ;
 	i = -1;
 	while (++i < cmds_num)
 		exec_multiple_cmds(i, info, envp_buf);
