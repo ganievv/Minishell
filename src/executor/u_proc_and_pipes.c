@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:52:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 18:44:00 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/08 17:39:49 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,19 @@ int	pipes_create(t_msh *info, int cmds_num)
 	i = -1;
 	pipes_num = cmds_num - 1;
 	info->pipes = (int **)malloc(sizeof(int *) * pipes_num);
+	if (!info->pipes)
+		return (0);
 	while (++i < pipes_num)
+	{
 		info->pipes[i] = (int *)malloc(sizeof(int) * 2);
+		if (!info->pipes[i])
+			return (0);
+	}
 	i = -1;
 	while (++i < pipes_num)
 	{
 		if (pipe(info->pipes[i]) == -1)
-		{
-			close_all_pipes(info->pipes, pipes_num);
-			free_arr_int(info->pipes, pipes_num);
-			return (0);
-		}
+			return (close_all_pipes(info->pipes, pipes_num), 0);
 	}
 	return (1);
 }
