@@ -6,18 +6,19 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 15:11:21 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 18:26:23 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	prog_init(t_msh *info, char **envp)
+static void	prog_init(t_msh *info, char **envp, t_token **head)
 {
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
 	info->envp = envp;
 	info->last_exit_status = 0;
+	*head = NULL;
 	clear_screen();
 	print_header();
 }
@@ -25,10 +26,11 @@ static void	prog_init(t_msh *info, char **envp)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_msh	info;
+	t_token	*head;
 
 	(void)argc;
 	(void)argv;
-	prog_init(&info, envp);
+	prog_init(&info, envp, &head);
 	while (1)
 	{
 		info.input = readline("\x1b[90mminishell$ \x1b[0m");
@@ -38,7 +40,6 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(info.input);
 		if (!is_input_empty(info.input))
 		{
-			t_token *head = NULL;
 			tokenize(info.input, &head);
 			info.cmds = parse_pipeline(&head);
 			expand_parsed_commands(info.last_exit_status, info.cmds, envp);

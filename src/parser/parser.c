@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:28:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/06 19:40:15 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/09 18:28:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ t_pipe_group	*parse(t_token *tokens)
 	return (parse_pipeline(&tokens));
 }
 
-
 // int main() {
 //     char *input = "echo Hello World | echo  World $HOME";
 //     t_token *head = NULL;
@@ -161,9 +160,3 @@ t_pipe_group	*parse(t_token *tokens)
 
 //     return 0;
 // }
-
-
-
-
-
-

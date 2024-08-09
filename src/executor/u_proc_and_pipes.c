@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:52:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/08 17:39:49 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 18:20:48 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	make_files_redir(t_pipe_group *cmd)
 
 	if (cmd->file_in)
 	{
-		fd = open(cmd->file_in, cmd->mode_in); /* what permissioms should I specify ?*/
+		fd = open(cmd->file_in, cmd->mode_in);
 		if (fd == -1)
 			return ;
-		dup2(fd, cmd->redir_in); /* is that correct order of fds ?*/
+		dup2(fd, cmd->redir_in);
 		close(fd);
 	}
 	if (cmd->file_out)
 	{
-		fd = open(cmd->file_out, cmd->mode_out, 0666); /* what permissioms should I specify ?*/
+		fd = open(cmd->file_out, cmd->mode_out, 0666);
 		if (fd == -1)
 			return ;
 		dup2(fd, cmd->redir_out);

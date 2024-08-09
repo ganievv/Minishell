@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 15:21:19 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/09 17:52:25 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 18:20:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	check_cmd_flag(char flag, char ***args)
 	while (tmp[i])
 	{
 		if (!is_correct_flag(flag, tmp[i++]))
-			break;
+			break ;
 		to_skip++;
 	}
 	*args += to_skip;

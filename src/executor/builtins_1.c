@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 17:54:11 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 18:19:49 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	ft_echo(char **args, char ***envp, t_msh *info)
 	return (0);
 }
 
+/* should I free all prog vars before exit() ??*/
 int	ft_exit(char **args, char ***envp, t_msh *info)
 {
 	long long	n_nbr;
@@ -100,7 +101,6 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 	{
 		write (STDERR_FILENO, "msh: exit: numeric argument required", 36);
 		write(STDOUT_FILENO, "\n", 1);
-		//free_all_prog_vars(info);
 		exit(1);
 	}
 	if (args && (count_args(args) >= 2))
@@ -110,6 +110,5 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 		return (1);
 	}
 	n_nbr = ft_atoll(exit_arg);
-	//free_all_prog_vars(info);
 	exit(n_nbr % 256);
 }

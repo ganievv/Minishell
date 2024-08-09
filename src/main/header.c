@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:38:16 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 14:56:46 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 18:24:24 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	print_header_utils_one(void)
 	const char	*g;
 
 	m = "\033[1;35m";
-	y ="\033[1;33m";
+	y = "\033[1;33m";
 	r = "\033[0m";
 	g = "\033[1;32m";
 	printf("┬┴┬┴┤╚(▲_▲)╝├┬┴┬┴┬┴┬┴┤･ω･)ﾉ├┬┴┬┴┬┴┬┴┤");
@@ -45,7 +45,7 @@ void	print_header(void)
 	const char	*g;
 
 	m = "\033[1;35m";
-	y ="\033[1;33m";
+	y = "\033[1;33m";
 	r = "\033[0m";
 	g = "\033[1;32m";
 	print_header_utils_one();
