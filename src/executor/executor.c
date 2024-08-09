@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/08 18:27:18 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 13:55:26 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /* this function converts command 'args' to 'argv'; creates a new process
 *  to execute a command and handles pipes and file redirections */
-static int	exec_multiple_cmds(int i, t_msh *info, char **envp, t_pipe_group *cmd)
+static int	exec_multiple_cmds(int i, t_msh *info,
+	char **envp, t_pipe_group *cmd)
 {
 	int	cmd_ptr_i;
 
@@ -27,8 +28,7 @@ static int	exec_multiple_cmds(int i, t_msh *info, char **envp, t_pipe_group *cmd
 		make_files_redir(cmd);
 		cmd_ptr_i = is_cmd_builtin(cmd->command, info);
 		if (cmd_ptr_i >= 0)
-			return ((info->builtin_ptrs[cmd_ptr_i])(cmd->args,
-				&envp, info));
+			exit((info->builtin_ptrs[cmd_ptr_i])(cmd->args, &envp, info));
 		else
 		{
 			cmd->cmd_path = search_cmd_path(cmd->command, info);
