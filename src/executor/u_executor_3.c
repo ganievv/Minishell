@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:49:23 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/06 20:56:11 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 22:06:51 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,11 @@ void	restore_io_fds(int *fds, t_pipe_group *cmd)
 		close(fds[1]);
 	}
 	free(fds);
+}
+
+void	print_cmd_not_found(char *cmd)
+{
+	write(STDERR_FILENO, "msh: ", 5);
+	write(STDERR_FILENO, cmd, ft_strlen(cmd));
+	write(STDERR_FILENO, ": command not found\n", 20);
 }
