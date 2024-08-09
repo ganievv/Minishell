@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/09 17:53:10 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 19:28:58 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_pipe_group
 	int					redir_out;
 	int					mode_in;
 	int					mode_out;
+	int					heredoc_p[2];
+	bool				is_heredoc_in;
 	char				**argv;
 	char				*cmd_path;
 	struct s_pipe_group	*next;

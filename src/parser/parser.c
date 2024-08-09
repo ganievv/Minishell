@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:28:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 18:28:02 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 20:14:13 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_pipe_group	*pipe_group_init(void)
 	new_group->redir_out = 0;
 	new_group->mode_in = 0;
 	new_group->mode_out = 0;
+	new_group->is_heredoc_in = false;
 	new_group->argv = NULL;
 	new_group->cmd_path = NULL;
 	new_group->next = NULL;
