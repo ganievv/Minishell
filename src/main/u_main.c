@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   u_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 15:59:34 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 14:59:51 by sganiev          ###   ########.fr       */
+/*   Created: 2024/08/09 14:58:50 by sganiev           #+#    #+#             */
+/*   Updated: 2024/08/09 15:02:00 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* handling ctrl-c,
-* ignoring ctrl-\,
-* crtl-C(is being handled from readine) */
-void	handle_signal(int signal)
+/* clear screen before prompt */
+void	clear_screen(void)
 {
-	if (signal == SIGINT)
+	printf("\033[H\033[J");
+}
+
+int	is_input_empty(char *input)
+{
+	while (*input)
 	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		if (!ft_isspace(*input))
+			return (0);
+		input++;
 	}
+	return (1);
 }

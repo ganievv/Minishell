@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/08 19:31:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 15:02:09 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,12 @@ struct s_msh
 			char ***envp, t_msh *info);
 };
 
-/*-----------------------------main-----------------------------*/
+/*--------------------------utils_main--------------------------*/
 void			print_header(void);
+void			clear_screen(void);
+int				is_input_empty(char *input);
 /*---------------------------executor---------------------------*/
 void			exec_all_cmds(t_msh *info);
-
 /*---------------------------builtins---------------------------*/
 int				ft_pwd(char **args, char ***envp, t_msh *info);
 int				ft_cd(char **args, char ***envp, t_msh *info);
