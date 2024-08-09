@@ -6,11 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 13:38:16 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 13:58:08 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 14:56:46 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static void	print_header_utils_one(void)
 {
