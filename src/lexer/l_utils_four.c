@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:42:25 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 18:22:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 18:35:09 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	check_syntax_errors(t_token **head)
 		if (pipe_after_pipe(current))
 		{
 			ft_putstr_fd("Syntax error:  consecutive "
-				"pipes or pipe at the end\n", 52);
+				"pipes or pipe at the end\n", 2);
 			token_free(head);
 			exit(1);
 		}
 		if (redir_and_after_not_word(current))
 		{
-			ft_putstr_fd("Syntax error:  invalid redirections\n", 36);
+			ft_putstr_fd("Syntax error:  invalid redirections\n", 2);
 			token_free(head);
 			exit(1);
 		}

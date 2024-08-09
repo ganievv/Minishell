@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:13:11 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 18:23:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 18:35:56 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pipe_error_start(char *input)
 {
 	if (input[0] == '|')
 	{
-		ft_putstr_fd("The prompt must not start with '|'\n", 35);
+		ft_putstr_fd("The prompt must not start with '|'\n", 2);
 		exit(1);
 	}
 }
@@ -32,7 +32,7 @@ void	pipe_error_end(t_token **head)
 		temp = temp->next;
 	if (temp->type == PIPE)
 	{
-		ft_putstr_fd("Syntax Error: The prompt should not end with '|'\n", 49);
+		ft_putstr_fd("Syntax Error: The prompt should not end with '|'\n", 2);
 		token_free(head);
 		exit(1);
 	}
