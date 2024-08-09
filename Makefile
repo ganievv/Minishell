@@ -6,7 +6,7 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/09 15:13:57 by sganiev          ###   ########.fr        #
+#    Updated: 2024/08/09 15:55:06 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC = src/main/main.c src/main/u_main.c src/main/header.c \
 	src/executor/u_env_vars.c src/executor/u_cd_cmd.c\
 	src/executor/u_exec_file_search.c src/executor/u_executor_1.c \
 	src/executor/u_executor_2.c src/executor/u_executor_3.c \
-	src/executor/u_exit_cmd.c \
+	src/executor/u_exit_cmd.c src/executor/u_echo_cmd.c \
 	src/executor/u_export_cmd_1.c src/executor/u_export_cmd_2.c \
 	src/executor/u_proc_and_pipes.c src/executor/u_unset_cmd.c \
 	src/executor/u_wait_for_proc.c \

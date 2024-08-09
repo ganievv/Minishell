@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/09 15:18:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 16:48:55 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # include "../libft/libft.h"
 
 # define BUILTIN_NUM 7
+
+/*--------------------------exit_codes-------------------------*/
+# define CMD_NOT_FOUND 127
 
 /*--------------------------token_types-------------------------*/
 typedef enum e_token_type

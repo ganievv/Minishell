@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 14:02:09 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 16:49:55 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	exec_multiple_cmds(int i, t_msh *info,
 			cmd->argv = args_to_argv(cmd->args, cmd->cmd_path);
 			execve(cmd->cmd_path, cmd->argv, envp);
 			perror("msh: ");
-			exit(EXIT_FAILURE);
+			exit(CMD_NOT_FOUND);
 		}
 	}
 	return (0);
@@ -84,7 +84,7 @@ static void	exec_one_cmd(t_msh *info)
 		make_files_redir(info->cmds);
 		execve(info->cmds->cmd_path, info->cmds->argv, info->envp);
 		perror("msh: ");
-		exit(EXIT_FAILURE);
+		exit(CMD_NOT_FOUND);
 	}
 }
 
