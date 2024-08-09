@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 13:55:26 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 14:02:09 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,10 @@ static void	process_one_cmd(t_msh *info)
 		restore_io_fds(fds, info->cmds);
 	}
 	else
+	{
 		exec_one_cmd(info);
-	wait_for_processes(info, info->cmds_num);
+		wait_for_processes(info, info->cmds_num);
+	}
 }
 
 /* this function launches all commands from
