@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/06 16:39:35 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 17:54:11 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,8 @@ int	ft_echo(char **args, char ***envp, t_msh *info)
 	(void)envp;
 	(void)info;
 	put_new_line = true;
-	if (args && *args && (ft_strcmp("-n", *args) == 0))
-	{
+	if (check_cmd_flag('n', &args))
 		put_new_line = false;
-		args++;
-	}
 	while (args && *args)
 	{
 		write (STDOUT_FILENO, *args, ft_strlen(*args));
