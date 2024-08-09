@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 16:49:55 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 20:48:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void	exec_all_cmds(t_msh *info)
 {
 	init_builtin_names(info->builtin_names);
 	init_builtin_ptrs(info->builtin_ptrs);
-	info->envp = copy_arr_str(info->envp);
 	info->cmds_num = count_cmds(info->cmds);
 	info->pids = NULL;
 	info->pipes = NULL;

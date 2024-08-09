@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 18:19:49 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 21:29:13 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ int	ft_cd(char **args, char ***envp, t_msh *info)
 		write(STDOUT_FILENO, "\n", 1);
 		return (1);
 	}
-	return (update_pwd_var(envp), free(dir), 0);
+	update_oldpwd_var(envp);
+	update_pwd_var(envp);
+	return (free(dir), 0);
 }
 
 /* '-n' flag should be in args[0] */

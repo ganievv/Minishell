@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/09 19:28:58 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 21:28:06 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ char			*make_absolute_path(char *dir, char *file);
 int				*save_io_fds(t_pipe_group *cmd);
 void			restore_io_fds(int *fds, t_pipe_group *cmd);
 bool			check_cmd_flag(char flag, char ***args);
+void			update_oldpwd_var(char ***envp);
 /*----------------lexer---------------------*/
 void			token_h_sep(char *input, t_token **head, t_h_token *var);
 void			token_h_quote(char *input, t_token **head, t_h_token *var);

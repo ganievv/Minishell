@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 20:06:01 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/05 17:58:05 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 21:26:42 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,29 @@ void	update_pwd_var(char ***envp)
 		}
 		else
 			free(new_path);
+	}
+}
+
+void	update_oldpwd_var(char ***envp)
+{
+	char	*pwd_value;
+	char	*oldpwd;
+	int		pwd_i;
+
+	pwd_value = NULL;
+	oldpwd = NULL;
+	pwd_i = search_env_var("PWD", *envp);
+	if (pwd_i == -1)
+		return ;
+	else
+		pwd_value = take_env_var_value((*envp)[pwd_i]);
+	if (pwd_value)
+	{
+		oldpwd = ft_strjoin("OLDPWD=", pwd_value);
+		free(pwd_value);
+		if (!oldpwd)
+			return ;
+		change_or_add_env_var(oldpwd, envp);
+		free(oldpwd);
 	}
 }

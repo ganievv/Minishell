@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 18:26:23 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 20:57:20 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static void	prog_init(t_msh *info, char **envp, t_token **head)
 {
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
-	info->envp = envp;
+	info->envp = copy_arr_str(envp);
+	change_or_add_env_var("OLDPWD", &info->envp);
 	info->last_exit_status = 0;
 	*head = NULL;
 	clear_screen();
