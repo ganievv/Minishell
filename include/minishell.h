@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/09 15:02:09 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/09 15:18:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ typedef struct s_pipe_group
 	int					redir_out;
 	int					mode_in;
 	int					mode_out;
-	char				**argv;    //|
-	char				*cmd_path; //|-> this 2 vars we need in executor
+	char				**argv;
+	char				*cmd_path;
 	struct s_pipe_group	*next;
 }	t_pipe_group;
 
