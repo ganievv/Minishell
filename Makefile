@@ -6,7 +6,7 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/09 15:55:06 by sganiev          ###   ########.fr        #
+#    Updated: 2024/08/10 20:26:59 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 LIBFT_DIR = libft
 
-SRC = src/main/main.c src/main/u_main.c src/main/header.c \
-	src/signals/signals.c src/parser/parser.c \
+SRC = src/main/main.c src/main/u_main_1.c src/main/u_main_2.c \
+	src/main/header.c src/signals/signals.c src/parser/parser.c \
 	src/lexer/l_utils_one.c src/lexer/l_utils_two.c \
 	src/lexer/l_utils_three.c src/lexer/l_utils_four.c\
 	src/lexer/lexer.c src/parser/p_utils_one.c src/parser/p_utils_two.c \

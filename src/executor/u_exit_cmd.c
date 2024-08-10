@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/10 19:03:41 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 20:20:28 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ void	cleanup_for_exit_builtin(t_msh *info)
 	{
 		free_all_prog_vars(info);
 		free_arr_str(info->envp);
-		rl_clear_history();	
+		rl_clear_history();
 	}
 }
