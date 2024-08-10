@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/10 19:03:52 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 19:30:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void			t_msh_init(t_msh *info, char **envp);
 void			print_header(void);
 void			clear_screen(void);
 int				is_input_empty(char *input);
+void			handle_shlvl_var(t_msh *info);
 /*---------------------------executor---------------------------*/
 void			exec_all_cmds(t_msh *info);
 /*---------------------------builtins---------------------------*/
