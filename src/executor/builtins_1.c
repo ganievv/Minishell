@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/10 19:03:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 20:38:19 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_pwd(char **args, char ***envp, t_msh *info)
 	if (!buff_ptr)
 	{
 		perror("msh: pwd: error getting current directory");
-		write(STDOUT_FILENO, "\n", 1);
 		return (1);
 	}
 	write(STDOUT_FILENO, buff, ft_strlen(buff));
@@ -58,7 +57,6 @@ int	ft_cd(char **args, char ***envp, t_msh *info)
 	if (dir && chdir(dir) == -1)
 	{
 		perror("msh: cd: error changing directory");
-		write(STDOUT_FILENO, "\n", 1);
 		return (1);
 	}
 	update_oldpwd_var(envp);
