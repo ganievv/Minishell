@@ -6,20 +6,18 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 20:57:20 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 16:21:52 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	prog_init(t_msh *info, char **envp, t_token **head)
+static void	prog_init(t_msh *info, char **envp)
 {
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
-	info->envp = copy_arr_str(envp);
+	t_msh_init(info, envp);
 	change_or_add_env_var("OLDPWD", &info->envp);
-	info->last_exit_status = 0;
-	*head = NULL;
 	clear_screen();
 	print_header();
 }
@@ -27,11 +25,10 @@ static void	prog_init(t_msh *info, char **envp, t_token **head)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_msh	info;
-	t_token	*head;
 
 	(void)argc;
 	(void)argv;
-	prog_init(&info, envp, &head);
+	prog_init(&info, envp);
 	while (1)
 	{
 		info.input = readline("\x1b[90mminishell$ \x1b[0m");
@@ -41,14 +38,14 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(info.input);
 		if (!is_input_empty(info.input))
 		{
-			tokenize(info.input, &head);
-			info.cmds = parse_pipeline(&head);
+			tokenize(info.input, &(info.tokens));
+			info.cmds = parse_pipeline(&(info.tokens));
 			expand_parsed_commands(info.last_exit_status, info.cmds, envp);
 			exec_all_cmds(&info);
-			pipe_group_free(&(info.cmds));
-			token_free(&head);
 		}
-		free(info.input);
+		free_all_prog_vars(&info);
 	}
+	free_arr_str(info.envp);
+	rl_clear_history();
 	return (0);
 }

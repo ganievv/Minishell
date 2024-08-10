@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:13:11 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 18:35:56 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 16:17:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	token_free(t_token **head)
 	t_token	*current;
 	t_token	*next_token;
 
+	if (!head || !*head)
+		return ;
 	current = (*head);
 	next_token = NULL;
 	while (current)
@@ -51,6 +53,7 @@ void	token_free(t_token **head)
 		free(current);
 		current = next_token;
 	}
+	*head = NULL;
 }
 
 void	print_tokens(t_token *head)

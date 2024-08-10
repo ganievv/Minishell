@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/09 22:07:10 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 16:21:44 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ struct s_msh
 	t_pipe_group	*cmds;
 	int				cmds_num;
 	char			**envp;
-	char			**envp_sort;
 	int				last_exit_status;
 	int				*pids;
 	int				**pipes;
@@ -111,6 +110,7 @@ struct s_msh
 };
 
 /*--------------------------utils_main--------------------------*/
+void			t_msh_init(t_msh *info, char **envp);
 void			print_header(void);
 void			clear_screen(void);
 int				is_input_empty(char *input);

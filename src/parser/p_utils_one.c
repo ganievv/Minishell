@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 15:34:54 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/10 16:16:26 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,29 @@ void	parse_redir(t_token **tokens, t_pipe_group *group)
 	*tokens = temp;
 }
 
+/* should we free here 'command', 'file_in', 'file_out' ?*/
 void	pipe_group_free(t_pipe_group **head)
 {
 	t_pipe_group	*current;
 	t_pipe_group	*next;
 	int				i;
 
-	current = *head;
+	if (!head || !*head)
+		return ;
 	i = 0;
+	current = *head;
 	while (current)
 	{
 		next = current->next;
 		i = -1;
-		while (current->args && current->args[++i])
-			free(current->args[i]);
-		if (current->args)
-			free(current->args);
+		free_arr_str(current->args);
+		free_arr_str(current->argv);
+		if (current->cmd_path)
+			free(current->cmd_path);
 		free(current);
 		current = next;
 	}
+	*head = NULL;
 }
 
 void	pipe_group_print(t_pipe_group *group)

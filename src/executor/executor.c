@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 22:07:52 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 15:41:15 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,7 @@ static void	process_one_cmd(t_msh *info)
 * 'info->cmds' linked list				 */
 void	exec_all_cmds(t_msh *info)
 {
-	init_builtin_names(info->builtin_names);
-	init_builtin_ptrs(info->builtin_ptrs);
 	info->cmds_num = count_cmds(info->cmds);
-	info->pids = NULL;
-	info->pipes = NULL;
 	if (info->cmds_num == 1)
 		process_one_cmd(info);
 	else

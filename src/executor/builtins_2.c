@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/07 19:58:58 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/10 16:01:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@
 *				  1 -> if one or more args were not valid */
 int	ft_export(char **args, char ***envp, t_msh *info)
 {
-	int	estatus;
+	int		estatus;
+	char	**sorted;
 
 	(void)info;
 	estatus = 0;
 	if (!args || !*args)
 	{
-		double_array_sort(*envp, count_args(*envp));
-		print_env_vars(*envp);
+		sorted = copy_arr_str(*envp);
+		double_array_sort(sorted, count_args(sorted));
+		print_env_vars(sorted);
+		free_arr_str(sorted);
 	}
 	else
 	{
