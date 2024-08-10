@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/10 15:41:15 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 16:57:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,13 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 *  redirection and executes a command there	  */
 static void	exec_one_cmd(t_msh *info)
 {
-	int	pid;
-
+	info->pids = (int *)malloc(sizeof(int) * info->cmds_num);
+	if (!info->pids)
+		return ;
 	info->cmds->cmd_path = search_cmd_path(info->cmds->command, info);
 	info->cmds->argv = args_to_argv(info->cmds->args, info->cmds->cmd_path);
-	pid = fork();
-	if (pid == 0)
+	info->pids[0] = fork();
+	if (info->pids[0] == 0)
 	{
 		make_files_redir(info->cmds);
 		execve(info->cmds->cmd_path, info->cmds->argv, info->envp);

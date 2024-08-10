@@ -6,11 +6,21 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:41:25 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/08 18:25:33 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 16:54:27 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	check_sig(int wstatus)
+{
+	if (WTERMSIG(wstatus) == SIGINT)
+		return (130);
+	else if (WTERMSIG(wstatus) == SIGQUIT)
+		return (131);
+	else
+		return (1);
+}
 
 /* this function waits for all commands to finish
 *  their execution; if it is the last command to
@@ -21,20 +31,21 @@ void	wait_for_processes(t_msh *info, int cmds_num)
 	int	i;
 	int	wstatus;
 	int	estatus;
+	int	child_pid;
 
 	i = -1;
 	while (++i < cmds_num)
 	{
-		if (i != cmds_num - 1)
-			wait(NULL);
-		else
+		child_pid = wait(&wstatus);
+		if (child_pid == info->pids[cmds_num - 1])
 		{
-			wait(&wstatus);
 			if (WIFEXITED(wstatus))
 			{
 				estatus = WEXITSTATUS(wstatus);
 				info->last_exit_status = estatus;
 			}
+			else if (WIFSIGNALED(wstatus))
+				info->last_exit_status = check_sig(wstatus);
 		}
 	}
 }
