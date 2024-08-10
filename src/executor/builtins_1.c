@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/10 20:38:19 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 23:43:10 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ int	ft_cd(char **args, char ***envp, t_msh *info)
 	}
 	else
 		dir = ft_strdup(args[0]);
-	if (dir && chdir(dir) == -1)
+	dir = check_special_cd_options(dir, *envp);
+	if (!dir || (chdir(dir) == -1))
 	{
-		perror("msh: cd: error changing directory");
+		write(STDERR_FILENO, "msh: cd: error changing directory\n", 34);
 		return (1);
 	}
 	update_oldpwd_var(envp);
