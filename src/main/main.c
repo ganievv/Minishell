@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/10 17:09:00 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 17:28:37 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char *argv[], char *envp[])
 	prog_init(&info, envp);
 	while (1)
 	{
-		info.input = readline("\x1b[90mminishell$ \x1b[0m");
+		info.input = readline(GRAY"minishell$ "RESET);
 		if (!info.input)
 			return (printf("exit\n"), 0);
 		if (ft_strlen(info.input) > 0)

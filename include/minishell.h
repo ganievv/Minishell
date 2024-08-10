@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/10 16:21:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 17:28:15 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@
 
 /*--------------------------exit_codes-------------------------*/
 # define CMD_NOT_FOUND 127
+# define SIGINT_ESTATUS 130
+
+/*----------------------------colors---------------------------*/
+#define GRAY "\x1b[90m"
+#define RESET "\x1b[0m"
 
 /*--------------------------token_types-------------------------*/
 typedef enum e_token_type

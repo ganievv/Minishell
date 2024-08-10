@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 18:41:25 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/10 16:54:27 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 17:24:37 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 static int	check_sig(int wstatus)
 {
 	if (WTERMSIG(wstatus) == SIGINT)
-		return (130);
-	else if (WTERMSIG(wstatus) == SIGQUIT)
-		return (131);
+		return (SIGINT_ESTATUS);
 	else
 		return (1);
 }
