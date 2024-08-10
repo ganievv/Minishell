@@ -185,22 +185,13 @@ In this section we'll evaluate PATH's rights management.
 
 Execute the following test:
 
-- Create a new folder /tmp/bin/ and add this folder to the PATH environment variable. Create a program named 'test_exec_rights' inside that folder that will just display 'KO'. Give this program the following rights 644 (meaning no execution rights). From another folder, run the following command "$> test_exec_rights". Check that the minishell refuses to run the program because of the missing execution rights.
+- Create a new folder /tmp/bin/ and add this folder to the PATH environment variable. Create a program named
+'test_exec_rights' inside that folder that will just display 'KO'. Give this program the following
+rights 644 (meaning no execution rights). From another folder, run the following
+command "$> test_exec_rights". Check that the minishell refuses to run the program because of
+the missing execution rights.
 
 If it fails, no points will be awarded for this section. Move to the next one.
-
-
---------------------------------------------------------------------------------------------------------------------------------
-
-Only if we have 2 and more builtins (e.g. pwd argc | exit) we should launch them in different processes (using fork()).
-
---------------------------------------------------------------------------------------------------------------------------------
-
-
-'cd' command:
-
-if you invoke 'cd' executable as a child process it will change directory only for the child and will not
-affect the parent process.
 
 --------------------------------------------------------------------------------------------------------------------------------
 
