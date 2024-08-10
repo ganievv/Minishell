@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:15:19 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/05 20:20:08 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 23:01:57 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,25 @@ static void	form_output_str(char *name, char *value)
 *  variables for the 'export' command*/
 void	print_env_vars(char **list)
 {
+	char	**sorted;
 	char	*name;
 	char	*value;
 	int		i;
 
 	i = -1;
-	while (list[++i])
+	sorted = copy_arr_str(list);
+	if (!sorted)
+		return ;
+	double_array_sort(sorted, count_args(sorted));
+	while (sorted[++i])
 	{
-		name = take_env_var_name(list[i]);
-		value = take_env_var_value(list[i]);
+		name = take_env_var_name(sorted[i]);
+		value = take_env_var_value(sorted[i]);
 		form_output_str(name, value);
 		if (name)
 			free(name);
 		if (value)
 			free(value);
 	}
+	free_arr_str(sorted);
 }

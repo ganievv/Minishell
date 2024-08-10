@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/10 16:01:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 23:06:57 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,20 @@
 *				  1 -> if one or more args were not valid */
 int	ft_export(char **args, char ***envp, t_msh *info)
 {
-	int		estatus;
-	char	**sorted;
+	int	estatus;
 
-	(void)info;
 	estatus = 0;
 	if (!args || !*args)
-	{
-		sorted = copy_arr_str(*envp);
-		double_array_sort(sorted, count_args(sorted));
-		print_env_vars(sorted);
-		free_arr_str(sorted);
-	}
+		print_env_vars(*envp);
 	else
 	{
 		while (*args)
 		{
 			if (is_export_arg_valid(*args))
-				change_or_add_env_var(*args, envp);
+			{
+				if (info->cmds_num == 1)
+					change_or_add_env_var(*args, envp);
+			}
 			else
 				estatus = 1;
 			args++;
@@ -48,12 +44,12 @@ int	ft_export(char **args, char ***envp, t_msh *info)
 
 int	ft_unset(char **args, char ***envp, t_msh *info)
 {
-	(void)info;
 	if (!args || !args[0])
 		return (0);
 	while (*args)
 	{
-		remove_env_var(*args, envp);
+		if (info->cmds_num == 1)
+			remove_env_var(*args, envp);
 		args++;
 	}
 	return (0);
