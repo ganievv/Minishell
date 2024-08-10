@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/07/30 14:17:16 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 19:03:41 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,14 @@ int	is_valid_exit_range(char *nbr)
 		return (0);
 	else
 		return (1);
+}
+
+void	cleanup_for_exit_builtin(t_msh *info)
+{
+	if (info->cmds_num == 1)
+	{
+		free_all_prog_vars(info);
+		free_arr_str(info->envp);
+		rl_clear_history();	
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 21:29:13 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/10 19:03:48 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 	{
 		write (STDERR_FILENO, "msh: exit: numeric argument required", 36);
 		write(STDOUT_FILENO, "\n", 1);
+		cleanup_for_exit_builtin(info);
 		exit(1);
 	}
 	if (args && (count_args(args) >= 2))
@@ -112,5 +113,6 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 		return (1);
 	}
 	n_nbr = ft_atoll(exit_arg);
+	cleanup_for_exit_builtin(info);
 	exit(n_nbr % 256);
 }
