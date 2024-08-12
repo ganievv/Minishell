@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 16:20:15 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 17:31:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int	handle_heredoc(char *end, int *p)
 {
 	char	*str;
-	char	new_line;
 
 	str = NULL;
 	if (pipe(p) == -1)
@@ -33,7 +32,6 @@ int	handle_heredoc(char *end, int *p)
 		free(str);
 	}
 	close(p[1]);
-	read(p[0], &new_line, 1);
 	if (str)
 		free(str);
 	return (1);
