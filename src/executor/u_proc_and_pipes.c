@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:52:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 17:55:12 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 22:24:06 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,15 @@ void	make_pipes_redir(t_msh *info, int cmd_index)
 	{
 		dup2(info->pipes[cmd_index - 1][0], STDIN_FILENO);
 		close(info->pipes[cmd_index - 1][0]);
+	}
+}
+
+void	close_heredoc_fds(t_pipe_group *cmds)
+{
+	while (cmds)
+	{
+		if (cmds->is_heredoc_in)
+			close(cmds->heredoc_p[0]);
+		cmds = cmds->next;
 	}
 }

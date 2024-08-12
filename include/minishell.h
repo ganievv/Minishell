@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 20:01:33 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 22:22:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ char			*take_env_var_name(char *var);
 /*-----------------------------pipes----------------------------*/
 int				pipes_create(t_msh *info, int cmds_num);
 void			make_pipes_redir(t_msh *info, int cmd_index);
+void			close_heredoc_fds(t_pipe_group *cmds);
 
 /*--------------------------files_redir-------------------------*/
 int				make_files_redir(t_pipe_group *cmd);
@@ -229,6 +230,7 @@ void			parse_command(t_token **tokens, t_pipe_group *group);
 /*--------------parser-utils-three------------*/
 int				handle_heredoc(char *end, int *p);
 void			create_file(char *file, int mode);
+void			close_read_end(t_pipe_group *cmd);
 /*---------------expander---------------------*/
 char			*expand_var(int l, char *input, char **envp);
 void			expand_parsed_commands(int l, t_pipe_group *group, char **envp);
