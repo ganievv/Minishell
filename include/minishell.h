@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 16:36:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 18:02:23 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ char			*search_cmd_path(char *cmd, t_msh *info);
 char			**args_to_argv(char **args, char *cmd_path);
 int				pipes_create(t_msh *info, int cmds_num);
 void			make_pipes_redir(t_msh *info, int cmd_index);
-void			make_files_redir(t_pipe_group *cmd);
+int				make_files_redir(t_pipe_group *cmd);
 void			wait_for_processes(t_msh *info, int cmds_num);
 void			change_last_exit_status(t_msh *info, int status);
 void			free_arr_str(char **arr);

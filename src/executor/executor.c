@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/10 16:57:03 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 18:16:41 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int	exec_multiple_cmds(int i, t_msh *info,
 	if (info->pids[i] == 0)
 	{
 		make_pipes_redir(info, i);
-		make_files_redir(cmd);
+		if (!make_files_redir(cmd))
+			exit(1);
 		cmd_ptr_i = is_cmd_builtin(cmd->command, info);
 		if (cmd_ptr_i >= 0)
 			exit((info->builtin_ptrs[cmd_ptr_i])(cmd->args, &envp, info));
@@ -82,7 +83,8 @@ static void	exec_one_cmd(t_msh *info)
 	info->pids[0] = fork();
 	if (info->pids[0] == 0)
 	{
-		make_files_redir(info->cmds);
+		if (!make_files_redir(info->cmds))
+			exit(1);
 		execve(info->cmds->cmd_path, info->cmds->argv, info->envp);
 		print_cmd_not_found(info->cmds->cmd_path);
 		exit(CMD_NOT_FOUND);
@@ -102,7 +104,11 @@ static void	process_one_cmd(t_msh *info)
 	if (index >= 0)
 	{
 		fds = save_io_fds(info->cmds);
-		make_files_redir(info->cmds);
+		if (!make_files_redir(info->cmds))
+		{
+			info->last_exit_status = 1;
+			return ;
+		}
 		info->last_exit_status = (info->builtin_ptrs[index])
 			(info->cmds->args, &(info->envp), info);
 		restore_io_fds(fds, info->cmds);
