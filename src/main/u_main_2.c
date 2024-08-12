@@ -6,11 +6,23 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:24:23 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/10 20:25:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 20:04:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	free_all_prog_vars(t_msh *info)
+{
+	pipe_group_free(&(info->cmds));
+	token_free(&(info->tokens));
+	if (info->input)
+	{
+		free(info->input);
+		info->input = NULL;
+	}
+	free_pids_and_pipes(info);
+}
 
 static void	add_to_shlvl(t_msh *info, int var_i)
 {

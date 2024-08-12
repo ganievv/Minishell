@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 19:38:12 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 20:01:33 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,11 @@ void			print_header(void);
 void			clear_screen(void);
 int				is_input_empty(char *input);
 void			handle_shlvl_var(t_msh *info);
-/*---------------------------executor---------------------------*/
-void			exec_all_cmds(t_msh *info);
+void			init_builtin_names(char **builtin_names);
+void			init_builtin_ptrs(int (**builtin_ptrs)(char **,
+						char ***, t_msh *));
+char			**copy_arr_str(char **src);
+
 /*---------------------------builtins---------------------------*/
 int				ft_pwd(char **args, char ***envp, t_msh *info);
 int				ft_cd(char **args, char ***envp, t_msh *info);
@@ -131,48 +134,65 @@ int				ft_export(char **args, char ***envp, t_msh *info);
 int				ft_unset(char **args, char ***envp, t_msh *info);
 int				ft_env(char **args, char ***envp, t_msh *info);
 /*--------------------------utils_exec--------------------------*/
-void			double_array_sort(char **array, int size);
+
+/*---------------------------executor---------------------------*/
+void			exec_all_cmds(t_msh *info);
 int				count_args(char **args);
-int				is_nbr(char *arg);
-int				is_valid_exit_range(char *nbr);
-long long		ft_atoll(char *str);
 int				count_cmds(t_pipe_group *cmds);
-void			init_builtin_names(char **builtin_names);
-void			init_builtin_ptrs(int (**builtin_ptrs)(char **,
-						char ***, t_msh *));
-int				is_export_arg_valid(char *arg);
-char			**copy_arr_str(char **src);
-int				search_env_var(char *var_to_find, char **envp);
 int				is_cmd_builtin(char *cmd, t_msh *info);
 char			*search_exec_dir(char *file, char *path_env_v);
 char			*search_cmd_path(char *cmd, t_msh *info);
 char			**args_to_argv(char **args, char *cmd_path);
-int				pipes_create(t_msh *info, int cmds_num);
-void			make_pipes_redir(t_msh *info, int cmd_index);
-int				make_files_redir(t_pipe_group *cmd);
 void			wait_for_processes(t_msh *info, int cmds_num);
-void			change_last_exit_status(t_msh *info, int status);
+void			close_all_pipes(int **pipes, int len);
+char			*str_to_lower_case(const char *cmd);
+char			*make_absolute_path(char *dir, char *file);
+void			print_cmd_not_found(char *cmd);
+
+/*---------------------------cleanup----------------------------*/
 void			free_arr_str(char **arr);
 void			free_arr_int(int **arr, int num);
 void			free_pids_and_pipes(t_msh *info);
 void			free_all_prog_vars(t_msh *info);
-void			print_env_vars(char **list);
-void			change_or_add_env_var(char *var, char ***envp);
-void			remove_env_var(char *var, char ***envp);
-void			update_pwd_var(char ***envp);
+
+/*---------------------------env_vars---------------------------*/
+int				search_env_var(char *var_to_find, char **envp);
 char			*take_env_var_value(char *var);
 char			*take_env_var_name(char *var);
-void			close_all_pipes(int **pipes, int len);
-char			*str_to_lower_case(const char *cmd);
-char			*make_absolute_path(char *dir, char *file);
+
+/*-----------------------------pipes----------------------------*/
+int				pipes_create(t_msh *info, int cmds_num);
+void			make_pipes_redir(t_msh *info, int cmd_index);
+
+/*--------------------------files_redir-------------------------*/
+int				make_files_redir(t_pipe_group *cmd);
 int				*save_io_fds(t_pipe_group *cmd);
 void			restore_io_fds(int *fds, t_pipe_group *cmd);
-bool			check_cmd_flag(char flag, char ***args);
-void			update_oldpwd_var(char ***envp);
-void			print_cmd_not_found(char *cmd);
+
+/*-----------------------------exit-----------------------------*/
+int				is_nbr(char *arg);
+int				is_valid_exit_range(char *nbr);
+long long		ft_atoll(char *str);
 void			cleanup_for_exit_builtin(t_msh *info);
+
+/*----------------------------export----------------------------*/
+void			double_array_sort(char **array, int size);
+int				is_export_arg_valid(char *arg);
+void			print_env_vars(char **list);
+void			change_or_add_env_var(char *var, char ***envp);
+
+/*-----------------------------unset----------------------------*/
+void			remove_env_var(char *var, char ***envp);
+
+/*------------------------------cd------------------------------*/
+void			update_pwd_var(char ***envp);
+void			update_oldpwd_var(char ***envp);
 int				check_special_cd_options(char **dir, char **envp);
 void			print_err_for_cd(char *dir);
+
+/*-----------------------------echo-----------------------------*/
+bool			check_cmd_flag(char flag, char ***args);
+
 /*----------------lexer---------------------*/
 void			token_h_sep(char *input, t_token **head, t_h_token *var);
 void			token_h_quote(char *input, t_token **head, t_h_token *var);

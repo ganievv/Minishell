@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 21:24:03 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/10 16:19:05 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 19:48:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ void	free_pids_and_pipes(t_msh *info)
 	info->pipes = NULL;
 	info->pids = NULL;
 }
-
-/* should we free here tokens_list ?*/
-//void	free_all_prog_vars(t_msh *info)
-//{
-//	free_cmds_list();
-//	free_env_vars_list();
-//}
 
 /* this function frees an array of strings */
 void	free_arr_str(char **arr)
