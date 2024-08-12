@@ -6,15 +6,13 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 15:27:49 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 15:35:32 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // handle env vars expansion
-// write(p[1], "\n", 1) ?
-// close p[1] ?
 void	handle_heredoc(char *end, int *p)
 {
 	char	*str;
@@ -30,6 +28,7 @@ void	handle_heredoc(char *end, int *p)
 		if (ft_strcmp(str, end) == 0)
 			break ;
 		write(p[1], str, ft_strlen(str));
+		write(p[1], "\n", 1);
 		free(str);
 	}
 	close(p[1]);
