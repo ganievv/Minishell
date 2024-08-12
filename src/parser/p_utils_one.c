@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/12 16:18:46 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 16:31:59 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,16 @@ static void	parse_redir_h_two(t_token_type type,
 	}
 	else
 	{
+		if (type == DELIMITER)
+		{
+			handle_heredoc(file, (*group)->heredoc_p);
+			(*group)->is_heredoc_in = true;
+			return ;
+		}
 		(*group)->file_in = file;
 		(*group)->redir_in = STDIN_FILENO;
 		(*group)->mode_in = O_RDONLY;
+		(*group)->is_heredoc_in = false;
 	}
 }
 
