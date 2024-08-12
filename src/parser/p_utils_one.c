@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/12 22:20:40 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/13 00:41:28 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,13 @@ void	pipe_group_print(t_pipe_group *group)
 {
 	int	i;
 
-	printf("Command: %s\n", group->command);
-	printf("Arguments:\n");
-	i = -1;
-	while (group->args && group->args[++i])
-		printf("  [%d]: %s\n", i, group->args[i]);
+	while (group)
+	{
+		printf("Command: %s\n", group->command);
+		printf("Arguments:\n");
+		i = -1;
+		while (group->args && group->args[++i])
+			printf("  [%d]: %s\n", i, group->args[i]);
+		group = group->next;
+	}
 }

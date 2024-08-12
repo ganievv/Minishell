@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/09 18:34:01 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/13 00:50:43 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	token_h_quote(char *input, t_token **head, t_h_token *var)
 void	token_h_word(char *input, t_token **head, t_h_token *var)
 {
 	while (input[var->i] && !ft_isspace(input[var->i])
-		&& !is_seperator(input[var->i]))
+		&& !is_seperator(input[var->i])
+		&& !is_quote(input[var->i]) && input[var->i] != '|')
 		(var->i)++;
 	var->len = var->i - var->start;
 	token_lstadd(head, token_create(input + (var->start), var->len,
@@ -87,7 +88,9 @@ void	tokenize(char *input, t_token **head)
 		if (input[var.i] == '\0')
 			return ;
 		var.start = var.i;
-		if (is_seperator(input[var.i]))
+		if (token_is_command(*head))
+			tokenize_command(input, head, &var);
+		else if (is_seperator(input[var.i]))
 			token_h_sep(input, head, &var);
 		else if (is_quote(input[var.i]))
 			token_h_quote(input, head, &var);

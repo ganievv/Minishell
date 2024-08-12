@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/03 20:02:03 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/13 00:42:16 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,18 @@ void	parse_command(t_token **tokens, t_pipe_group *group)
 	if (p_command_h_one(*tokens))
 	{
 		group->command = token_content_extract(*tokens);
+		ft_strfltr(&(group->command), "\"\'");
 		*tokens = (*tokens)->next;
 	}
 	while (p_command_h_one(*tokens))
 	{
+		if ((*tokens)
+			&& ((*tokens)->type == 8 || (*tokens)->type == 7)
+			&& (*tokens)->len == 2)
+		{
+			(*tokens) = (*tokens)->next;
+			continue ;
+		}
 		args = ft_realloc(args, sizeof(char *) * (arg_count),
 				sizeof(char *) * (arg_count + 2));
 		if (!args)

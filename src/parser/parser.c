@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:28:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 20:14:13 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/13 00:43:26 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_pipe_group	*parse_pipeline(t_token **tokens)
 			current->next = group;
 			current = current->next;
 		}
-		if (*tokens && (*tokens)->type == PIPE)
+		if (*tokens && (*tokens)->type == 2)
 			*tokens = (*tokens)->next;
 	}
 	return (head);

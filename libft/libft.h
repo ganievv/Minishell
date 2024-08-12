@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:45:35 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/04 21:09:05 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/12 18:04:40 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ size_t		ft_strlen(const char *str);
 char		**ft_split(char const *s, char c);
 void		ft_free(char **s, int last);
 void		*ft_realloc(void *ptr, size_t old_size, size_t new_size);
+void		ft_strfltr(char **src, char *char_set);
 //----------------------MEMORY-----------------------------------
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
 void		*ft_memchr(const void *str, int b_value, size_t n);
