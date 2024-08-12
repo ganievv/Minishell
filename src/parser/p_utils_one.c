@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/12 16:36:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 17:07:06 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,13 @@ void	pipe_group_free(t_pipe_group **head)
 {
 	t_pipe_group	*current;
 	t_pipe_group	*next;
-	int				i;
 
 	if (!head || !*head)
 		return ;
-	i = 0;
 	current = *head;
 	while (current)
 	{
 		next = current->next;
-		i = -1;
 		free_arr_str(current->args);
 		free_arr_str(current->argv);
 		if (current->cmd_path)

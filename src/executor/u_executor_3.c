@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 19:49:23 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/09 22:06:51 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 17:05:42 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	*save_io_fds(t_pipe_group *cmd)
 	fds = (int *)malloc(sizeof(int) * 2);
 	if (!fds)
 		return (NULL);
-	if (cmd->file_in)
+	if (cmd->file_in || cmd->is_heredoc_in)
 		fds[0] = dup(cmd->redir_in);
 	if (cmd->file_out)
 		fds[1] = dup(cmd->redir_out);
@@ -42,7 +42,7 @@ void	restore_io_fds(int *fds, t_pipe_group *cmd)
 {
 	if (!fds)
 		return ;
-	if (cmd->file_in)
+	if (cmd->file_in || cmd->is_heredoc_in)
 	{
 		dup2(fds[0], cmd->redir_in);
 		close(fds[0]);
