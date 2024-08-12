@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 20:06:01 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 18:20:15 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 19:40:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	update_oldpwd_var(char ***envp)
 	}
 }
 
-static char	*search_oldpwd_or_home(char *to_search, char **envp)
+static char	*search_oldpwd(char *to_search, char **envp)
 {
 	char	*dir;
 	int		index;
@@ -72,12 +72,27 @@ static char	*search_oldpwd_or_home(char *to_search, char **envp)
 	return (dir);
 }
 
-char	*check_special_cd_options(char *dir, char **envp)
+int	check_special_cd_options(char **dir, char **envp)
 {
-	if (ft_strcmp("-", dir) == 0)
-		return (search_oldpwd_or_home("OLDPWD", envp));
-	else if (ft_strcmp("~", dir) == 0)
-		return (search_oldpwd_or_home("HOME", envp));
-	else
-		return (dir);
+	char	*new_dir;
+
+	if (!dir || !*dir)
+		return (0);
+	if (ft_strcmp("-", *dir) == 0)
+	{
+		new_dir = search_oldpwd("OLDPWD", envp);
+		if (!new_dir)
+			return (write(STDERR_FILENO, "cd: OLDPWD not set\n", 19), 0);
+		free(*dir);
+		*dir = new_dir;
+	}
+	return (1);
+}
+
+void	print_err_for_cd(char *dir)
+{
+	write(STDERR_FILENO, "msh: cd: ", 9);
+	write(STDERR_FILENO, dir, ft_strlen(dir));
+	write(STDERR_FILENO, ": ", 2);
+	perror("");
 }

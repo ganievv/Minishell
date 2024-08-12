@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/10 23:43:10 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 19:38:18 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,15 @@ int	ft_cd(char **args, char ***envp, t_msh *info)
 	{
 		home_i = search_env_var("HOME", *envp);
 		if (home_i == -1)
-			return (1);
-		else
-			dir = take_env_var_value((*envp)[home_i]);
+			return (write(STDERR_FILENO, "cd: HOME not set\n", 17), 1);
+		dir = take_env_var_value((*envp)[home_i]);
 	}
 	else
 		dir = ft_strdup(args[0]);
-	dir = check_special_cd_options(dir, *envp);
-	if (!dir || (chdir(dir) == -1))
-	{
-		write(STDERR_FILENO, "msh: cd: error changing directory\n", 34);
+	if (!check_special_cd_options(&dir, *envp))
 		return (1);
-	}
+	if (dir[0] != '\0' && (chdir(dir) == -1))
+		return (print_err_for_cd(dir), 1);
 	update_oldpwd_var(envp);
 	update_pwd_var(envp);
 	return (free(dir), 0);

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 18:02:23 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 19:38:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,8 @@ bool			check_cmd_flag(char flag, char ***args);
 void			update_oldpwd_var(char ***envp);
 void			print_cmd_not_found(char *cmd);
 void			cleanup_for_exit_builtin(t_msh *info);
-char			*check_special_cd_options(char *dir, char **envp);
+int				check_special_cd_options(char **dir, char **envp);
+void			print_err_for_cd(char *dir);
 /*----------------lexer---------------------*/
 void			token_h_sep(char *input, t_token **head, t_h_token *var);
 void			token_h_quote(char *input, t_token **head, t_h_token *var);
