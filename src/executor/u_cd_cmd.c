@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 20:06:01 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/10 23:37:39 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 18:20:15 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char	*search_oldpwd_or_home(char *to_search, char **envp)
 	index = search_env_var(to_search, envp);
 	if (index != -1)
 		dir = take_env_var_value(envp[index]);
-	return (dir);		
+	return (dir);
 }
 
 char	*check_special_cd_options(char *dir, char **envp)
