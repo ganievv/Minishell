@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:13:11 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/09 18:23:12 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 16:36:32 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ t_token_type	token_type(char *str, int len)
 	if (len == 2 && (ft_strncmp(str, ">>", 2) == 0))
 		return (APPEND_DELIMITER);
 	if (len == 2 && (ft_strncmp(str, "<<", 2) == 0))
-		return (DELIMITER);
+		return (HEREDOC);
 	return (WORD);
 }
