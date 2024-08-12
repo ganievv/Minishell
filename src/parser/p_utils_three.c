@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 15:35:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 15:51:21 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	handle_heredoc(char *end, int *p)
 		return ;
 	while (true)
 	{
-		str = readline("\x1b[90m> \x1b[0m");
+		str = readline(GRAY"> "RESET);
 		if (!str)
 			break ;
 		if (ft_strcmp(str, end) == 0)
