@@ -6,43 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 20:52:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/09 19:41:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 17:55:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static void	redir_heredoc(int *p)
-{
-	dup2(p[0], STDIN_FILENO);
-	close(p[0]);
-}
-
-/* this function handles redirections for an input
-*  file and an output file, if they exist		*/
-void	make_files_redir(t_pipe_group *cmd)
-{
-	int	fd;
-
-	if (cmd->is_heredoc_in)
-		redir_heredoc(cmd->heredoc_p);
-	else if (cmd->file_in)
-	{
-		fd = open(cmd->file_in, cmd->mode_in);
-		if (fd == -1)
-			return ;
-		dup2(fd, cmd->redir_in);
-		close(fd);
-	}
-	if (cmd->file_out)
-	{
-		fd = open(cmd->file_out, cmd->mode_out, 0666);
-		if (fd == -1)
-			return ;
-		dup2(fd, cmd->redir_out);
-		close(fd);
-	}
-}
 
 /* this function closes all unused pipes for the command with
 *  the specified 'cmd_index'; it ensures that only the pipes
