@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/10 20:23:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 15:27:49 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ void	handle_heredoc(char *end, int *p)
 		write(p[1], str, ft_strlen(str));
 		free(str);
 	}
+	close(p[1]);
 	if (str)
 		free(str);
+}
+
+void	create_file(char *file, int mode)
+{
+	int	fd;
+
+	fd = open(file, mode, 0666);
+	if (fd == -1)
+		return ;
+	close(fd);
 }
