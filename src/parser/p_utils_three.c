@@ -6,21 +6,21 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 16:09:45 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 16:15:09 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // handle env vars expansion
-void	handle_heredoc(char *end, int *p)
+int	handle_heredoc(char *end, int *p)
 {
 	char	*str;
 	char	new_line;
 
 	str = NULL;
 	if (pipe(p) == -1)
-		return ;
+		return (0);
 	while (true)
 	{
 		str = readline(GRAY"> "RESET);
@@ -36,6 +36,7 @@ void	handle_heredoc(char *end, int *p)
 	read(p[0], new_line, 1);
 	if (str)
 		free(str);
+	return (1);
 }
 
 void	create_file(char *file, int mode)

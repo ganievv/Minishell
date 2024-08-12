@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/10 16:16:26 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/12 16:18:46 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	parse_redir_h_two(t_token_type type,
 		(*group)->mode_out = O_CREAT | O_WRONLY
 			| (type == 6) * O_APPEND
 			| (type == 3) * O_TRUNC;
+		create_file((*group)->file_out, (*group)->mode_out);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/10 20:26:59 by sganiev          ###   ########.fr        #
+#    Updated: 2024/08/12 16:16:47 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC = src/main/main.c src/main/u_main_1.c src/main/u_main_2.c \
 	src/main/header.c src/signals/signals.c src/parser/parser.c \
 	src/lexer/l_utils_one.c src/lexer/l_utils_two.c \
 	src/lexer/l_utils_three.c src/lexer/l_utils_four.c\
-	src/lexer/lexer.c src/parser/p_utils_one.c src/parser/p_utils_two.c \
+	src/lexer/lexer.c src/parser/p_utils_one.c \
+	src/parser/p_utils_two.c src/parser/p_utils_three.c \
 	src/executor/builtins_1.c src/executor/builtins_2.c \
 	src/executor/u_builtins_two.c \
 	src/executor/executor.c src/executor/u_cleanup.c \
