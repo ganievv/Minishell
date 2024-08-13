@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 20:53:07 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/05 15:22:00 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/13 16:15:14 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	cmp_env_vars_names(char *var, char *data)
 	int	i;
 
 	i = 0;
-	while (var[i] && (var[i] != '='))
+	while (data[i] && (data[i] != '='))
 		i++;
 	return (ft_strncmp(var, data, i));
 }

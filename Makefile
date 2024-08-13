@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
+#    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/13 00:49:10 by tnakas           ###   ########.fr        #
+#    Updated: 2024/08/13 15:58:56 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
+CFLAGS = -g -Wall -Wextra -Werror -I. -I$(LIBFT_DIR)
 LIBFT_DIR = libft
 
 SRC = src/main/main.c src/main/u_main_1.c src/main/u_main_2.c \
