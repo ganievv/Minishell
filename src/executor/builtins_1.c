@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/12 19:38:18 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/13 16:49:34 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,13 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 		exit_arg = args[0];
 	if (!is_nbr(exit_arg) || !is_valid_exit_range(exit_arg))
 	{
-		write (STDERR_FILENO, "msh: exit: numeric argument required", 36);
-		write(STDOUT_FILENO, "\n", 1);
+		write (STDERR_FILENO, "msh: exit: numeric argument required\n", 37);
 		cleanup_for_exit_builtin(info);
 		exit(1);
 	}
 	if (args && (count_args(args) >= 2))
 	{
-		write (STDERR_FILENO, "msh: exit: too many arguments", 29);
-		write(STDOUT_FILENO, "\n", 1);
+		write (STDERR_FILENO, "msh: exit: too many arguments\n", 30);
 		return (1);
 	}
 	n_nbr = ft_atoll(exit_arg);
