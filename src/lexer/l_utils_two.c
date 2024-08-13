@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:37:12 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/04 21:35:56 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/13 21:10:38 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ t_token	*token_create(char *start, int len, t_token_type type)
 	return (new_token);
 }
 
-char	*token_content_extract(t_token *token)
+char	*token_content_extract(t_token *token, int current_len)
 {
 	char	*res;
 
-	res = ft_strndup(token->token_start, token->len);
+	res = ft_strndup(token->token_start, current_len);
 	if (!res)
 		return (NULL);
 	return (res);

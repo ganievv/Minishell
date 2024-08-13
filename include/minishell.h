@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/13 00:48:41 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/13 21:30:41 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,10 +195,6 @@ void			print_err_for_cd(char *dir);
 bool			check_cmd_flag(char flag, char ***args);
 
 /*----------------lexer---------------------*/
-void			token_h_sep(char *input, t_token **head, t_h_token *var);
-void			token_h_quote(char *input, t_token **head, t_h_token *var);
-void			token_h_word(char *input, t_token **head, t_h_token *var);
-void			token_h_variable(char *input, t_token **head, t_h_token *var);
 void			tokenize(char *input, t_token **head);
 /*------------lexer-utils-one---------------*/
 int				is_seperator(char c);
@@ -206,7 +202,7 @@ int				is_quote(char c);
 t_token_type	token_type(char *str, int len);
 /*------------lexer-utils-two---------------*/
 t_token			*token_create(char *start, int len, t_token_type type);
-char			*token_content_extract(t_token *token);
+char			*token_content_extract(t_token *token, int current_len);
 void			token_lstadd(t_token **head, t_token *new_token);
 /*-------------lexer-utils-three--------------*/
 void			pipe_error_start(char *input);
@@ -220,6 +216,12 @@ int				is_word_sq_dq(char c);
 int				token_is_command(t_token *head);
 int				is_q_terminated(char *str, int start, int end);
 void			tokenize_command(char *input, t_token **head, t_h_token	*var);
+/*----------------lexer-utils-six---------------------*/
+void			token_h_sep(char *input, t_token **head, t_h_token *var);
+void			token_h_quote(char *input, t_token **head, t_h_token *var);
+void			token_h_word(char *input, t_token **head, t_h_token *var);
+void			token_h_variable(char *input, t_token **head, t_h_token *var);
+void			token_h_isspace(char *input, t_token **head, t_h_token *var);
 /*----------------parser----------------------*/
 t_pipe_group	*pipe_group_init(void);
 void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);

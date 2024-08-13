@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/13 15:22:55 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/13 21:12:24 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static int	parse_redir_h_one(t_token *tokens)
 			|| tokens->type == HEREDOC));
 }
 
-/* you should free old '(*group)->file_out' and old
-*  '(*group)->file_in' if they are not NULL */
 static void	parse_redir_h_two(t_token_type type,
 			t_pipe_group **group, char *file)
 {
@@ -36,15 +34,15 @@ static void	parse_redir_h_two(t_token_type type,
 	}
 	else
 	{
-		(*group)->file_in = file;
-		(*group)->redir_in = STDIN_FILENO;
-		(*group)->mode_in = O_RDONLY;
 		if (type == HEREDOC)
 		{
-			if (handle_heredoc((*group)->file_in, (*group)->heredoc_p))
+			if (handle_heredoc(file, (*group)->heredoc_p))
 				(*group)->is_heredoc_in = true;
 			return ;
 		}
+		(*group)->file_in = file;
+		(*group)->redir_in = STDIN_FILENO;
+		(*group)->mode_in = O_RDONLY;
 		close_read_end(*group);
 	}
 }
@@ -64,7 +62,7 @@ void	parse_redir(t_token **tokens, t_pipe_group *group)
 		temp = temp->next;
 		if (temp && temp->type == WORD)
 		{
-			file = token_content_extract(temp);
+			file = token_content_extract(temp, temp->len);
 			if (!file)
 				return ;
 			parse_redir_h_two(type, &group, file);

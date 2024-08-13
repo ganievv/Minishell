@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l_utils_five.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 20:20:35 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/13 15:40:41 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/13 21:27:52 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	tokenize_command(char *input, t_token **head, t_h_token	*var)
 	var->start = var->i;
 	while (input[var->i] && !is_word_sq_dq(input[var->i]))
 		(var->i++);
-	//printf("%d\n", var->i);
 	if (!is_q_terminated(input, var->start, var->i))
 	{
 		ft_putstr_fd("Syntax Error: Unterminated quotes\n", 2);

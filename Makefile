@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/13 15:58:56 by sganiev          ###   ########.fr        #
+#    Updated: 2024/08/13 21:31:00 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC = src/main/main.c src/main/u_main_1.c src/main/u_main_2.c \
 	src/main/header.c src/signals/signals.c src/parser/parser.c \
 	src/lexer/l_utils_one.c src/lexer/l_utils_two.c \
 	src/lexer/l_utils_three.c src/lexer/l_utils_four.c\
-	src/lexer/l_utils_five.c\
+	src/lexer/l_utils_five.c src/lexer/l_utils_six.c\
 	src/lexer/lexer.c src/parser/p_utils_one.c \
 	src/parser/p_utils_two.c src/parser/p_utils_three.c \
 	src/executor/builtins_1.c src/executor/builtins_2.c \
