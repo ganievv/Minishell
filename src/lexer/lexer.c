@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/13 21:24:44 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/13 21:49:33 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	tokenize(char *input, t_token **head)
 		var.start = var.i;
 		if (input[var.start] && ft_isspace(input[var.start]))
 			token_h_isspace(input, head, &var);
-		else if (token_is_command(*head))
-			tokenize_command(input, head, &var);
 		else if (is_seperator(input[var.i]))
 			token_h_sep(input, head, &var);
 		else if (is_quote(input[var.i]))

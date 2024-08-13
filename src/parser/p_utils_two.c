@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/13 21:13:20 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/13 21:55:19 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	parse_command(t_token **tokens, t_pipe_group *group)
 		temp = current->next;
 		while (temp && (temp->type != 1))
 		{
-			current->len += temp->len;
+			current_len += temp->len;
 			temp = temp->next;
 		}
 		group->command = token_content_extract(current, current_len);

@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/13 21:32:23 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 01:16:30 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ int				is_quote(char c);
 t_token_type	token_type(char *str, int len);
 /*------------lexer-utils-two---------------*/
 t_token			*token_create(char *start, int len, t_token_type type);
+t_token			*token_create_preexp(char *start, int len, t_token_type type);
 char			*token_content_extract(t_token *token, int current_len);
 void			token_lstadd(t_token **head, t_token *new_token);
 /*-------------lexer-utils-three--------------*/
@@ -222,6 +223,14 @@ void			token_h_quote(char *input, t_token **head, t_h_token *var);
 void			token_h_word(char *input, t_token **head, t_h_token *var);
 void			token_h_variable(char *input, t_token **head, t_h_token *var);
 void			token_h_isspace(char *input, t_token **head, t_h_token *var);
+/*---------------lexer-utils-seven--------------------*/
+void			token_to_token_preexp(t_token *src, t_token **dest);
+void			token_preexp_free(t_token **dest);
+void			token_preexp_to_trimed(t_token **dest);
+void			token_preexp_to_token_exp(int l, t_token **dest,
+					char **envp);
+void			token_ready_for_parsing(int l, t_token *src,
+					t_token **dest, char **envp);
 /*----------------parser----------------------*/
 t_pipe_group	*pipe_group_init(void);
 void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);

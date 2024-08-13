@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/13 15:40:33 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/14 01:14:41 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ static void	prog_init(t_msh *info, char **envp)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_msh	info;
+	t_token	*ready;
 
 	(void)argc;
 	(void)argv;
+	ready = NULL;
 	prog_init(&info, envp);
 	while (1)
 	{
@@ -40,8 +42,10 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!is_input_empty(info.input))
 		{
 			tokenize(info.input, &(info.tokens));
-			info.cmds = parse_pipeline(&(info.tokens));
-			//pipe_group_print(info.cmds);
+			token_ready_for_parsing(info.last_exit_status, info.tokens,
+				&ready, envp);
+			info.cmds = parse_pipeline(&(ready));
+			pipe_group_print(info.cmds);
 			expand_parsed_commands(info.last_exit_status, info.cmds, envp);
 			exec_all_cmds(&info);
 		}

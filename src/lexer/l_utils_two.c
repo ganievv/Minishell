@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:37:12 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/13 21:10:38 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/13 22:03:58 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ t_token	*token_create(char *start, int len, t_token_type type)
 	if (!new_token)
 		return (NULL);
 	new_token->token_start = start;
+	new_token->len = len;
+	new_token->type = type;
+	new_token->next = NULL;
+	return (new_token);
+}
+
+t_token	*token_create_preexp(char *start, int len, t_token_type type)
+{
+	t_token	*new_token;
+
+	new_token = (t_token *)malloc(sizeof(t_token));
+	if (!new_token)
+		return (NULL);
+	new_token->token_start = ft_strndup(start, len);
 	new_token->len = len;
 	new_token->type = type;
 	new_token->next = NULL;
