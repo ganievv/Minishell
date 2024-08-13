@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 15:21:19 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/09 18:20:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/13 15:42:18 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	is_correct_flag(char flag, char *arg)
 		return (false);
 	if (arg[i++] != flag)
 		return (false);
-	while (arg[i] && (arg[i] != ' '))
+	while (arg[i])
 	{
 		if (arg[i++] != flag)
 			return (false);
