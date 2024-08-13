@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/13 21:30:41 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/13 21:32:23 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 typedef enum e_token_type
 {
 	WORD,
-	SEP,
+	SPC,
 	PIPE,
 	REDIR_OUT,
 	REDIR_IN,
