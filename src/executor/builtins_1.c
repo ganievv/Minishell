@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/13 18:07:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/13 18:31:01 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,7 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 	}
 	n_nbr = ft_atoll(exit_arg);
 	cleanup_for_exit_builtin(info);
+	if (info->cmds_num == 1)
+		write(STDOUT_FILENO, "exit\n", 5);
 	exit(n_nbr % 256);
 }
