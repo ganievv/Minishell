@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 02:53:03 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 03:12:03 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	parse_command(t_token **tokens, t_pipe_group *group)
 		}
 		group->command = temp_str;
 	}
-	while (temp && ((temp)->type == 1))
-		(temp) = (temp)->next;
-	while (p_command_h_one(temp))
+	while (p_command_h_one(temp) || (temp && temp->type == 1))
 	{
+		while (temp && ((temp)->type == 1))
+			(temp) = (temp)->next;
 		if ((temp)
 			&& ((temp)->type == 8 || (temp)->type == 7)
 			&& (temp)->len == 2)
