@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 03:12:03 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 14:13:00 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	parse_command(t_token **tokens, t_pipe_group *group)
 		while (temp && (temp->type != 1))
 		{
 			temp_join = ft_strjoin(temp_str, temp->token_start);
+			if (!temp_join)
+				exit (1);
 			free(temp_str);
 			temp_str = temp_join;
 			temp = temp->next;
@@ -76,6 +78,8 @@ void	parse_command(t_token **tokens, t_pipe_group *group)
 		while (temp && (temp->type != 1))
 		{
 			temp_join = ft_strjoin(temp_str, temp->token_start);
+			if (!temp_join)
+				exit (1);
 			free(temp_str);
 			temp_str = temp_join;
 			temp = temp->next;

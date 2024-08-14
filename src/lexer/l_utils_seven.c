@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 22:05:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 01:18:51 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 14:10:05 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	token_preexp_to_trimed(t_token **dest)
 			else
 				temp_str = ft_strdup("\0");
 			if (!temp_str)
+			{
 				token_preexp_free(dest);
+				return ;
+			}
 			free(temp->token_start);
 			temp->token_start = temp_str;
 		}
