@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 22:05:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 14:10:05 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 16:53:09 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 	while (temp)
 	{
 		if (temp->type == EXP_FIELD
-			|| (temp->type == D_QUOTED && ft_strchr(temp->token_start, '$')))
+			|| ((temp->type == D_QUOTED) && ft_strchr(temp->token_start, '$')))
 		{
 			if (temp->type == EXP_FIELD)
 				temp_str = expand_var(l, temp->token_start, envp);

@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 18:45:59 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 12:48:59 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 16:52:52 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	token_h_word(char *input, t_token **head, t_h_token *var)
 {
 	while (input[var->i] && !ft_isspace(input[var->i])
 		&& !is_seperator(input[var->i])
-		&& !is_quote(input[var->i]) && input[var->i] != '|')
+		&& !is_quote(input[var->i])
+		&& input[var->i] != '|' && input[var->i] != '$')
 		(var->i)++;
 	var->len = var->i - var->start;
 	token_lstadd(head, token_create(input + (var->start), var->len,
