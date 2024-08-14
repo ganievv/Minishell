@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 16:17:36 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 18:35:43 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		ready = NULL;
-		info.input = readline(GRAY"minishell$ "RESET);
+		// if (isatty(fileno(stdin)))
+			info.input = readline(GRAY"minishell$ "RESET);
+		// else
+		// 	info.input = ft_strtrim(get_next_line(fileno(stdin)), "\n");
 		if (!info.input)
 			return (printf("exit\n"), 0);
 		if (ft_strlen(info.input) > 0)

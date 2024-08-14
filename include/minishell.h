@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/14 14:26:41 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 18:20:27 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,5 +255,20 @@ char			*expand_unquoted(int l, char *input, char **envp);
 char			*expand_double_quoted(int l, char *input, char **envp);
 /*--------------Unix-Signals------------------*/
 void			handle_signal(int signal);
-
+/*====================||====GET_NEXT_LINE======||=================*/
+//===========================================================//
+//==================BUFFER-SIZE=============================//
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 7
+# endif
+//=============GET NEXT LINE FUNCTIONS======================//
+char			*get_next_line(int fd);
+char			*ft_substr_get(char *s, int start, int length);
+char			*ft_strjoin_get(char *s1, char *s2, int len);
+int				ft_linelen(char *str);
+int				ft_str_bs(char *str, char c);
+int				ft_strlen_get(const char *str);
+char			*get_res(int fd, char *rem);
+//===========================================================//
+/*====================||====GET_NEXT_LINE======||=================*/
 #endif

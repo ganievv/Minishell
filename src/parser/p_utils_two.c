@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 16:45:32 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 17:32:50 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	parse_command(t_token **tokens, t_pipe_group *group)
 	temp_str = NULL;
 	temp_join = NULL;
 	temp = (*tokens);
-	printf("here");
 	while ((temp) && ((temp)->type == 1))
 		(temp) = (temp)->next;
 	if (p_command_h_one(temp))

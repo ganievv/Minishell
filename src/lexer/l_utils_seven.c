@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 22:05:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 16:53:09 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 17:32:06 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,15 @@ void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 void	token_ready_for_parsing(int l, t_token *src, t_token **dest,
 			char **envp)
 {
-	printf("//--------------phase 0---------------------\n");
-	print_tokens(src);
+	// printf("//--------------phase 0---------------------\n");
+	// print_tokens(src);
 	token_to_token_preexp(src, dest);
-	printf("//--------------strdup---------------------\n");
-	print_tokens(*dest);
+	// printf("//--------------strdup---------------------\n");
+	// print_tokens(*dest);
 	token_preexp_to_trimed(dest);
-	printf("//--------------trimed---------------------\n");
-	print_tokens(*dest);
+	// printf("//--------------trimed---------------------\n");
+	// print_tokens(*dest);
 	token_preexp_to_token_exp(l, dest, envp);
-	printf("//--------------expanded---------------------\n");
-	print_tokens(*dest);
+	// printf("//--------------expanded---------------------\n");
+	// print_tokens(*dest);
 }
