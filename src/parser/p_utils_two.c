@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/13 21:55:19 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/14 02:53:03 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,15 @@ void	parse_command(t_token **tokens, t_pipe_group *group)
 	char	**args;
 	int		arg_count;
 	t_token	*current;
-	int		current_len;
+	char	*temp_str;
+	char	*temp_join;
 	t_token	*temp;
 
 	args = NULL;
 	arg_count = 0;
 	current = NULL;
+	temp_str = NULL;
+	temp_join = NULL;
 	temp = (*tokens);
 	while ((temp) && ((temp)->type == 1))
 		(temp) = (temp)->next;
@@ -41,14 +44,16 @@ void	parse_command(t_token **tokens, t_pipe_group *group)
 	{
 
 		current = temp;
-		current_len = current->len;
+		temp_str = temp->token_start;
 		temp = current->next;
 		while (temp && (temp->type != 1))
 		{
-			current_len += temp->len;
+			temp_join = ft_strjoin(temp_str, temp->token_start);
+			free(temp_str);
+			temp_str = temp_join;
 			temp = temp->next;
 		}
-		group->command = token_content_extract(current, current_len);
+		group->command = temp_str;
 	}
 	while (temp && ((temp)->type == 1))
 		(temp) = (temp)->next;
@@ -66,14 +71,16 @@ void	parse_command(t_token **tokens, t_pipe_group *group)
 		if (!args)
 			exit(1);
 		current = temp;
-		current_len = current->len;
-		temp = temp->next;
+		temp_str = temp->token_start;
+		temp = current->next;
 		while (temp && (temp->type != 1))
 		{
-			current_len += temp->len;
+			temp_join = ft_strjoin(temp_str, temp->token_start);
+			free(temp_str);
+			temp_str = temp_join;
 			temp = temp->next;
 		}
-		args[arg_count] = token_content_extract(current, current_len);
+		args[arg_count] = temp_str;
 		if (!args[arg_count])
 			exit(1);
 		args[arg_count + 1] = NULL;
