@@ -10,3 +10,4 @@ Dockerfile
 start.sh
 minishell
 libft.a
+.vscode
