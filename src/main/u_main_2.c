@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_main_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:24:23 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/14 14:27:43 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/15 16:05:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	add_to_shlvl(t_msh *info, int var_i)
 				tmp = new_value;
 				new_value = ft_strjoin("SHLVL=", new_value);
 				change_or_add_env_var(new_value, &info->envp);
-				return (free(tmp), free(new_value), (void)0);
+				return (free(tmp), free(new_value), free(old_value), (void)0);
 			}
 			change_or_add_env_var("SHLVL=0", &info->envp);
 			return (free(old_value), (void)0);
