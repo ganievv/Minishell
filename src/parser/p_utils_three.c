@@ -6,14 +6,14 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 23:23:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/15 16:46:32 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 // handle env vars expansion
-int	handle_heredoc(char *end, int *p)
+bool	handle_heredoc(char *end, int *p)
 {
 	static bool	is_opened = false;
 	char		*str;
@@ -21,7 +21,7 @@ int	handle_heredoc(char *end, int *p)
 	if (is_opened)
 		close(p[0]);
 	if (pipe(p) == -1)
-		return (0);
+		return (false);
 	is_opened = true;
 	while (true)
 	{
@@ -35,7 +35,7 @@ int	handle_heredoc(char *end, int *p)
 	close(p[1]);
 	if (str)
 		free(str);
-	return (1);
+	return (true);
 }
 
 void	create_file(char *file, int mode)

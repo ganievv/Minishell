@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/14 18:20:27 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/15 16:46:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ void			pipe_group_print(t_pipe_group *group);
 int				p_command_h_one(t_token *tokens);
 void			parse_command(t_token **tokens, t_pipe_group *group);
 /*--------------parser-utils-three------------*/
-int				handle_heredoc(char *end, int *p);
+bool			handle_heredoc(char *end, int *p);
 void			create_file(char *file, int mode);
 void			close_read_end(t_pipe_group *cmd);
 /*---------------expander---------------------*/

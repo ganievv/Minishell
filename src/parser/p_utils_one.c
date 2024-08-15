@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/13 21:12:24 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/15 16:47:43 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static void	parse_redir_h_two(t_token_type type,
 	{
 		if (type == HEREDOC)
 		{
-			if (handle_heredoc(file, (*group)->heredoc_p))
-				(*group)->is_heredoc_in = true;
+			(*group)->is_heredoc_in = handle_heredoc(file,
+					(*group)->heredoc_p);
 			return ;
 		}
 		(*group)->file_in = file;
