@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:42:25 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/15 16:44:29 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/15 18:31:37 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ static int	pipe_after_pipe(t_token *head)
 	while (temp && temp->type == SPC)
 		temp = temp->next;
 	not_space_token = temp;
-	return (current_token->type == 2
-		&& (!not_space_token || not_space_token->type == 2));
+	return ((current_token->type != WORD
+			&& current_token->type != S_QUOTED
+			&& current_token->type != D_QUOTED)
+		&& (!not_space_token
+			|| (not_space_token->type != WORD
+				&& not_space_token->type != S_QUOTED
+				&& not_space_token->type != D_QUOTED)));
 }
 
 static int	redir_and_after_not_word(t_token *head)
@@ -63,13 +68,13 @@ void	check_syntax_errors(t_token **head)
 	current = *head;
 	while (current && current->type == SPC)
 		current = current->next;
-	if (current && current->type != WORD)
+	if (current && (current->type == PIPE))
 		ft_token_print_error(head, "Syntax error:  unexpected token\n");
 	while (current && current->next)
 	{
 		if (pipe_after_pipe(current))
-			ft_token_print_error(head, "Syntax error:  consecutive "
-				"pipes or pipe at the end\n");
+			ft_token_print_error(head, "Syntax error: consecutive "
+				"non verbal tokens\n");
 		if (redir_and_after_not_word(current))
 			ft_token_print_error(head, "Syntax error:  \
 			invalid redirections\n");

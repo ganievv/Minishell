@@ -6,13 +6,13 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/15 17:07:17 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/15 17:47:50 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	parse_redir_h_one(t_token *tokens)
+int	parse_redir_h_one(t_token *tokens)
 {
 	return (tokens && (tokens->type == REDIR_IN
 			|| tokens->type == REDIR_OUT
@@ -20,7 +20,7 @@ static int	parse_redir_h_one(t_token *tokens)
 			|| tokens->type == HEREDOC));
 }
 
-static void	parse_redir_h_two(t_token_type type,
+void	parse_redir_h_two(t_token_type type,
 			t_pipe_group **group, char *file)
 {
 	if (type == 3 || type == 6)
@@ -56,19 +56,25 @@ void	parse_redir(t_token **tokens, t_pipe_group *group)
 	type = -1;
 	temp = *tokens;
 	file = NULL;
+	while (temp && temp->type == SPC)
+		temp = temp->next;
 	while (parse_redir_h_one(temp))
 	{
-		type = temp->type;
 		temp = temp->next;
+		if (temp && temp->type == SPC)
+		{
+			temp = temp->next;
+			continue ;
+		}
 		if (temp && temp->type == WORD)
 		{
-			// if (file)
-			// 	free(file);
-			// file = NULL;
+			if (file)
+				free(file);
+			file = NULL;
 			file = token_content_extract(temp, temp->len);
 			if (!file)
 				return ;
-			parse_redir_h_two(type, &group, file);
+			parse_redir_h_two(temp->type, &group, file);
 			temp = temp->next;
 		}
 	}

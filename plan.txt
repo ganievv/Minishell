@@ -74,4 +74,12 @@ git pull
 git stash pop 
 handle the merge conflicts
 
+====================
+
+in the pipe
+
+[pipe 1] | [pipe 2] | [pipe 3]
+before commands and args I can make all these in the beginning
+while I'm finding a redir 
+
 

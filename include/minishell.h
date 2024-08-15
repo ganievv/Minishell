@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/15 16:46:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/15 17:49:42 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,9 @@ void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);
 t_pipe_group	*parse_pipeline(t_token **tokens);
 t_pipe_group	*parse(t_token *tokens);
 /*---------------parser-utils-one-------------*/
+int				parse_redir_h_one(t_token *tokens);
+void			parse_redir_h_two(t_token_type type,
+					t_pipe_group **group, char *file);
 void			parse_redir(t_token **tokens, t_pipe_group *group);
 void			pipe_group_free(t_pipe_group **head);
 void			pipe_group_print(t_pipe_group *group);
