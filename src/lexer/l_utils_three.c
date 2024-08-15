@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:13:11 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 14:03:43 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/15 16:20:51 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@
 
 void	pipe_error_start(char *input)
 {
-	if (input[0] == '|')
+	int	i;
+
+	i = -1;
+	while (ft_isspace(input[++i]))
+		;
+	if (input[i] == '|' )
 	{
 		ft_putstr_fd("The prompt must not start with '|'\n", 2);
 		exit(1);

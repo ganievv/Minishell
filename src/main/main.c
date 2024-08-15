@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 18:35:43 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/15 16:15:29 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		ready = NULL;
 		// if (isatty(fileno(stdin)))
-			info.input = readline(GRAY"minishell$ "RESET);
+			info.input = readline(GRAY"minishell: "RESET);
 		// else
 		// 	info.input = ft_strtrim(get_next_line(fileno(stdin)), "\n");
 		if (!info.input)
@@ -47,6 +47,7 @@ int	main(int argc, char *argv[], char *envp[])
 			tokenize(info.input, &(info.tokens));
 			token_ready_for_parsing(info.last_exit_status, info.tokens,
 				&ready, envp);
+			print_tokens(ready);
 			info.cmds = parse_pipeline(&(ready));
 			pipe_group_print(info.cmds);
 			expand_parsed_commands(info.last_exit_status, info.cmds, envp);

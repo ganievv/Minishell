@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:14 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/13 21:49:33 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/15 16:22:08 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	tokenize(char *input, t_token **head)
 
 	var.i = 0;
 	var.len = 0;
-	pipe_error_start(input);
 	while (input[var.i])
 	{
 		if (input[var.i] == '\0')
@@ -35,8 +34,8 @@ void	tokenize(char *input, t_token **head)
 		else
 			token_h_word(input, head, &var);
 	}
-	pipe_error_end(head);
 	check_syntax_errors(head);
+	pipe_error_end(head);
 }
 
 // int main() {

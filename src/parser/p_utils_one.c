@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/15 16:47:43 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/15 17:07:17 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ void	parse_redir(t_token **tokens, t_pipe_group *group)
 		temp = temp->next;
 		if (temp && temp->type == WORD)
 		{
+			// if (file)
+			// 	free(file);
+			// file = NULL;
 			file = token_content_extract(temp, temp->len);
 			if (!file)
 				return ;

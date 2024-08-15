@@ -68,3 +68,10 @@ This function should return 2. group: from { } to {$HOME} (including the {$HOME}
 
 1) https://www.youtube.com/watch?v=cex9XrZCU14&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY&ab_channel=CodeVault
 
+
+git stash
+git pull
+git stash pop 
+handle the merge conflicts
+
+
