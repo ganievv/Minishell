@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:44 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/13 23:25:47 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/15 22:39:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	exec_multiple_cmds(int i, t_msh *info,
 		return (1);
 	if (info->pids[i] == 0)
 	{
-		//signal(SIGINT, SIG_DFL);
+		reset_signals();
 		make_pipes_redir(info, i);
 		if (!make_files_redir(cmd))
 			exit(1);
@@ -84,7 +84,7 @@ static void	exec_one_cmd(t_msh *info)
 	info->pids[0] = fork();
 	if (info->pids[0] == 0)
 	{
-		//signal(SIGINT, SIG_DFL);
+		reset_signals();
 		if (!make_files_redir(info->cmds))
 			exit(1);
 		execve(info->cmds->cmd_path, info->cmds->argv, info->envp);

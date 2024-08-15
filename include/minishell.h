@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/15 17:49:42 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/15 22:39:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <termios.h>
 # include "../libft/libft.h"
 
 # define BUILTIN_NUM 7
@@ -148,6 +149,7 @@ void			close_all_pipes(int **pipes, int len);
 char			*str_to_lower_case(const char *cmd);
 char			*make_absolute_path(char *dir, char *file);
 void			print_cmd_not_found(char *cmd);
+void			reset_signals(void);
 
 /*---------------------------cleanup----------------------------*/
 void			free_arr_str(char **arr);
@@ -258,6 +260,8 @@ char			*expand_unquoted(int l, char *input, char **envp);
 char			*expand_double_quoted(int l, char *input, char **envp);
 /*--------------Unix-Signals------------------*/
 void			handle_sigint_shell(int signal);
+/*-------------terminal_attributes------------*/
+void			change_terminal_echo_ctl(bool turn_off);
 /*====================||====GET_NEXT_LINE======||=================*/
 //===========================================================//
 //==================BUFFER-SIZE=============================//
