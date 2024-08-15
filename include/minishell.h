@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
 /*   Updated: 2024/08/14 18:20:27 by tnakas           ###   ########.fr       */
@@ -254,7 +254,7 @@ char			*expand_unquoted(int l, char *input, char **envp);
 /*---------------expander-utils-one-----------*/
 char			*expand_double_quoted(int l, char *input, char **envp);
 /*--------------Unix-Signals------------------*/
-void			handle_signal(int signal);
+void			handle_sigint_shell(int signal);
 /*====================||====GET_NEXT_LINE======||=================*/
 //===========================================================//
 //==================BUFFER-SIZE=============================//

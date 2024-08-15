@@ -14,7 +14,7 @@
 
 static void	prog_init(t_msh *info, char **envp)
 {
-	signal(SIGINT, handle_signal);
+	signal(SIGINT, handle_sigint_shell);
 	signal(SIGQUIT, SIG_IGN);
 	t_msh_init(info, envp);
 	change_or_add_env_var("OLDPWD", &info->envp);
