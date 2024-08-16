@@ -19,7 +19,10 @@ bool	handle_heredoc(char *end, int *p)
 	char		*str;
 
 	if (is_opened)
+	{
 		close(p[0]);
+		is_opened = false;
+	}
 	if (pipe(p) == -1)
 		return (false);
 	is_opened = true;
