@@ -15,7 +15,6 @@
 static void	prog_init(t_msh *info, char **envp)
 {
 	signal(SIGQUIT, SIG_IGN);
-	change_terminal_echo_ctl(true);
 	t_msh_init(info, envp);
 	change_or_add_env_var("OLDPWD", &info->envp);
 	handle_shlvl_var(info);
@@ -36,6 +35,7 @@ int	main(int argc, char *argv[], char *envp[])
 	while (true)
 	{
 		signal(SIGINT, handle_sigint_shell);
+		change_terminal_echo_ctl(true);
 		ready = NULL;
 		if (isatty(fileno(stdin)))
 			info.input = readline(GRAY"minishell: "RESET);

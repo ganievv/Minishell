@@ -15,7 +15,15 @@
 static int	check_sig(int wstatus)
 {
 	if (WTERMSIG(wstatus) == SIGINT)
+	{
+		write(STDERR_FILENO, "\n", 1);
 		return (SIGINT_ESTATUS);
+	}
+	if (WTERMSIG(wstatus) == SIGQUIT)
+	{
+		write(STDERR_FILENO, "Quit: 3\n", 8);
+		return (SIGQUIT_ESTATUS);
+	}
 	else
 		return (1);
 }

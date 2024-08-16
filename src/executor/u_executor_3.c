@@ -33,6 +33,7 @@ void	print_cmd_not_found(char *cmd)
 
 void	reset_signals(void)
 {
+	change_terminal_echo_ctl(false);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
