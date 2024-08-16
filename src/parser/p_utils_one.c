@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 15:23:04 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 19:38:21 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	p_redir_h_one(t_token *tokens)
 			|| tokens->type == HEREDOC));
 }
 
-void	p_redir_h_two(t_token_type type,
-			t_pipe_group **group, char *file)
+void	p_redir_h_two(int l, t_token_type type,
+			t_pipe_group **group, char *file, char **envp)
 {
 	if (type == 3 || type == 6)
 	{
@@ -37,8 +37,8 @@ void	p_redir_h_two(t_token_type type,
 	{
 		if (type == HEREDOC)
 		{
-			(*group)->is_heredoc_in = handle_heredoc(file,
-					(*group)->heredoc_p);
+			(*group)->is_heredoc_in = handle_heredoc(l, file,
+					(*group)->heredoc_p, envp);
 			return ;
 		}
 		(*group)->file_in = file;
@@ -48,7 +48,7 @@ void	p_redir_h_two(t_token_type type,
 	}
 }
 
-void	parse_redir(t_token **tokens, t_pipe_group *group)
+void	parse_redir(int	l, t_token **tokens, t_pipe_group *group, char **envp)
 {
 	t_token	*temp;
 	t_token *redir;
@@ -70,7 +70,7 @@ void	parse_redir(t_token **tokens, t_pipe_group *group)
 		while (temp && temp->type == SPC)
 			temp = temp->next;
 		if (p_command_h_one(temp))
-			p_redir_h_two(redir->type, &group, temp->token_start);
+			p_redir_h_two(l, redir->type, &group, temp->token_start, envp);
 		if (temp)
 			temp = temp->next;
 		while (temp && !p_redir_h_one(temp) && temp->type != PIPE)

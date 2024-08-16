@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/16 15:18:21 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 19:43:56 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,13 +237,13 @@ void			token_ready_for_parsing(int l, t_token *src,
 /*----------------parser----------------------*/
 t_pipe_group	*pipe_group_init(void);
 void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);
-t_pipe_group	*parse_pipeline(t_token **tokens);
-t_pipe_group	*parse(t_token *tokens);
+t_pipe_group	*parse_pipeline(int l, t_token **tokens, char **envp);
+t_pipe_group	*parse(int l, t_token *tokens, char **envp);
 /*---------------parser-utils-one-------------*/
 int				p_redir_h_one(t_token *tokens);
-void			p_redir_h_two(t_token_type type,
-					t_pipe_group **group, char *file);
-void			parse_redir(t_token **tokens, t_pipe_group *group);
+void			p_redir_h_two(int l, t_token_type type,
+					t_pipe_group **group, char *file, char **envp);
+void			parse_redir(int l, t_token **tokens, t_pipe_group *group, char **envp);
 void			pipe_group_free(t_pipe_group **head);
 void			pipe_group_print(t_pipe_group *group);
 /*---------------parser-utils-two-------------*/
@@ -251,7 +251,7 @@ int				p_command_h_one(t_token *tokens);
 void			parse_command(t_token **tokens, t_pipe_group	*group);
 void			parse_args(t_token **tokens, t_pipe_group *group);
 /*--------------parser-utils-three------------*/
-bool			handle_heredoc(char *end, int *p);
+bool			handle_heredoc(int l, char *end, int *p, char **envp);
 void			create_file(char *file, int mode);
 void			close_read_end(t_pipe_group *cmd);
 void			print_array(char **str);
