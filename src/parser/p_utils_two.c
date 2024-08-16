@@ -46,7 +46,7 @@ void	parse_command(t_token **tokens, t_pipe_group	*group)
 		temp = temp->next;
 	group->command = current_str;
 	(*tokens) = temp;
-	printf("%s\n", current_str);
+	//printf("%s\n", current_str);
 }
 
 void	parse_args(t_token **tokens, t_pipe_group *group)
@@ -67,40 +67,40 @@ void	parse_args(t_token **tokens, t_pipe_group *group)
 	{
 		while (p_command_h_one(temp) || (temp && p_redir_h_one(temp)))
 		{
-			printf("here 1\n");
+			//printf("here 1\n");
 			if (temp && p_redir_h_one(temp))
 			{
 				temp = temp->next;
-				printf("here 2\n");
+				//printf("here 2\n");
 				while (temp && temp->type == SPC)
 					temp = temp->next;
 				if (p_command_h_one(temp))
 				{
-					printf("redir friend\n");
+					//printf("redir friend\n");
 					temp = temp->next;
 				}
 			}
 			current_str = NULL;
 			while (p_command_h_one(temp))
 			{
-				printf("here 3\n");
+				//printf("here 3\n");
 				if (!current_str)
 				{
 					current_str = ft_strdup(temp->token_start);
-					printf("here 4\n");
+					//printf("here 4\n");
 				}
 				else
 				{
 					temp_str = ft_strjoin(current_str, temp->token_start);
 					free(current_str);
 					current_str = temp_str;
-					printf("here 5\n");
+					//printf("here 5\n");
 				}
-				printf("here 6\n");
+				//printf("here 6\n");
 				if (temp)
 					temp = temp->next;
 			}
-			printf("here 7\n");
+			//printf("here 7\n");
 			if (current_str)
 			{
 				if (args)
@@ -111,7 +111,7 @@ void	parse_args(t_token **tokens, t_pipe_group *group)
 				i++;
 				args[i] = NULL;
 				free(current_str);
-				printf("here 8\n");
+				//printf("here 8\n");
 			}
 			while (temp && temp->type == SPC)
 				temp = temp->next;
