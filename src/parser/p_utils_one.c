@@ -51,19 +51,29 @@ void	p_redir_h_two(t_token_type type,
 void	parse_redir(t_token **tokens, t_pipe_group *group)
 {
 	t_token	*temp;
+	t_token *redir;
 
 	temp = *tokens;
-	while (temp && (!p_redir_h_one(temp)))
+	while (temp && (!p_redir_h_one(temp)) && temp->type != PIPE)
 		temp = temp->next;
-	if (temp && p_redir_h_one(temp))
+	if (temp && temp->type == PIPE)
 	{
+		*tokens = temp;
+		return ;
+	}
+	while (temp && p_redir_h_one(temp))
+	{
+		if (temp->type == PIPE)
+			break ;
+		redir = temp;
+		temp = temp->next;
 		while (temp && temp->type == SPC)
 			temp = temp->next;
 		if (p_command_h_one(temp))
-			p_redir_h_two(temp->type, &group, temp->token_start);
+			p_redir_h_two(redir->type, &group, temp->token_start);
 		if (temp)
 			temp = temp->next;
-		while (temp && !p_redir_h_one(temp))
+		while (temp && !p_redir_h_one(temp) && temp->type != PIPE)
 			temp = temp->next;
 	}
 	*tokens = temp;

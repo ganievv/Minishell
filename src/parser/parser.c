@@ -56,20 +56,20 @@ t_pipe_group	*parse_pipeline(t_token **tokens)
 	t_pipe_group	*head;
 	t_pipe_group	*current;
 	t_pipe_group	*group;
-	t_token			**token_start;
+	t_token			*token_start;
 
 	head = NULL;
 	current = NULL;
 	token_start = NULL;
 	while (*tokens)
 	{
-		token_start = &(*tokens);
+		token_start = *tokens;
 		group = pipe_group_init();
 		while (*tokens && (*tokens)->type == SPC)
 			(*tokens) = (*tokens)->next;
 		parse_command(tokens, group);
 		parse_args(&(*tokens), group);
-		parse_redir(token_start, group);
+		parse_redir(&token_start, group);
 		if (!head)
 		{
 			head = group;
