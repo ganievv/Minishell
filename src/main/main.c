@@ -51,9 +51,9 @@ int	main(int argc, char *argv[], char *envp[])
 			tokenize(info.input, &(info.tokens));
 			token_ready_for_parsing(info.last_exit_status, info.tokens,
 				&ready, envp);
-			print_tokens(ready);
+			//print_tokens(ready);
 			info.cmds = parse_pipeline(&(ready));
-			pipe_group_print(info.cmds);
+			//pipe_group_print(info.cmds);
 			expand_parsed_commands(info.last_exit_status, info.cmds, envp);
 			exec_all_cmds(&info);
 		}
