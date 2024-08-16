@@ -23,6 +23,8 @@ static void	prog_init(t_msh *info, char **envp)
 	print_header();
 }
 
+/* we should call the 'change_terminal_echo_ctl(false)'
+*  function before exit the shell*/
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_msh	info;

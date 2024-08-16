@@ -176,7 +176,7 @@ void			restore_io_fds(int *fds, t_pipe_group *cmd);
 int				is_nbr(char *arg);
 int				is_valid_exit_range(char *nbr);
 long long		ft_atoll(char *str);
-void			cleanup_for_exit_builtin(t_msh *info);
+void			prepare_exit(t_msh *info);
 
 /*----------------------------export----------------------------*/
 void			double_array_sort(char **array, int size);

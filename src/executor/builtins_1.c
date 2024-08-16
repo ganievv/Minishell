@@ -84,7 +84,6 @@ int	ft_echo(char **args, char ***envp, t_msh *info)
 	return (0);
 }
 
-/* should I free all prog vars before exit() ??*/
 int	ft_exit(char **args, char ***envp, t_msh *info)
 {
 	long long	n_nbr;
@@ -98,7 +97,7 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 	if (!is_nbr(exit_arg) || !is_valid_exit_range(exit_arg))
 	{
 		write (STDERR_FILENO, "msh: exit: numeric argument required\n", 37);
-		cleanup_for_exit_builtin(info);
+		prepare_exit(info);
 		exit(255);
 	}
 	if (args && (count_args(args) >= 2))
@@ -107,8 +106,6 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 		return (1);
 	}
 	n_nbr = ft_atoll(exit_arg);
-	cleanup_for_exit_builtin(info);
-	if (info->cmds_num == 1)
-		write(STDOUT_FILENO, "exit\n", 5);
+	prepare_exit(info);
 	exit(n_nbr % 256);
 }
