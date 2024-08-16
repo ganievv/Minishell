@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 22:05:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 17:32:06 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 19:06:58 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,16 @@ void	token_preexp_to_trimed(t_token **dest)
 void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 {
 	t_token	*temp;
+	t_token	*prev;
 	char	*temp_str;
 
 	temp = *dest;
+	prev = temp;
 	while (temp)
 	{
-		if (temp->type == EXP_FIELD
-			|| ((temp->type == D_QUOTED) && ft_strchr(temp->token_start, '$')))
+		if ((temp->type == EXP_FIELD || ((temp->type == D_QUOTED)
+					&& ft_strchr(temp->token_start, '$')))
+			&& (prev != temp && prev->type != HEREDOC))
 		{
 			if (temp->type == EXP_FIELD)
 				temp_str = expand_var(l, temp->token_start, envp);
@@ -84,6 +87,8 @@ void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 			temp->token_start = temp_str;
 			temp->len = ft_strlen(temp->token_start);
 		}
+		if (temp->type != SPC)
+			prev = temp;
 		temp = temp->next;
 	}
 }
