@@ -33,6 +33,7 @@
 /*--------------------------exit_codes-------------------------*/
 # define CMD_NOT_FOUND 127
 # define SIGINT_ESTATUS 130
+# define SIGQUIT_ESTATUS 131
 
 /*----------------------------colors---------------------------*/
 # define GRAY "\x1b[90m"
