@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 03:36:32 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 15:23:04 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 int	p_redir_h_one(t_token *tokens)
 {
-	return (tokens && (tokens->type == REDIR_IN
+	return (
+		(tokens->type == REDIR_IN
 			|| tokens->type == REDIR_OUT
 			|| tokens->type == APPEND_DELIMITER
 			|| tokens->type == HEREDOC));
 }
 
-void	parse_redir_h_two(t_token_type type,
+void	p_redir_h_two(t_token_type type,
 			t_pipe_group **group, char *file)
 {
 	if (type == 3 || type == 6)
@@ -49,15 +50,20 @@ void	parse_redir_h_two(t_token_type type,
 
 void	parse_redir(t_token **tokens, t_pipe_group *group)
 {
-	// I must stop only to redirs
 	t_token	*temp;
 
 	temp = *tokens;
-	while(!p_redir_h_one(temp))
+	while (temp && (!p_redir_h_one(temp)))
 		temp = temp->next;
-	if (p_redir_h_one(temp))
+	if (temp && p_redir_h_one(temp))
 	{
 		while (temp && temp->type == SPC)
+			temp = temp->next;
+		if (p_command_h_one(temp))
+			p_redir_h_two(temp->type, &group, temp->token_start);
+		if (temp)
+			temp = temp->next;
+		while (temp && !p_redir_h_one(temp))
 			temp = temp->next;
 	}
 	*tokens = temp;
@@ -94,7 +100,7 @@ void	parse_redir(t_token **tokens, t_pipe_group *group)
 // 				file = token_content_extract(temp, temp->len);
 // 				if (!file)
 // 					return ;
-// 				parse_redir_h_two(temp->type, &group, file);
+// 				p_redir_h_two(temp->type, &group, file);
 // 				temp = temp->next;
 // 			}
 // 		}

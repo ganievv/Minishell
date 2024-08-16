@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/16 15:02:24 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 15:18:21 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ t_pipe_group	*parse_pipeline(t_token **tokens);
 t_pipe_group	*parse(t_token *tokens);
 /*---------------parser-utils-one-------------*/
 int				p_redir_h_one(t_token *tokens);
-void			parse_redir_h_two(t_token_type type,
+void			p_redir_h_two(t_token_type type,
 					t_pipe_group **group, char *file);
 void			parse_redir(t_token **tokens, t_pipe_group *group);
 void			pipe_group_free(t_pipe_group **head);

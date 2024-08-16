@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 03:24:48 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 15:16:18 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	parse_args(t_token **tokens, t_pipe_group *group)
 	i = 0;
 	while (temp && temp->type != PIPE)
 	{
-		while (p_command_h_one(temp) || (p_redir_h_one(temp)))
+		while (p_command_h_one(temp) || (temp && p_redir_h_one(temp)))
 		{
 			printf("here 1\n");
-			if (p_redir_h_one(temp))
+			if (temp && p_redir_h_one(temp))
 			{
 				temp = temp->next;
 				printf("here 2\n");
@@ -81,7 +81,7 @@ void	parse_args(t_token **tokens, t_pipe_group *group)
 				}
 			}
 			current_str = NULL;
-			while(p_command_h_one(temp))
+			while (p_command_h_one(temp))
 			{
 				printf("here 3\n");
 				if (!current_str)
