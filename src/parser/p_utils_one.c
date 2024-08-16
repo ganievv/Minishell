@@ -6,13 +6,13 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/15 17:47:50 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 03:36:32 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	parse_redir_h_one(t_token *tokens)
+int	p_redir_h_one(t_token *tokens)
 {
 	return (tokens && (tokens->type == REDIR_IN
 			|| tokens->type == REDIR_OUT
@@ -49,37 +49,58 @@ void	parse_redir_h_two(t_token_type type,
 
 void	parse_redir(t_token **tokens, t_pipe_group *group)
 {
-	t_token_type	type;
-	t_token			*temp;
-	char			*file;
+	// I must stop only to redirs
+	t_token	*temp;
 
-	type = -1;
 	temp = *tokens;
-	file = NULL;
-	while (temp && temp->type == SPC)
+	while(!p_redir_h_one(temp))
 		temp = temp->next;
-	while (parse_redir_h_one(temp))
+	if (p_redir_h_one(temp))
 	{
-		temp = temp->next;
-		if (temp && temp->type == SPC)
-		{
+		while (temp && temp->type == SPC)
 			temp = temp->next;
-			continue ;
-		}
-		if (temp && temp->type == WORD)
-		{
-			if (file)
-				free(file);
-			file = NULL;
-			file = token_content_extract(temp, temp->len);
-			if (!file)
-				return ;
-			parse_redir_h_two(temp->type, &group, file);
-			temp = temp->next;
-		}
 	}
 	*tokens = temp;
 }
+// void	parse_redir(t_token **tokens, t_pipe_group *group)
+// {
+// 	t_token_type	type;
+// 	t_token			*temp;
+// 	char			*file;
+// 	int				first_time;
+
+// 	type = -1;
+// 	temp = *tokens;
+// 	file = NULL;
+// 	first_time = 1;
+// 	while (temp && temp->type != PIPE)
+// 	{
+// 		while (temp && temp->type == SPC)
+// 			temp = temp->next;
+// 		while (p_redir_h_one(temp))
+// 		{
+// 			if (first_time)
+// 				temp = temp->next;
+// 			if (temp && temp->type == SPC)
+// 			{
+// 				temp = temp->next;
+// 				continue ;
+// 			}
+// 			if (temp && temp->type == WORD)
+// 			{
+// 				if (file)
+// 					free(file);
+// 				file = NULL;
+// 				file = token_content_extract(temp, temp->len);
+// 				if (!file)
+// 					return ;
+// 				parse_redir_h_two(temp->type, &group, file);
+// 				temp = temp->next;
+// 			}
+// 		}
+// 	}
+// 	*tokens = temp;
+// }
 
 /* should we free here 'command', 'file_in', 'file_out' ?*/
 void	pipe_group_free(t_pipe_group **head)

@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:28:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/15 17:23:20 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 03:28:53 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,20 @@ t_pipe_group	*parse_pipeline(t_token **tokens)
 	t_pipe_group	*head;
 	t_pipe_group	*current;
 	t_pipe_group	*group;
+	t_token			**token_start;
 
 	head = NULL;
 	current = NULL;
+	token_start = NULL;
 	while (*tokens)
 	{
+		token_start = &(*tokens);
 		group = pipe_group_init();
+		while (*tokens && (*tokens)->type == SPC)
+			(*tokens) = (*tokens)->next;
 		parse_command(tokens, group);
-		parse_redir(tokens, group);
+		parse_args(&(*tokens), group);
+		parse_redir(token_start, group);
 		if (!head)
 		{
 			head = group;

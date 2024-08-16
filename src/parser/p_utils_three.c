@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_three.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/15 22:56:58 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/16 15:02:10 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,14 @@ void	close_read_end(t_pipe_group *cmd)
 	if (cmd->is_heredoc_in)
 		close(cmd->heredoc_p[0]);
 	cmd->is_heredoc_in = false;
+}
+
+void	print_array(char **str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		printf("str[%d] = %s\n", i, str[i]);
+	printf("(null)\n");
 }

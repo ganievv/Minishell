@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/15 22:39:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/16 15:02:24 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,7 @@ void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);
 t_pipe_group	*parse_pipeline(t_token **tokens);
 t_pipe_group	*parse(t_token *tokens);
 /*---------------parser-utils-one-------------*/
-int				parse_redir_h_one(t_token *tokens);
+int				p_redir_h_one(t_token *tokens);
 void			parse_redir_h_two(t_token_type type,
 					t_pipe_group **group, char *file);
 void			parse_redir(t_token **tokens, t_pipe_group *group);
@@ -247,11 +247,13 @@ void			pipe_group_free(t_pipe_group **head);
 void			pipe_group_print(t_pipe_group *group);
 /*---------------parser-utils-two-------------*/
 int				p_command_h_one(t_token *tokens);
-void			parse_command(t_token **tokens, t_pipe_group *group);
+void			parse_command(t_token **tokens, t_pipe_group	*group);
+void			parse_args(t_token **tokens, t_pipe_group *group);
 /*--------------parser-utils-three------------*/
 bool			handle_heredoc(char *end, int *p);
 void			create_file(char *file, int mode);
 void			close_read_end(t_pipe_group *cmd);
+void			print_array(char **str);
 /*---------------expander---------------------*/
 char			*expand_var(int l, char *input, char **envp);
 void			expand_parsed_commands(int l, t_pipe_group *group, char **envp);

@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:42:25 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/15 18:31:37 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 01:12:29 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,15 @@ static int	pipe_after_pipe(t_token *head)
 	not_space_token = temp;
 	return ((current_token->type != WORD
 			&& current_token->type != S_QUOTED
-			&& current_token->type != D_QUOTED)
+			&& current_token->type != D_QUOTED
+			&& current_token->type != EXP_FIELD
+			&& current_token->type != SPC)
 		&& (!not_space_token
 			|| (not_space_token->type != WORD
 				&& not_space_token->type != S_QUOTED
-				&& not_space_token->type != D_QUOTED)));
+				&& not_space_token->type != D_QUOTED
+				&& current_token->type != EXP_FIELD
+				&& current_token->type != SPC)));
 }
 
 static int	redir_and_after_not_word(t_token *head)
