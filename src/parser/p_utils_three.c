@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/16 19:51:43 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 20:02:09 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,11 @@ bool	handle_heredoc(int l, char *end, int *p, char **envp)
 		if (ft_strchr(str, '$'))
 		{
 			temp_str = expand_double_quoted(l, str, envp);
-			if (!temp_str)
-				return (false);
-			free(str);
+			if (str)
+				free(str);
 			str = ft_strdup(temp_str);
-			if (!str)
-				return (false);
-			free(temp_str);
+			if (temp_str)
+				free(temp_str);
 		}
 		write(p[1], str, ft_strlen(str));
 		write(p[1], "\n", 1);

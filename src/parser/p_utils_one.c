@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 19:38:21 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 22:25:26 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,18 @@ void	p_redir_h_two(int l, t_token_type type,
 	}
 }
 
-void	parse_redir(int	l, t_token **tokens, t_pipe_group *group, char **envp)
+void	p_redir_h_three(t_token **temp, t_token **redir)
+{
+	*redir = (*temp);
+	(*temp) = (*temp)->next;
+	while ((*temp) && (*temp)->type == SPC)
+		(*temp) = (*temp)->next;
+}
+
+void	parse_redir(int l, t_token **tokens, t_pipe_group *group, char **envp)
 {
 	t_token	*temp;
-	t_token *redir;
+	t_token	*redir;
 
 	temp = *tokens;
 	while (temp && (!p_redir_h_one(temp)) && temp->type != PIPE)
@@ -65,10 +73,7 @@ void	parse_redir(int	l, t_token **tokens, t_pipe_group *group, char **envp)
 	{
 		if (temp->type == PIPE)
 			break ;
-		redir = temp;
-		temp = temp->next;
-		while (temp && temp->type == SPC)
-			temp = temp->next;
+		p_redir_h_three(&temp, &redir);
 		if (p_command_h_one(temp))
 			p_redir_h_two(l, redir->type, &group, temp->token_start, envp);
 		if (temp)
@@ -78,47 +83,7 @@ void	parse_redir(int	l, t_token **tokens, t_pipe_group *group, char **envp)
 	}
 	*tokens = temp;
 }
-// void	parse_redir(t_token **tokens, t_pipe_group *group)
-// {
-// 	t_token_type	type;
-// 	t_token			*temp;
-// 	char			*file;
-// 	int				first_time;
 
-// 	type = -1;
-// 	temp = *tokens;
-// 	file = NULL;
-// 	first_time = 1;
-// 	while (temp && temp->type != PIPE)
-// 	{
-// 		while (temp && temp->type == SPC)
-// 			temp = temp->next;
-// 		while (p_redir_h_one(temp))
-// 		{
-// 			if (first_time)
-// 				temp = temp->next;
-// 			if (temp && temp->type == SPC)
-// 			{
-// 				temp = temp->next;
-// 				continue ;
-// 			}
-// 			if (temp && temp->type == WORD)
-// 			{
-// 				if (file)
-// 					free(file);
-// 				file = NULL;
-// 				file = token_content_extract(temp, temp->len);
-// 				if (!file)
-// 					return ;
-// 				p_redir_h_two(temp->type, &group, file);
-// 				temp = temp->next;
-// 			}
-// 		}
-// 	}
-// 	*tokens = temp;
-// }
-
-/* should we free here 'command', 'file_in', 'file_out' ?*/
 void	pipe_group_free(t_pipe_group **head)
 {
 	t_pipe_group	*current;
@@ -138,19 +103,4 @@ void	pipe_group_free(t_pipe_group **head)
 		current = next;
 	}
 	*head = NULL;
-}
-
-void	pipe_group_print(t_pipe_group *group)
-{
-	int	i;
-
-	while (group)
-	{
-		printf("Command: %s\n", group->command);
-		printf("Arguments:\n");
-		i = -1;
-		while (group->args && group->args[++i])
-			printf("  [%d]: %s\n", i, group->args[i]);
-		group = group->next;
-	}
 }

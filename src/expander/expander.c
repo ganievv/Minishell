@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:45 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/07 18:34:32 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 21:08:01 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ char	*expand_var(int l, char *input, char **envp)
 
 	if (*input != '$')
 		return (ft_strdup(input));
-	if (*(input + 1) == '?')
+	if (*(input + 1) == '?' || (ft_isspace(*(input + 1))
+			|| *(input + 1) == '\0'))
 	{
+		if (ft_isspace(*(input + 1)) || *(input + 1) == '\0')
+			return (ft_strdup("$"));
 		res = ft_itoa(l);
 		if (!res)
 			return (NULL);

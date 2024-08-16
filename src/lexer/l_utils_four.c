@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:42:25 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 18:32:22 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 22:22:47 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ void	check_syntax_errors(t_token **head)
 		if (pipe_after_pipe(current))
 			ft_token_print_error(head, "Syntax error: consecutive "
 				"non verbal tokens\n");
-		// if (redir_and_after_not_word(current))
-		// 	ft_token_print_error(head, "Syntax error:  \
-		// 	invalid redirections\n");
 		current = current->next;
 	}
 }
