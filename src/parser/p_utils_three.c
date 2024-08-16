@@ -12,6 +12,31 @@
 
 #include "../../include/minishell.h"
 
+static volatile sig_atomic_t	sigint_received = 0;
+
+void	handle_sigint_heredoc(int signal)
+{
+	(void)signal;
+	sigint_received = 1;
+	write(STDOUT_FILENO, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+static bool	create_pipe(bool *is_opened, int *p)
+{
+	if (*is_opened)
+	{
+		close(p[0]);
+		*is_opened = false;
+	}
+	if (pipe(p) == -1)
+		return (false);
+	*is_opened = true;
+	return (true);
+}
+
 // handle env vars expansion
 bool	handle_heredoc(int l, char *end, int *p, char **envp)
 {
@@ -19,18 +44,19 @@ bool	handle_heredoc(int l, char *end, int *p, char **envp)
 	char		*str;
 	char		*temp_str;
 
-	if (is_opened)
-	{
-		close(p[0]);
-		is_opened = false;
-	}
-	if (pipe(p) == -1)
+	if (!create_pipe(&is_opened, p))
 		return (false);
-	is_opened = true;
 	while (true)
 	{
 		rl_on_new_line();
+		signal(SIGINT, handle_sigint_heredoc);
 		str = readline(GRAY"> "RESET);
+		signal(SIGINT, SIG_IGN);
+		if (sigint_received)
+		{
+			sigint_received = 0;
+			break ;
+		}
 		if (!str || (ft_strcmp(str, end) == 0))
 			break ;
 		if (ft_strchr(str, '$'))

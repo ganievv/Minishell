@@ -263,6 +263,7 @@ char			*expand_unquoted(int l, char *input, char **envp);
 char			*expand_double_quoted(int l, char *input, char **envp);
 /*--------------Unix-Signals------------------*/
 void			handle_sigint_shell(int signal);
+void			handle_sigint_heredoc(int signal);
 /*-------------terminal_attributes------------*/
 void			change_terminal_echo_ctl(bool turn_off);
 /*====================||====GET_NEXT_LINE======||=================*/
