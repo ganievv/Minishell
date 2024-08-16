@@ -28,6 +28,7 @@ bool	handle_heredoc(char *end, int *p)
 	is_opened = true;
 	while (true)
 	{
+		rl_on_new_line();
 		str = readline(GRAY"> "RESET);
 		if (!str || (ft_strcmp(str, end) == 0))
 			break ;
