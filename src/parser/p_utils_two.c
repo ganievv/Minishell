@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 22:13:31 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 00:26:02 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	parse_args(t_token **tokens, t_pipe_group *group)
 			add_arg_and_skip_spaces(&args, current_str, &temp, &i);
 		}
 	}
-
 	group->args = args;
 	(*tokens) = temp;
 }

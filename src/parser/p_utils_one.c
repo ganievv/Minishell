@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 22:25:26 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 00:22:53 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ void	p_redir_h_three(t_token **temp, t_token **redir)
 		(*temp) = (*temp)->next;
 }
 
+void	p_redir_h_four(t_token **temp)
+{
+	if ((*temp))
+		(*temp) = (*temp)->next;
+	while ((*temp) && !p_redir_h_one((*temp)) && (*temp)->type != PIPE)
+		(*temp) = (*temp)->next;
+}
+
 void	parse_redir(int l, t_token **tokens, t_pipe_group *group, char **envp)
 {
 	t_token	*temp;
@@ -76,31 +84,7 @@ void	parse_redir(int l, t_token **tokens, t_pipe_group *group, char **envp)
 		p_redir_h_three(&temp, &redir);
 		if (p_command_h_one(temp))
 			p_redir_h_two(l, redir->type, &group, temp->token_start, envp);
-		if (temp)
-			temp = temp->next;
-		while (temp && !p_redir_h_one(temp) && temp->type != PIPE)
-			temp = temp->next;
+		p_redir_h_four(&temp);
 	}
 	*tokens = temp;
-}
-
-void	pipe_group_free(t_pipe_group **head)
-{
-	t_pipe_group	*current;
-	t_pipe_group	*next;
-
-	if (!head || !*head)
-		return ;
-	current = *head;
-	while (current)
-	{
-		next = current->next;
-		free_arr_str(current->args);
-		free_arr_str(current->argv);
-		if (current->cmd_path)
-			free(current->cmd_path);
-		free(current);
-		current = next;
-	}
-	*head = NULL;
 }

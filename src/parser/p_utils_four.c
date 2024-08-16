@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 22:35:17 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 22:37:15 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 23:53:59 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,25 @@ void	pipe_group_add(t_pipe_group **head, t_pipe_group *new_group)
 			temp = temp->next;
 		temp->next = new_group;
 	}
+}
+
+void	pipe_group_free(t_pipe_group **head)
+{
+	t_pipe_group	*current;
+	t_pipe_group	*next;
+
+	if (!head || !*head)
+		return ;
+	current = *head;
+	while (current)
+	{
+		next = current->next;
+		free_arr_str(current->args);
+		free_arr_str(current->argv);
+		if (current->cmd_path)
+			free(current->cmd_path);
+		free(current);
+		current = next;
+	}
+	*head = NULL;
 }
