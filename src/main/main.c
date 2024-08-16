@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 15:25:21 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/16 17:28:22 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		signal(SIGINT, handle_sigint_shell);
 		ready = NULL;
-		// if (isatty(fileno(stdin)))
+		if (isatty(fileno(stdin)))
 			info.input = readline(GRAY"minishell: "RESET);
-		// else
-		// 	info.input = ft_strtrim(get_next_line(fileno(stdin)), "\n");
+		else
+			info.input = ft_strtrim(get_next_line(fileno(stdin)), "\n");
 		signal(SIGINT, SIG_IGN);
 		if (!info.input)
 			return (printf("exit\n"), 0);
