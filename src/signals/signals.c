@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:34 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/15 22:57:46 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/16 22:43:22 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void	handle_sigint_shell(int signal)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+}
+
+void	handle_sigint_heredoc(int signal)
+{
+	(void)signal;
+	rl_replace_line("", 0);
+	close(STDIN_FILENO);
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 void	change_terminal_echo_ctl(bool turn_off)

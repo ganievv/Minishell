@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_three.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
 /*   Updated: 2024/08/16 20:02:09 by tnakas           ###   ########.fr       */
@@ -12,20 +12,11 @@
 
 #include "../../include/minishell.h"
 
-static volatile sig_atomic_t	sigint_received = 0;
-
-void	handle_sigint_heredoc(int signal)
+static bool	prepare_heredoc_redir(bool *is_opened, int *p, int *stdin_copy)
 {
-	(void)signal;
-	sigint_received = 1;
-	write(STDOUT_FILENO, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-static bool	create_pipe(bool *is_opened, int *p)
-{
+	copy_stdin_fd(stdin_copy);
+	if (*stdin_copy == -1)
+		return (false);
 	if (*is_opened)
 	{
 		close(p[0]);
@@ -42,9 +33,9 @@ bool	handle_heredoc(int l, char *end, int *p, char **envp)
 {
 	static bool	is_opened = false;
 	char		*str;
-	char		*temp_str;
+	int			stdin_copy;
 
-	if (!create_pipe(&is_opened, p))
+	if (!prepare_heredoc_redir(&is_opened, p, &stdin_copy))
 		return (false);
 	while (true)
 	{
@@ -52,26 +43,14 @@ bool	handle_heredoc(int l, char *end, int *p, char **envp)
 		signal(SIGINT, handle_sigint_heredoc);
 		str = readline(GRAY"> "RESET);
 		signal(SIGINT, SIG_IGN);
-		if (sigint_received)
-		{
-			sigint_received = 0;
-			break ;
-		}
 		if (!str || (ft_strcmp(str, end) == 0))
 			break ;
-		if (ft_strchr(str, '$'))
-		{
-			temp_str = expand_double_quoted(l, str, envp);
-			if (str)
-				free(str);
-			str = ft_strdup(temp_str);
-			if (temp_str)
-				free(temp_str);
-		}
+		expand_heredoc_strs(&str, l, envp);
 		write(p[1], str, ft_strlen(str));
 		write(p[1], "\n", 1);
 		free(str);
 	}
+	restore_stdin_fd(stdin_copy);
 	close(p[1]);
 	if (str)
 		free(str);

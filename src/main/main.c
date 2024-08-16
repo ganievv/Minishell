@@ -52,7 +52,6 @@ int	main(int argc, char *argv[], char *envp[])
 			token_ready_for_parsing(info.last_exit_status, info.tokens,
 				&ready, envp);
 			info.cmds = parse_pipeline(info.last_exit_status, &(ready), envp);
-			expand_parsed_commands(info.last_exit_status, info.cmds, envp);
 			exec_all_cmds(&info);
 		}
 		free_all_prog_vars(&info);

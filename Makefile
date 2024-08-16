@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
+#    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
 #    Updated: 2024/08/16 22:40:09 by tnakas           ###   ########.fr        #
@@ -37,6 +37,7 @@ SRC = src/main/main.c src/main/u_main_1.c src/main/u_main_2.c \
 	src/executor/u_proc_and_pipes.c src/executor/u_unset_cmd.c \
 	src/executor/u_wait_for_proc.c \
 	src/expander/e_utils_one.c src/expander/expander.c \
+	src/parser/p_utils_heredoc.c \
 
 OBJ = $(SRC:.c=.o)
 
