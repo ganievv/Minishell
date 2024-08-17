@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 22:20:29 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/16 22:35:52 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/17 15:05:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,21 @@ void	restore_stdin_fd(int stdin_copy)
 {
 	dup2(stdin_copy, STDIN_FILENO);
 	close(stdin_copy);
+}
+
+void	save_heredoc_str(char *str, char **heredoc_strs)
+{
+	char	*new_str;
+	char	*tmp;
+
+	new_str = ft_strjoin(str, "\n");
+	free(str);
+	if (!new_str)
+		return ;
+	tmp = *heredoc_strs;
+	*heredoc_strs = ft_strjoin(*heredoc_strs, new_str);
+	if (!*heredoc_strs)
+		*heredoc_strs = ft_strdup("");
+	free(tmp);
+	free(new_str);
 }

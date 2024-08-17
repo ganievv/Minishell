@@ -6,16 +6,32 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:54:08 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 18:30:20 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/17 15:19:20 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	redir_heredoc(int *p)
+static int	redir_heredoc(t_pipe_group *cmd)
 {
-	dup2(p[0], STDIN_FILENO);
+	int	p[2];
+
+	if (pipe(p) == -1)
+		return (0);
+	if (write(p[1], cmd->heredoc_strs, ft_strlen(cmd->heredoc_strs)) == -1)
+	{
+		close(p[0]);
+		close(p[1]);
+		return (0);
+	}
+	close(p[1]);
+	if (dup2(p[0], STDIN_FILENO) == -1)
+	{
+		close(p[0]);
+        return (0);
+	}
 	close(p[0]);
+	return (1);
 }
 
 /* this function handles redirections for an input
@@ -25,7 +41,10 @@ int	make_files_redir(t_pipe_group *cmd)
 	int	fd;
 
 	if (cmd->is_heredoc_in)
-		redir_heredoc(cmd->heredoc_p);
+	{
+		if (!redir_heredoc(cmd))
+			return (0);
+	}
 	else if (cmd->file_in)
 	{
 		fd = open(cmd->file_in, cmd->mode_in);

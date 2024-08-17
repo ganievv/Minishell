@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 00:42:39 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 15:02:52 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	p_redir_h_two(t_rdr_const rdr, t_token_type type,
 		if (type == HEREDOC)
 		{
 			(*group)->is_heredoc_in = handle_heredoc(rdr.l, file,
-					(*group)->heredoc_p, rdr.envp);
+					&((*group)->heredoc_strs), rdr.envp);
 			return ;
 		}
 		(*group)->file_in = file;
 		(*group)->redir_in = STDIN_FILENO;
 		(*group)->mode_in = O_RDONLY;
-		close_read_end(*group);
+		reset_heredoc_fields(*group);
 	}
 }
 

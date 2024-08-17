@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/17 04:08:26 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 15:13:27 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_pipe_group
 	int					redir_out;
 	int					mode_in;
 	int					mode_out;
-	int					heredoc_p[2];
+	char				*heredoc_strs;
 	bool				is_heredoc_in;
 	char				**argv;
 	char				*cmd_path;
@@ -172,7 +172,6 @@ char			*take_env_var_name(char *var);
 /*-----------------------------pipes----------------------------*/
 int				pipes_create(t_msh *info, int cmds_num);
 void			make_pipes_redir(t_msh *info, int cmd_index);
-void			close_heredoc_fds(t_pipe_group *cmds);
 
 /*--------------------------files_redir-------------------------*/
 int				make_files_redir(t_pipe_group *cmd);
@@ -256,9 +255,9 @@ void			parse_redir(t_rdr_const rdr, t_token **tokens,
 void			parse_command(t_token **tokens, t_pipe_group	*group);
 void			parse_args(t_token **tokens, t_pipe_group *group);
 /*--------------parser-utils-three------------*/
-bool			handle_heredoc(int l, char *end, int *p, char **envp);
+bool			handle_heredoc(int l, char *end, char **heredoc_strs, char **envp);
 void			create_file(char *file, int mode);
-void			close_read_end(t_pipe_group *cmd);
+void			reset_heredoc_fields(t_pipe_group *cmd);
 void			print_array(char **str);
 /*--------------parser-utils-four-------------*/
 void			pipe_group_print(t_pipe_group *group);
@@ -266,6 +265,7 @@ t_pipe_group	*pipe_group_init(void);
 void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);
 /*--------------parser-utils-heredoc----------*/
 void			expand_heredoc_strs(char **str, int l, char **envp);
+void			save_heredoc_str(char *str, char **heredoc_strs);
 void			copy_stdin_fd(int *stdin_copy);
 void			restore_stdin_fd(int stdin_copy);
 void			pipe_group_free(t_pipe_group **head);
