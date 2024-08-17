@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 19:29:13 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/18 00:51:53 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,11 @@ void	parse_args(t_token **tokens, t_pipe_group *group)
 	current_str = NULL;
 	args = NULL;
 	i = 0;
+	while (temp && temp->type == SPC)
+		temp = temp->next;
 	while (temp && temp->type != PIPE)
 	{
-		while (p_command_h_one(temp) || (temp && p_redir_h_one(temp)))
+		while (temp && (p_command_h_one(temp) || p_redir_h_one(temp)))
 		{
 			p_args_skip_spaces(&temp);
 			join_command_str(&temp, &current_str);
