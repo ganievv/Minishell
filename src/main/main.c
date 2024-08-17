@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 04:13:01 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 04:27:09 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ int	main(int argc, char *argv[], char *envp[])
 			tokenize(info.input, &(info.tokens));
 			token_ready_for_parsing(info.last_exit_status, info.tokens,
 				&ready, envp);
+			token_free(&(info.tokens));
+			info.tokens = ready;
 			info.cmds = parse_pipeline(rdr, &(ready));
-			token_preexp_free(&ready);
 			exec_all_cmds(&info);
 		}
 		free_all_prog_vars(&info);
