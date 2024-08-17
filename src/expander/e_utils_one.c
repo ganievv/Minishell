@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:43 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 00:24:02 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 17:59:34 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,14 @@ static void	expand_double_quoted_helper_one(int l, t_exp_helper *h, char **envp)
 {
 	(h->end) = (h->start) + 1;
 	while (ft_isalnum(*(h->end)) || *(h->end) == '_' || *(h->end) == '?')
-		(h->end)++;
+	{
+		if (*(h->end) == '?')
+		{
+			(h->end)++;
+			break;
+		}
+			(h->end)++;
+	}
 	h->var = ft_strndup((h->start), (h->end) - (h->start));
 	if (!h->var)
 		return ;

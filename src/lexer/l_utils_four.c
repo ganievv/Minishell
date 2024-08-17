@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:42:25 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 15:18:52 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 16:49:44 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ static int	pipe_after_pipe(t_token *head)
 // 			|| c_tok->type == 5) && ((temp && (temp->type != 0)) || (!temp)));
 // }
 
-static void	ft_token_print_error(t_token **head, char *message)
+static int	ft_token_print_error(t_token **head, char *message)
 {
 	ft_putstr_fd(message, 2);
 	token_free(head);
 	printf("debug reachable\n");
-	exit(1);
+	return (-1);
 }
 
-void	check_syntax_errors(t_token **head)
+int	check_syntax_errors(t_token **head)
 {
 	t_token	*current;
 
@@ -60,12 +60,14 @@ void	check_syntax_errors(t_token **head)
 	while (current && current->type == SPC)
 		current = current->next;
 	if (current && (current->type == PIPE))
-		ft_token_print_error(head, "Syntax error:  unexpected token\n");
+		return (ft_token_print_error(head, \
+				"Syntax error:  unexpected token\n"));
 	while (current)
 	{
 		if (pipe_after_pipe(current))
-			ft_token_print_error(head, "Syntax error: consecutive "
-				"non verbal tokens\n");
+			return (ft_token_print_error(head, "Syntax error: consecutive "
+					"non verbal tokens\n"));
 		current = current->next;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:45 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 21:08:01 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 17:44:40 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,38 +82,3 @@ char	*expand_unquoted(int l, char *input, char **envp)
 	return (expand_var(l, input, envp));
 }
 
-//int main()
-//{
-//	char *input = "echo $USER $HOME \"$USER $HOME making changes\"";
-//	t_token *head = NULL;
-
-//	tokenize(input, &head);
-//	t_pipe_group *group = parse(head);
-
-//	expand_parsed_commands(group, environ);
-//	t_pipe_group *current = group;
-//	pipe_group_print(current);
-//	pipe_group_free(&current);
-//	token_free(&head);
-
-//    return (0);
-//}
-
-// int main(int argc, char **argv, char **envp)
-// {
-// 	char *input = "echo $USER $? \"    $? $HOME making\"";
-// 	t_token *head = NULL;
-// 	int l = 255;
-// 	tokenize(input, &head);
-// 	(void)argc;
-// 	(void)argv;
-// 	t_pipe_group *group = parse(head);
-
-// 	expand_parsed_commands(l, group, envp);
-// 	t_pipe_group *current = group;
-// 	pipe_group_print(current);
-// 	pipe_group_free(&current);
-// 	token_free(&head);
-
-//     return (0);
-// }

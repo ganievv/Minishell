@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 20:20:35 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 14:04:03 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 15:53:04 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	is_q_terminated(char *str, int start, int end)
 	return (dq % 2 == 0 && sq % 2 == 0);
 }
 
-void	tokenize_command(char *input, t_token **head, t_h_token	*var)
+int	tokenize_command(char *input, t_token **head, t_h_token	*var)
 {
 	var->start = var->i;
 	while (input[var->i] && !is_word_sq_dq(input[var->i]))
@@ -56,12 +56,10 @@ void	tokenize_command(char *input, t_token **head, t_h_token	*var)
 	if (!is_q_terminated(input, var->start, var->i))
 	{
 		ft_putstr_fd("Syntax Error: Unterminated quotes\n", 2);
-		free(input);
-		input = NULL;
-		token_free(head);
-		exit(1);
+		return (-1);
 	}
 	var->len = var->i - var->start;
 	token_lstadd(head, token_create(input + (var->start), var->len,
 			WORD));
+	return (0);
 }

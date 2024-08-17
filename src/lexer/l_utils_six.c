@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 18:45:59 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/14 16:52:52 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 16:40:39 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	token_h_sep(char *input, t_token **head, t_h_token *var)
 	var->i += var->len;
 }
 
-void	token_h_quote(char *input, t_token **head, t_h_token *var)
+int	token_h_quote(char *input, t_token **head, t_h_token *var)
 {
 	char	q_type;
 
@@ -42,8 +42,9 @@ void	token_h_quote(char *input, t_token **head, t_h_token *var)
 	else
 	{
 		ft_putstr_fd("Error: Unmatched or Unterminated quotes\n", 2);
-		exit(1);
+		var->i = -1;
 	}
+	return (var->i);
 }
 
 void	token_h_word(char *input, t_token **head, t_h_token *var)

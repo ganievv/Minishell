@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:13:11 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 14:46:43 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 16:03:53 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	pipe_error_start(char *input)
 	}
 }
 
-void	pipe_error_end(t_token **head)
+int	pipe_error_end(t_token **head)
 {
 	t_token	*temp;
 
@@ -38,9 +38,9 @@ void	pipe_error_end(t_token **head)
 	if (temp->type == PIPE)
 	{
 		ft_putstr_fd("Syntax Error: The prompt should not end with '|'\n", 2);
-		token_free(head);
-		exit(1);
+		return (-1);
 	}
+	return (0);
 }
 
 void	token_free(t_token **head)

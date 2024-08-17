@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/17 15:13:27 by sganiev          ###   ########.fr       */
+/*   Created: 2024/08/17 16:51:39 by tnakas            #+#    #+#             */
+/*   Updated: 2024/08/17 16:51:44 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ void			print_err_for_cd(char *dir);
 bool			check_cmd_flag(char flag, char ***args);
 
 /*----------------lexer---------------------*/
-void			tokenize(char *input, t_token **head);
+int				tokenize(char *input, t_token **head);
 /*------------lexer-utils-one---------------*/
 int				is_seperator(char c);
 int				is_quote(char c);
@@ -215,19 +215,19 @@ char			*token_content_extract(t_token *token, int current_len);
 void			token_lstadd(t_token **head, t_token *new_token);
 /*-------------lexer-utils-three--------------*/
 void			pipe_error_start(char *input);
-void			pipe_error_end(t_token **head);
+int				pipe_error_end(t_token **head);
 void			token_free(t_token **head);
 void			print_tokens(t_token *head);
 /*--------------lexer-utils-four---------------*/
-void			check_syntax_errors(t_token **head);
+int				check_syntax_errors(t_token **head);
 /*--------------lexer-utils-five--------------*/
 int				is_word_sq_dq(char c);
 int				token_is_command(t_token *head);
 int				is_q_terminated(char *str, int start, int end);
-void			tokenize_command(char *input, t_token **head, t_h_token	*var);
+int				tokenize_command(char *input, t_token **head, t_h_token	*var);
 /*----------------lexer-utils-six---------------------*/
 void			token_h_sep(char *input, t_token **head, t_h_token *var);
-void			token_h_quote(char *input, t_token **head, t_h_token *var);
+int				token_h_quote(char *input, t_token **head, t_h_token *var);
 void			token_h_word(char *input, t_token **head, t_h_token *var);
 void			token_h_variable(char *input, t_token **head, t_h_token *var);
 void			token_h_isspace(char *input, t_token **head, t_h_token *var);
@@ -255,7 +255,8 @@ void			parse_redir(t_rdr_const rdr, t_token **tokens,
 void			parse_command(t_token **tokens, t_pipe_group	*group);
 void			parse_args(t_token **tokens, t_pipe_group *group);
 /*--------------parser-utils-three------------*/
-bool			handle_heredoc(int l, char *end, char **heredoc_strs, char **envp);
+bool			handle_heredoc(int l, char *end,
+					char **heredoc_strs, char **envp);
 void			create_file(char *file, int mode);
 void			reset_heredoc_fields(t_pipe_group *cmd);
 void			print_array(char **str);
