@@ -46,7 +46,10 @@ int	main(int argc, char *argv[], char *envp[])
 			info.input = ft_strtrim(get_next_line(fileno(stdin)), "\n");
 		signal(SIGINT, SIG_IGN);
 		if (!info.input)
-			return (printf("exit\n"), 0);
+		{
+			printf("exit\n");
+			break ;
+		}
 		if (ft_strlen(info.input) > 0)
 			add_history(info.input);
 		if (!is_input_empty(info.input))
