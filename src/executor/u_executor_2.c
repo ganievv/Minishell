@@ -26,6 +26,8 @@ char	*search_cmd_path(char *cmd, t_msh *info)
 	char	*absolute_path;
 	int		cmd_i;
 
+	if (!cmd)
+		return (NULL);
 	absolute_path = NULL;
 	cmd_i = search_env_var("PATH", info->envp);
 	if (cmd_i != -1)
@@ -43,6 +45,8 @@ char	**args_to_argv(char **args, char *cmd_path)
 	int		num;
 	int		i;
 
+	if (!cmd_path)
+		return (NULL);
 	i = 0;
 	num = count_args(args) + 2;
 	argv = (char **)malloc(sizeof(char *) * num);

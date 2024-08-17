@@ -157,6 +157,8 @@ char			*str_to_lower_case(const char *cmd);
 char			*make_absolute_path(char *dir, char *file);
 void			print_cmd_not_found(char *cmd);
 void			reset_signals(void);
+int				is_cmd_present_one_cmd(t_msh *info);
+void			is_cmd_present_multiple_cmds(t_pipe_group *cmd);
 
 /*---------------------------cleanup----------------------------*/
 void			free_arr_str(char **arr);

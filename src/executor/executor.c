@@ -19,11 +19,14 @@ static int	exec_multiple_cmds(int i, t_msh *info,
 {
 	int	cmd_ptr_i;
 
+	cmd->cmd_path = search_cmd_path(cmd->command, info);
+	cmd->argv = args_to_argv(cmd->args, cmd->cmd_path);
 	info->pids[i] = fork();
 	if (info->pids[i] == -1)
 		return (1);
 	if (info->pids[i] == 0)
 	{
+		is_cmd_present_multiple_cmds(cmd);
 		reset_signals();
 		make_pipes_redir(info, i);
 		if (!make_files_redir(cmd))
@@ -33,8 +36,6 @@ static int	exec_multiple_cmds(int i, t_msh *info,
 			exit((info->builtin_ptrs[cmd_ptr_i])(cmd->args, &envp, info));
 		else
 		{
-			cmd->cmd_path = search_cmd_path(cmd->command, info);
-			cmd->argv = args_to_argv(cmd->args, cmd->cmd_path);
 			execve(cmd->cmd_path, cmd->argv, envp);
 			print_cmd_not_found(cmd->cmd_path);
 			exit(CMD_NOT_FOUND);
@@ -102,6 +103,8 @@ static void	process_one_cmd(t_msh *info)
 	int	index;
 	int	*fds;
 
+	if (!is_cmd_present_one_cmd(info))
+		return ;
 	index = is_cmd_builtin(info->cmds->command, info);
 	if (index >= 0)
 	{

@@ -37,3 +37,19 @@ void	reset_signals(void)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
+
+int	is_cmd_present_one_cmd(t_msh *info)
+{
+	if (!info->cmds->command)
+	{
+		info->last_exit_status = 1;
+		return (0);
+	}
+	return (1);
+}
+
+void	is_cmd_present_multiple_cmds(t_pipe_group *cmd)
+{
+	if (!cmd->command)
+		exit(1);
+}
