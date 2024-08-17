@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 18:46:54 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 20:12:14 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char *argv[], char *envp[])
 		signal(SIGINT, SIG_IGN);
 		if (!info.input)
 		{
-			// printf("exit\n");
+			printf("exit\n");
 			break ;
 		}
 		if (ft_strlen(info.input) > 0)
@@ -57,10 +57,13 @@ int	main(int argc, char *argv[], char *envp[])
 			if (tokenize(info.input, &(info.tokens)) != -1)
 			{
 				token_ready_for_parsing(info.last_exit_status, info.tokens,
-					&ready, envp);
+					&ready, info.envp);
+				print_tokens(info.tokens);
 				token_free(&(info.tokens));
 				info.tokens = ready;
+				print_tokens(ready);
 				info.cmds = parse_pipeline(rdr, &(info.tokens));
+				pipe_group_print(info.cmds);
 				exec_all_cmds(&info);
 			}
 			else

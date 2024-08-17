@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 00:26:02 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 19:29:13 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	join_command_str(t_token **temp, char **current_str)
 		else
 		{
 			temp_str = ft_strjoin(*current_str, (*temp)->token_start);
+			//after
 			free(*current_str);
 			*current_str = temp_str;
 		}
