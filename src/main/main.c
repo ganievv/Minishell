@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 16:55:36 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 18:46:54 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char *argv[], char *envp[])
 		signal(SIGINT, SIG_IGN);
 		if (!info.input)
 		{
-			printf("exit\n");
+			// printf("exit\n");
 			break ;
 		}
 		if (ft_strlen(info.input) > 0)

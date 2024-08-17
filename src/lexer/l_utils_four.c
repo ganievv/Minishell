@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:42:25 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 16:49:44 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 18:53:06 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	ft_token_print_error(t_token **head, char *message)
 {
 	ft_putstr_fd(message, 2);
 	token_free(head);
-	printf("debug reachable\n");
 	return (-1);
 }
 
@@ -61,12 +60,12 @@ int	check_syntax_errors(t_token **head)
 		current = current->next;
 	if (current && (current->type == PIPE))
 		return (ft_token_print_error(head, \
-				"Syntax error:  unexpected token\n"));
+				"msh:  unexpected token\n"));
 	while (current)
 	{
 		if (pipe_after_pipe(current))
-			return (ft_token_print_error(head, "Syntax error: consecutive "
-					"non verbal tokens\n"));
+			return (ft_token_print_error(head, "msh: syntax error near\
+				unexpected token\n"));
 		current = current->next;
 	}
 	return (0);
