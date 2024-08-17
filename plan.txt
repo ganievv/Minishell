@@ -109,4 +109,14 @@ void	parse_command(t_token **tokens, t_pipe_group	*group)
 	group->command = current_str;
 	(*tokens) = temp;
 }
+
+
+I need a plan for the Expansions
+I ll tokenize by keeping all the elements without trimming
+I ll expand by keeping all the elements without trimming
+I ll update the str input by joining all the tokens
+I ll tokenize again
+I ll trim
+I ll parse 
+I ll excecute
 //==================================================================

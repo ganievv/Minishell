@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 22:05:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 20:34:57 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 22:06:54 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	token_preexp_free(t_token **dest)
 	temp = *dest;
 	while (temp)
 	{
-		if (temp->token_start)
+		if (temp && temp->token_start)
 			free(temp->token_start);
-		next = (*dest)->next;
+		next = (temp)->next;
 		free(temp);
 		temp = next;
 	}
@@ -101,4 +101,31 @@ void	token_ready_for_parsing(int l, t_token *src, t_token **dest,
 	token_to_token_preexp(src, dest);
 	token_preexp_to_trimed(dest);
 	token_preexp_to_token_exp(l, dest, envp);
+}
+
+// tokenize src
+// expand	src
+// update   input
+// tokenize udated input
+// ==============================================
+// parse	
+// excecute
+
+void	token_preexp_and_update_input(char **input, t_token *dest)
+{
+	char	*temp;
+	char	*current;
+
+	current = malloc(1);
+	current[0] = '\0';
+	temp = current;
+	while (dest)
+	{
+		temp = ft_strjoin(current, dest->token_start);
+		free(current);
+		current = ft_strdup(temp);
+		free(temp);
+		dest = dest->next;
+	}
+	*input = current;
 }

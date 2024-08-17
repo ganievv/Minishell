@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 20:17:26 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 21:47:08 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ static void	prog_init(t_msh *info, char **envp)
 	clear_screen();
 	print_header();
 }
+
+
+
 
 /* we should call the 'change_terminal_echo_ctl(false)'
 *  function before exit the shell*/
@@ -56,6 +59,19 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			if (tokenize(info.input, &(info.tokens)) != -1)
 			{
+				//first tokenization
+				token_to_token_preexp(info.tokens, &ready);
+				//free the previous list
+				token_free(&(info.tokens));
+				//first expansion
+				token_preexp_to_token_exp(info.last_exit_status,
+					&ready, info.envp);
+				//updated input
+				token_preexp_and_update_input(&(info.input), ready);
+				//free the ready
+				token_preexp_free(&ready);
+				//final tokenization
+				tokenize(info.input, &(info.tokens));
 				token_ready_for_parsing(info.last_exit_status, info.tokens,
 					&ready, info.envp);
 				token_free(&(info.tokens));

@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:51:39 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 19:17:14 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 21:27:08 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,7 @@ void			token_preexp_to_token_exp(int l, t_token **dest,
 					char **envp);
 void			token_ready_for_parsing(int l, t_token *src,
 					t_token **dest, char **envp);
+void			token_preexp_and_update_input(char **input, t_token *dest);
 /*----------------parser----------------------*/
 t_pipe_group	*parse_pipeline(t_rdr_const rdr, t_token **tokens);
 int				p_command_h_one(t_token *tokens);
