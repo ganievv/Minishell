@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_main_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:24:23 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/15 16:05:08 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/17 15:23:56 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	free_all_prog_vars(t_msh *info)
 {
 	pipe_group_free(&(info->cmds));
-	token_free(&(info->tokens));
+	token_preexp_free(&(info->tokens));
 	if (info->input)
 	{
 		free(info->input);

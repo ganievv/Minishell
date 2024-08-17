@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:42:25 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 22:22:47 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 15:18:52 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	ft_token_print_error(t_token **head, char *message)
 {
 	ft_putstr_fd(message, 2);
 	token_free(head);
+	printf("debug reachable\n");
 	exit(1);
 }
 
