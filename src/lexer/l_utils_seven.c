@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 22:05:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 04:25:20 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 20:27:29 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,15 @@ void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 	char	*temp_str;
 
 	temp = *dest;
-	prev = temp;
+	prev = NULL;
+	printf("//========================\n");
 	while (temp)
 	{
+		printf("inside of the loop \n");
+		printf("toke_start before = %s\n", temp->token_start);
 		if ((temp->type == EXP_FIELD || ((temp->type == D_QUOTED)
 					&& ft_strchr(temp->token_start, '$')))
-			&& (prev != temp && prev->type != HEREDOC))
+			&& (!prev || prev->type != HEREDOC))
 		{
 			if (temp->type == EXP_FIELD)
 				temp_str = expand_var(l, temp->token_start, envp);
@@ -91,8 +94,11 @@ void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 		}
 		if (temp->type != SPC)
 			prev = temp;
+		printf("toke_start before = %s\n", temp->token_start);
 		temp = temp->next;
+		printf("inside of the loop \n");
 	}
+	printf("//========================\n");
 }
 
 void	token_ready_for_parsing(int l, t_token *src, t_token **dest,
@@ -101,4 +107,5 @@ void	token_ready_for_parsing(int l, t_token *src, t_token **dest,
 	token_to_token_preexp(src, dest);
 	token_preexp_to_trimed(dest);
 	token_preexp_to_token_exp(l, dest, envp);
+	print_tokens(*dest);
 }
