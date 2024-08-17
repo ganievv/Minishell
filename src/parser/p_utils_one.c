@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 00:22:53 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 00:42:39 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	p_redir_h_one(t_token *tokens)
 			|| tokens->type == HEREDOC));
 }
 
-void	p_redir_h_two(int l, t_token_type type,
-			t_pipe_group **group, char *file, char **envp)
+void	p_redir_h_two(t_rdr_const rdr, t_token_type type,
+			t_pipe_group **group, char *file)
 {
 	if (type == 3 || type == 6)
 	{
@@ -37,8 +37,8 @@ void	p_redir_h_two(int l, t_token_type type,
 	{
 		if (type == HEREDOC)
 		{
-			(*group)->is_heredoc_in = handle_heredoc(l, file,
-					(*group)->heredoc_p, envp);
+			(*group)->is_heredoc_in = handle_heredoc(rdr.l, file,
+					(*group)->heredoc_p, rdr.envp);
 			return ;
 		}
 		(*group)->file_in = file;
@@ -64,7 +64,7 @@ void	p_redir_h_four(t_token **temp)
 		(*temp) = (*temp)->next;
 }
 
-void	parse_redir(int l, t_token **tokens, t_pipe_group *group, char **envp)
+void	parse_redir(t_rdr_const rdr, t_token **tokens, t_pipe_group *group)
 {
 	t_token	*temp;
 	t_token	*redir;
@@ -83,7 +83,7 @@ void	parse_redir(int l, t_token **tokens, t_pipe_group *group, char **envp)
 			break ;
 		p_redir_h_three(&temp, &redir);
 		if (p_command_h_one(temp))
-			p_redir_h_two(l, redir->type, &group, temp->token_start, envp);
+			p_redir_h_two(rdr, redir->type, &group, temp->token_start);
 		p_redir_h_four(&temp);
 	}
 	*tokens = temp;

@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:28:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 22:40:37 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 00:46:05 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	update_group_list(t_pipe_group **head,
 		*tokens = (*tokens)->next;
 }
 
-t_pipe_group	*parse_pipeline(int l, t_token **tokens, char **envp)
+t_pipe_group	*parse_pipeline(t_rdr_const rdr, t_token **tokens)
 {
 	t_pipe_group	*head;
 	t_pipe_group	*current;
@@ -47,7 +47,7 @@ t_pipe_group	*parse_pipeline(int l, t_token **tokens, char **envp)
 			(*tokens) = (*tokens)->next;
 		parse_command(tokens, group);
 		parse_args(&(*tokens), group);
-		parse_redir(l, &token_start, group, envp);
+		parse_redir(rdr, &token_start, group);
 		update_group_list(&head, &current, group, tokens);
 	}
 	return (head);

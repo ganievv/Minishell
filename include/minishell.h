@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:29:18 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/17 00:31:17 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 04:08:26 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ typedef struct s_h_token
 	int	start;
 	int	len;
 }	t_h_token;
+
+typedef struct s_rdr_const
+{
+	int		l;
+	char	**envp;
+}	t_rdr_const;
 /*----------------expander-helper-struct------------------------*/
 typedef struct s_exp_helper
 {
@@ -235,17 +241,17 @@ void			token_preexp_to_token_exp(int l, t_token **dest,
 void			token_ready_for_parsing(int l, t_token *src,
 					t_token **dest, char **envp);
 /*----------------parser----------------------*/
-t_pipe_group	*parse_pipeline(int l, t_token **tokens, char **envp);
+t_pipe_group	*parse_pipeline(t_rdr_const rdr, t_token **tokens);
 int				p_command_h_one(t_token *tokens);
 void			update_group_list(t_pipe_group **head,
 					t_pipe_group **current, t_pipe_group *group,
 					t_token **tokens);
-/*---------------parser-utils-one-------------*/
+/*----------	-----parser-utils-one-------------*/
 int				p_redir_h_one(t_token *tokens);
-void			p_redir_h_two(int l, t_token_type type,
-					t_pipe_group **group, char *file, char **envp);
-void			parse_redir(int l, t_token **tokens,
-					t_pipe_group *group, char **envp);
+void			p_redir_h_two(t_rdr_const rdr, t_token_type type,
+					t_pipe_group **group, char *file);
+void			parse_redir(t_rdr_const rdr, t_token **tokens,
+					t_pipe_group *group);
 /*---------------parser-utils-two-------------*/
 void			parse_command(t_token **tokens, t_pipe_group	*group);
 void			parse_args(t_token **tokens, t_pipe_group *group);
@@ -258,6 +264,10 @@ void			print_array(char **str);
 void			pipe_group_print(t_pipe_group *group);
 t_pipe_group	*pipe_group_init(void);
 void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);
+/*--------------parser-utils-heredoc----------*/
+void			expand_heredoc_strs(char **str, int l, char **envp);
+void			copy_stdin_fd(int *stdin_copy);
+void			restore_stdin_fd(int stdin_copy);
 void			pipe_group_free(t_pipe_group **head);
 /*---------------expander---------------------*/
 char			*expand_var(int l, char *input, char **envp);

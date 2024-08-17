@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 22:05:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 23:47:49 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 02:29:36 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,18 @@ void	token_to_token_preexp(t_token *src, t_token **dest)
 void	token_preexp_free(t_token **dest)
 {
 	t_token	*temp;
+	t_token	*next;
 
 	temp = *dest;
 	while (temp)
 	{
 		if (temp->token_start)
 			free(temp->token_start);
-		temp = (*dest)->next;
-		free(*dest);
+		next = (*dest)->next;
+		free(temp);
+		temp = next;
 	}
-	free(dest);
+	*dest = NULL;
 }
 
 void	token_preexp_to_trimed(t_token **dest)

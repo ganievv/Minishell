@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/16 23:43:01 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/17 04:13:01 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ static void	prog_init(t_msh *info, char **envp)
 *  function before exit the shell*/
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_msh	info;
-	t_token	*ready;
+	t_msh		info;
+	t_token		*ready;
+	t_rdr_const rdr;
 
 	(void)argc;
 	(void)argv;
 	prog_init(&info, envp);
+	rdr.l = info.last_exit_status;
+	rdr.envp = info.envp;
 	while (true)
 	{
 		signal(SIGINT, handle_sigint_shell);
@@ -51,7 +54,8 @@ int	main(int argc, char *argv[], char *envp[])
 			tokenize(info.input, &(info.tokens));
 			token_ready_for_parsing(info.last_exit_status, info.tokens,
 				&ready, envp);
-			info.cmds = parse_pipeline(info.last_exit_status, &(ready), envp);
+			info.cmds = parse_pipeline(rdr, &(ready));
+			token_preexp_free(&ready);
 			exec_all_cmds(&info);
 		}
 		free_all_prog_vars(&info);
