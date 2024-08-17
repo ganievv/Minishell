@@ -78,6 +78,13 @@ void	pipe_group_free(t_pipe_group **head)
 	while (current)
 	{
 		next = current->next;
+		if (current->is_heredoc_in)
+		{
+			if (current->heredoc_strs)
+				free(current->heredoc_strs);
+		}
+		if (current->command)
+			free(current->command);
 		free_arr_str(current->args);
 		free_arr_str(current->argv);
 		if (current->cmd_path)
