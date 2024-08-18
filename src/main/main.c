@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 21:47:08 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/18 05:54:23 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	prog_init(t_msh *info, char **envp)
 	t_msh_init(info, envp);
 	change_or_add_env_var("OLDPWD", &info->envp);
 	handle_shlvl_var(info);
-	clear_screen();
-	print_header();
+	// clear_screen();
+	// print_header();
 }
 
 
@@ -50,7 +50,7 @@ int	main(int argc, char *argv[], char *envp[])
 		signal(SIGINT, SIG_IGN);
 		if (!info.input)
 		{
-			printf("exit\n");
+			// printf("exit\n");
 			break ;
 		}
 		if (ft_strlen(info.input) > 0)
