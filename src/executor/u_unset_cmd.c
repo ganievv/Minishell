@@ -52,3 +52,27 @@ void	remove_env_var(char *var, char ***envp)
 		}
 	}
 }
+
+static void	print_err_for_unset(char *arg)
+{
+	write(STDERR_FILENO, "msh: unset: `", 13);
+	write(STDERR_FILENO, arg, ft_strlen(arg));
+	write(STDERR_FILENO, "': not a valid identifier\n", 26);
+}
+
+int	is_unset_arg_valid(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(arg[i]) && (arg[i] != '_'))
+		return (print_err_for_unset(arg), 0);
+	i++;
+	while (arg[i])
+	{
+		if (!ft_isalnum(arg[i]) && (arg[i] != '_'))
+			return (print_err_for_unset(arg), 0);
+		i++;
+	}
+	return (1);
+}

@@ -91,6 +91,6 @@ void	prepare_exit(t_msh *info)
 		free_arr_str(info->envp);
 		rl_clear_history();
 		change_terminal_echo_ctl(false);
-		write(STDOUT_FILENO, "exit\n", 5);
+		//write(STDOUT_FILENO, "exit\n", 5);
 	}
 }

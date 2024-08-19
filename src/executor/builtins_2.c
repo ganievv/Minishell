@@ -44,15 +44,23 @@ int	ft_export(char **args, char ***envp, t_msh *info)
 
 int	ft_unset(char **args, char ***envp, t_msh *info)
 {
-	if (!args || !args[0])
-		return (0);
+	int	estatus;
+
+	estatus = 0;
+	if (!args || !*args)
+		return (estatus);
 	while (*args)
 	{
-		if (info->cmds_num == 1)
-			remove_env_var(*args, envp);
+		if (is_unset_arg_valid(*args))
+		{
+			if (info->cmds_num == 1)
+				remove_env_var(*args, envp);
+		}
+		else
+			estatus = 1;
 		args++;
 	}
-	return (0);
+	return (estatus);
 }
 
 int	ft_env(char **args, char ***envp, t_msh *info)

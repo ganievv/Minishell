@@ -190,6 +190,7 @@ void			print_env_vars(char **list);
 void			change_or_add_env_var(char *var, char ***envp);
 /*-----------------------------unset----------------------------*/
 void			remove_env_var(char *var, char ***envp);
+int				is_unset_arg_valid(char *arg);
 /*------------------------------cd------------------------------*/
 void			update_pwd_var(char ***envp);
 void			update_oldpwd_var(char ***envp);
