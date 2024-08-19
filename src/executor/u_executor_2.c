@@ -59,7 +59,7 @@ char	**args_to_argv(char **args, char *cmd_path)
 	{
 		argv[i + 1] = ft_strdup(args[i]);
 		if (argv[i + 1] == NULL)
-			return (free_arr_str(argv), argv = NULL, NULL);
+			return (free_arr_str(&argv), NULL);
 		i++;
 	}
 	argv[i + 1] = NULL;
@@ -83,7 +83,7 @@ char	**copy_arr_str(char **src)
 	{
 		arr_cpy[i] = ft_strdup(src[i]);
 		if (!arr_cpy[i])
-			return (free_arr_str(arr_cpy), arr_cpy = NULL, NULL);
+			return (free_arr_str(&arr_cpy), NULL);
 	}
 	arr_cpy[i] = NULL;
 	return (arr_cpy);

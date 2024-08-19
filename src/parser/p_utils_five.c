@@ -46,20 +46,17 @@ char	**args_join(char **src, char *new_arg)
 	i = 0;
 	res = (char **)malloc(sizeof(char *) * (count_args(src) + 2));
 	if (!res)
-		return (free_arr_str(src), NULL);
+		return (free_arr_str(&src), NULL);
 	while (src && src[i])
 	{
 		res[i] = ft_strdup(src[i]);
 		if (!res[i])
-			return (free_arr_str(res), res = NULL, NULL);
+			return (free_arr_str(&res), NULL);
 		i++;
 	}
 	res[i] = new_arg;
 	res[i + 1] = NULL;
 	if (src != NULL)
-	{
-		free_arr_str(src);
-		src = NULL;
-	}
+		free_arr_str(&src);
 	return (res);
 }

@@ -1,0 +1,101 @@
+==232== 88 bytes in 1 blocks are still reachable in loss record 24 of 66
+==232==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==232==    by 0x10C0D0: pipe_group_init (p_utils_four.c:34)
+==232==    by 0x10A26F: parse_pipeline (parser.c:46)
+==232==    by 0x109D6F: process_pipeline (u_main_3.c:47)
+==232==    by 0x109C7A: process_input (u_main_3.c:29)
+==232==    by 0x109750: main (main.c:59)
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+==232== 66 bytes in 1 blocks are definitely lost in loss record 21 of 66
+==232==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==232==    by 0x110BF7: ft_strdup (in /host/minishell)
+==232==    by 0x10E6A3: copy_arr_str (u_executor_2.c:84)
+==232==    by 0x109804: t_msh_init (u_main_1.c:23)
+==232==    by 0x1095BE: prog_init (main.c:18)
+==232==    by 0x10962F: main (main.c:37)
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+==232== 24 bytes in 1 blocks are still reachable in loss record 16 of 66
+==232==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==232==    by 0x10A552: token_create_preexp (l_utils_two.c:33)
+==232==    by 0x10B20F: token_to_token_preexp (l_utils_eight.c:19)
+==232==    by 0x10B120: token_ready_for_parsing (l_utils_seven.c:18)
+==232==    by 0x109D0D: process_pipeline (u_main_3.c:40)
+==232==    by 0x109C7A: process_input (u_main_3.c:29)
+==232==    by 0x109750: main (main.c:59)
+
+----------------------------------------------------------------------------------------------------------
+
+
+==232== 8 bytes in 1 blocks are still reachable in loss record 9 of 66
+==232==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==232==    by 0x10D3FA: save_io_fds (u_files_redir.c:72)
+==232==    by 0x10D8FD: process_one_cmd (executor.c:111)
+==232==    by 0x10D9D6: exec_all_cmds (executor.c:134)
+==232==    by 0x109D83: process_pipeline (u_main_3.c:48)
+==232==    by 0x109C7A: process_input (u_main_3.c:29)
+==232==    by 0x109750: main (main.c:59)
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+==232== 5 bytes in 1 blocks are still reachable in loss record 4 of 66
+==232==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==232==    by 0x110BF7: ft_strdup (in /host/minishell)
+==232==    by 0x10BCD5: parse_command (p_utils_two.c:80)
+==232==    by 0x10A2B5: parse_pipeline (parser.c:49)
+==232==    by 0x109D6F: process_pipeline (u_main_3.c:47)
+==232==    by 0x109C7A: process_input (u_main_3.c:29)
+==232==    by 0x109750: main (main.c:59)
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+==232== 5 bytes in 1 blocks are still reachable in loss record 3 of 66
+==232==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==232==    by 0x1110BB: ft_strndup (in /host/minishell)
+==232==    by 0x10A579: token_create_preexp (l_utils_two.c:36)
+==232==    by 0x10B20F: token_to_token_preexp (l_utils_eight.c:19)
+==232==    by 0x10B120: token_ready_for_parsing (l_utils_seven.c:18)
+==232==    by 0x109D0D: process_pipeline (u_main_3.c:40)
+==232==    by 0x109C7A: process_input (u_main_3.c:29)
+==232==    by 0x109750: main (main.c:59)
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+==232== 5 bytes in 1 blocks are still reachable in loss record 2 of 66
+==232==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==232==    by 0x110BF7: ft_strdup (in /host/minishell)
+==232==    by 0x10B1A9: token_preexp_and_update_input (l_utils_seven.c:43)
+==232==    by 0x109C28: process_input (u_main_3.c:25)
+==232==    by 0x109750: main (main.c:59)
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+==232== 2 bytes in 1 blocks are still reachable in loss record 1 of 66
+==232==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==232==    by 0x110A09: ft_nbr_malloc (in /host/minishell)
+==232==    by 0x110A5B: ft_itoa (in /host/minishell)
+==232==    by 0x10CE4A: ft_exit (builtins_1.c:94)
+==232==    by 0x10D951: process_one_cmd (executor.c:117)
+==232==    by 0x10D9D6: exec_all_cmds (executor.c:134)
+==232==    by 0x109D83: process_pipeline (u_main_3.c:48)
+==232==    by 0x109C7A: process_input (u_main_3.c:29)
+==232==    by 0x109750: main (main.c:59)
+
+
+----------------------------------------------------------------------------------------------------------

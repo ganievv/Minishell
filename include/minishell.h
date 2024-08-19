@@ -163,7 +163,8 @@ int				is_cmd_present_one_cmd(t_msh *info);
 void			is_cmd_present_multiple_cmds(t_pipe_group *cmd);
 
 /*---------------------------cleanup----------------------------*/
-void			free_arr_str(char **arr);
+void			free_str(char **str);
+void			free_arr_str(char ***arr);
 void			free_arr_int(int **arr, int num);
 void			free_pids_and_pipes(t_msh *info);
 void			free_all_prog_vars(t_msh *info);
@@ -182,7 +183,7 @@ void			restore_io_fds(int *fds, t_pipe_group *cmd);
 int				is_nbr(char *arg);
 int				is_valid_exit_range(char *nbr);
 long long		ft_atoll(char *str);
-void			prepare_exit(t_msh *info);
+void			prepare_exit(t_msh *info, char **exit_arg);
 /*----------------------------export----------------------------*/
 void			double_array_sort(char **array, int size);
 int				is_export_arg_valid(char *arg);

@@ -68,3 +68,10 @@ int	count_cmds(t_pipe_group *cmds)
 	}
 	return (count);
 }
+
+void	free_str(char **str)
+{
+	if (*str)
+		free(*str);
+	*str = NULL;
+}
