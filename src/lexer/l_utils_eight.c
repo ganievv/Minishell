@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 05:14:21 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 05:16:16 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 23:12:51 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	token_preexp_free(t_token **dest)
 		temp = next;
 	}
 	*dest = NULL;
+	dest = NULL;
 }
 
 void	token_preexp_to_trimed(t_token **dest)
@@ -57,6 +58,7 @@ void	token_preexp_to_trimed(t_token **dest)
 			if (!temp_str)
 			{
 				token_preexp_free(dest);
+				dest = NULL;
 				return ;
 			}
 			free(temp->token_start);

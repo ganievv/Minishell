@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 05:20:30 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 05:57:46 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 23:25:19 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,15 @@ char	**args_join(char **src, char *new_arg)
 	{
 		res[i] = ft_strdup(src[i]);
 		if (!res[i])
-			return (free_arr_str(res), NULL);
+			return (free_arr_str(res), res = NULL, NULL);
 		i++;
 	}
 	res[i] = new_arg;
 	res[i + 1] = NULL;
 	if (src != NULL)
+	{
 		free_arr_str(src);
+		src = NULL;
+	}
 	return (res);
 }

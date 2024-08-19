@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_executor_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 21:59:51 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/07 14:50:43 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/19 23:05:57 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ char	**args_to_argv(char **args, char *cmd_path)
 		return (NULL);
 	argv[0] = ft_strdup(cmd_path);
 	if (!argv[0])
-		return (free(argv), NULL);
+		return (free(argv), argv = NULL, NULL);
 	while (args && args[i])
 	{
 		argv[i + 1] = ft_strdup(args[i]);
 		if (argv[i + 1] == NULL)
-			return (free_arr_str(argv), NULL);
+			return (free_arr_str(argv), argv = NULL, NULL);
 		i++;
 	}
 	argv[i + 1] = NULL;
@@ -83,7 +83,7 @@ char	**copy_arr_str(char **src)
 	{
 		arr_cpy[i] = ft_strdup(src[i]);
 		if (!arr_cpy[i])
-			return (free_arr_str(arr_cpy), NULL);
+			return (free_arr_str(arr_cpy), arr_cpy = NULL, NULL);
 	}
 	arr_cpy[i] = NULL;
 	return (arr_cpy);

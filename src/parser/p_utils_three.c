@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_three.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/17 15:05:13 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/19 23:29:38 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static bool	prepare_heredoc_redir(char **heredoc_strs, int *stdin_copy)
 	if (*stdin_copy == -1)
 		return (false);
 	if (*heredoc_strs)
+	{
 		free(*heredoc_strs);
+		*heredoc_strs = NULL;
+	}
 	*heredoc_strs = ft_strdup("");
 	if (!*heredoc_strs)
 		return (false);
@@ -46,7 +49,10 @@ bool	handle_heredoc(int l, char *end, char **heredoc_strs, char **envp)
 	}
 	restore_stdin_fd(stdin_copy, heredoc_strs);
 	if (str)
+	{
 		free(str);
+		str = NULL;
+	}
 	return (true);
 }
 

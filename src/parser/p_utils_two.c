@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 06:03:50 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 23:30:20 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	join_command_str(t_token **temp, char **current_str)
 			temp_str = ft_strjoin(*current_str,
 					(*temp)->token_start);
 		free(*current_str);
+		*current_str = NULL;
 		if (!temp_str)
 		{
 			*current_str = NULL;
@@ -79,6 +80,7 @@ void	parse_command(t_token **tokens, t_pipe_group	*group)
 			free(current_str);
 		current_str = ft_strdup(temp_str);
 		free(temp_str);
+		temp_str = NULL;
 		if (temp)
 			temp = temp->next;
 	}

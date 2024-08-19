@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:24:23 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/19 21:43:38 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 23:30:57 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 void	free_all_prog_vars(t_msh *info)
 {
-
+	if (info->cmds)
+		pipe_group_free(&(info->cmds));
+	if (info->tokens)
+		token_preexp_free(&(info->tokens));
+	free_is_existing(info->input);
 	free_pids_and_pipes(info);
+
 }
 
 static void	add_to_shlvl(t_msh *info, int var_i)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cleanup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 21:24:03 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/12 19:48:36 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/19 23:05:20 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	free_arr_int(int **arr, int num)
 	{
 		if (arr[i])
 			free(arr[i]);
+		arr[i] = NULL;
 	}
 	free(arr);
+	arr = NULL;
 }
 
 /* this function invokes clean up
@@ -51,4 +53,5 @@ void	free_arr_str(char **arr)
 	while (arr[++i])
 		free(arr[i]);
 	free(arr);
+	arr = NULL;
 }

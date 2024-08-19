@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:03:55 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/18 15:43:07 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 23:00:27 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_cmd_builtin(char *cmd, t_msh *info)
 		if (ft_strcmp(cmd_cp, info->builtin_names[i]) == 0)
 			return (free(cmd_cp), i);
 	}
-	return (free(cmd_cp), -1);
+	return (free(cmd_cp),cmd = NULL, -1);
 }
 
 /* this function counts how many

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_exit_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/13 18:53:02 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/19 23:06:20 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	prepare_exit(t_msh *info)
 	{
 		free_all_prog_vars(info);
 		free_arr_str(info->envp);
+		info = NULL;
+		info->envp = NULL;
 		rl_clear_history();
 		change_terminal_echo_ctl(false);
 		//write(STDOUT_FILENO, "exit\n", 5);

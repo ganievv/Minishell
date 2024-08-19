@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:51:39 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 06:08:57 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 22:40:33 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ struct s_msh
 {
 	char			*input;
 	t_token			*tokens;
+	t_token			*ready;
 	t_pipe_group	*cmds;
 	int				cmds_num;
 	char			**envp;
@@ -133,8 +134,7 @@ void			init_builtin_ptrs(int (**builtin_ptrs)(char **,
 						char ***, t_msh *));
 char			**copy_arr_str(char **src);
 void			process_input(t_msh *info, t_rdr_const rdr);
-void			process_pipeline(t_msh *info, t_rdr_const rdr,
-					t_token **ready);
+void			process_pipeline(t_msh *info, t_rdr_const rdr, t_token **ready);
 /*---------------------------builtins---------------------------*/
 int				ft_pwd(char **args, char ***envp, t_msh *info);
 int				ft_cd(char **args, char ***envp, t_msh *info);

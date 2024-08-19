@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 22:20:29 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/17 15:05:08 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/19 23:28:28 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	expand_heredoc_strs(char **str, int l, char **envp)
 		if (!temp_str)
 			return ;
 		free(*str);
+		*str = NULL;
 		*str = ft_strdup(temp_str);
 		free(temp_str);
+		temp_str = NULL;
 	}
 }
 
@@ -51,6 +53,7 @@ void	save_heredoc_str(char *str, char **heredoc_strs)
 
 	new_str = ft_strjoin(str, "\n");
 	free(str);
+	str = NULL;
 	if (!new_str)
 		return ;
 	tmp = *heredoc_strs;
@@ -58,5 +61,7 @@ void	save_heredoc_str(char *str, char **heredoc_strs)
 	if (!*heredoc_strs)
 		*heredoc_strs = ft_strdup("");
 	free(tmp);
+	tmp = NULL;
 	free(new_str);
+	new_str = NULL;
 }

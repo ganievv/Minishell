@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 22:35:17 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 06:55:58 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/20 00:01:41 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	free_is_existing(void *mem)
 {
 	if (mem)
 		free(mem);
+	mem = NULL;
 }
 
 void	pipe_group_free(t_pipe_group **head)
@@ -95,5 +96,5 @@ void	pipe_group_free(t_pipe_group **head)
 		free(current);
 		current = next;
 	}
-	*head = NULL;
+	head = NULL;
 }

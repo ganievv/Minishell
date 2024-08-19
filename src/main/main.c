@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 07:47:04 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 23:17:52 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		signal(SIGINT, handle_sigint_shell);
 		change_terminal_echo_ctl(true);
-		if (info.cmds)
-			pipe_group_free(&(info.cmds));
 		if (isatty(fileno(stdin)))
 			info.input = readline(GRAY"minishell: "RESET);
 		else

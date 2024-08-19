@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:41 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 21:39:10 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 22:58:16 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_cd(char **args, char ***envp, t_msh *info)
 		return (print_err_for_cd(dir), 1);
 	update_oldpwd_var(envp);
 	update_pwd_var(envp);
-	return (free(dir), 0);
+	return (free(dir), dir = NULL, 0);
 }
 
 /* '-n' flag should be in args[0] */
