@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/18 05:54:23 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 07:47:04 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ static void	prog_init(t_msh *info, char **envp)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_msh		info;
-	t_token		*ready;
-	t_rdr_const rdr;
+	t_rdr_const	rdr;
 
 	(void)argc;
 	(void)argv;
@@ -42,7 +41,8 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		signal(SIGINT, handle_sigint_shell);
 		change_terminal_echo_ctl(true);
-		ready = NULL;
+		if (info.cmds)
+			pipe_group_free(&(info.cmds));
 		if (isatty(fileno(stdin)))
 			info.input = readline(GRAY"minishell: "RESET);
 		else
@@ -56,32 +56,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (ft_strlen(info.input) > 0)
 			add_history(info.input);
 		if (!is_input_empty(info.input))
-		{
-			if (tokenize(info.input, &(info.tokens)) != -1)
-			{
-				//first tokenization
-				token_to_token_preexp(info.tokens, &ready);
-				//free the previous list
-				token_free(&(info.tokens));
-				//first expansion
-				token_preexp_to_token_exp(info.last_exit_status,
-					&ready, info.envp);
-				//updated input
-				token_preexp_and_update_input(&(info.input), ready);
-				//free the ready
-				token_preexp_free(&ready);
-				//final tokenization
-				tokenize(info.input, &(info.tokens));
-				token_ready_for_parsing(info.last_exit_status, info.tokens,
-					&ready, info.envp);
-				token_free(&(info.tokens));
-				info.tokens = ready;
-				info.cmds = parse_pipeline(rdr, &(info.tokens));
-				exec_all_cmds(&info);
-			}
-			else
-				token_free(&(info.tokens));
-		}
+			process_input(&info, rdr);
 		free_all_prog_vars(&info);
 	}
 	change_terminal_echo_ctl(false);

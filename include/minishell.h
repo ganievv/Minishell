@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:51:39 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 21:27:08 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 06:08:57 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ typedef struct s_exp_helper
 	char		*temp;
 	char		*var;
 	size_t		len;
-	const char	*end;
+	char		*end;
 	char		*result;
-	const char	*start;
+	char		*start;
 }	t_exp_helper;
 /*-------------------------commands_list------------------------*/
 typedef struct s_pipe_group
@@ -132,7 +132,9 @@ void			init_builtin_names(char **builtin_names);
 void			init_builtin_ptrs(int (**builtin_ptrs)(char **,
 						char ***, t_msh *));
 char			**copy_arr_str(char **src);
-
+void			process_input(t_msh *info, t_rdr_const rdr);
+void			process_pipeline(t_msh *info, t_rdr_const rdr,
+					t_token **ready);
 /*---------------------------builtins---------------------------*/
 int				ft_pwd(char **args, char ***envp, t_msh *info);
 int				ft_cd(char **args, char ***envp, t_msh *info);
@@ -165,45 +167,36 @@ void			free_arr_str(char **arr);
 void			free_arr_int(int **arr, int num);
 void			free_pids_and_pipes(t_msh *info);
 void			free_all_prog_vars(t_msh *info);
-
 /*---------------------------env_vars---------------------------*/
 int				search_env_var(char *var_to_find, char **envp);
 char			*take_env_var_value(char *var);
 char			*take_env_var_name(char *var);
-
 /*-----------------------------pipes----------------------------*/
 int				pipes_create(t_msh *info, int cmds_num);
 void			make_pipes_redir(t_msh *info, int cmd_index);
-
 /*--------------------------files_redir-------------------------*/
 int				make_files_redir(t_pipe_group *cmd);
 int				*save_io_fds(t_pipe_group *cmd);
 void			restore_io_fds(int *fds, t_pipe_group *cmd);
-
 /*-----------------------------exit-----------------------------*/
 int				is_nbr(char *arg);
 int				is_valid_exit_range(char *nbr);
 long long		ft_atoll(char *str);
 void			prepare_exit(t_msh *info);
-
 /*----------------------------export----------------------------*/
 void			double_array_sort(char **array, int size);
 int				is_export_arg_valid(char *arg);
 void			print_env_vars(char **list);
 void			change_or_add_env_var(char *var, char ***envp);
-
 /*-----------------------------unset----------------------------*/
 void			remove_env_var(char *var, char ***envp);
-
 /*------------------------------cd------------------------------*/
 void			update_pwd_var(char ***envp);
 void			update_oldpwd_var(char ***envp);
 int				check_special_cd_options(char **dir, char **envp);
 void			print_err_for_cd(char *dir);
-
 /*-----------------------------echo-----------------------------*/
 bool			check_cmd_flag(char flag, char ***args);
-
 /*----------------lexer---------------------*/
 int				tokenize(char *input, t_token **head);
 /*------------lexer-utils-one---------------*/
@@ -234,27 +227,31 @@ void			token_h_word(char *input, t_token **head, t_h_token *var);
 void			token_h_variable(char *input, t_token **head, t_h_token *var);
 void			token_h_isspace(char *input, t_token **head, t_h_token *var);
 /*---------------lexer-utils-seven--------------------*/
+void			token_ready_for_parsing(int l, t_token **src,
+					t_token **dest, char **envp);
+void			token_preexp_and_update_input(char **input, t_token *dest);
+/*---------------lexer-utils-eight--------------------*/
 void			token_to_token_preexp(t_token *src, t_token **dest);
 void			token_preexp_free(t_token **dest);
 void			token_preexp_to_trimed(t_token **dest);
-void			token_preexp_to_token_exp(int l, t_token **dest,
-					char **envp);
-void			token_ready_for_parsing(int l, t_token *src,
-					t_token **dest, char **envp);
-void			token_preexp_and_update_input(char **input, t_token *dest);
+void			token_preexp_to_token_exp(int l, t_token **dest, char **envp);
 /*----------------parser----------------------*/
 t_pipe_group	*parse_pipeline(t_rdr_const rdr, t_token **tokens);
 int				p_command_h_one(t_token *tokens);
 void			update_group_list(t_pipe_group **head,
 					t_pipe_group **current, t_pipe_group *group,
 					t_token **tokens);
-/*----------	-----parser-utils-one-------------*/
+/*--------------parser-utils-one-------------*/
 int				p_redir_h_one(t_token *tokens);
 void			p_redir_h_two(t_rdr_const rdr, t_token_type type,
 					t_pipe_group **group, char *file);
 void			parse_redir(t_rdr_const rdr, t_token **tokens,
 					t_pipe_group *group);
 /*---------------parser-utils-two-------------*/
+void			p_args_skip_spaces(t_token **temp);
+void			join_command_str(t_token **temp, char **current_str);
+void			add_arg_and_skip_spaces(char ***args, char *current_str,
+					t_token **temp, int *i);
 void			parse_command(t_token **tokens, t_pipe_group	*group);
 void			parse_args(t_token **tokens, t_pipe_group *group);
 /*--------------parser-utils-three------------*/
@@ -264,9 +261,14 @@ void			create_file(char *file, int mode);
 void			reset_heredoc_fields(t_pipe_group *cmd);
 void			print_array(char **str);
 /*--------------parser-utils-four-------------*/
+void			free_is_existing(void *mem);
 void			pipe_group_print(t_pipe_group *group);
 t_pipe_group	*pipe_group_init(void);
 void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);
+/*--------------parser-utils-five-------------*/
+void			parse_command(t_token **tokens, t_pipe_group	*group);
+void			parse_args(t_token **tokens, t_pipe_group *group);
+char			**args_join(char **src, char *new_arg);
 /*--------------parser-utils-heredoc----------*/
 void			expand_heredoc_strs(char **str, int l, char **envp);
 void			save_heredoc_str(char *str, char **heredoc_strs);

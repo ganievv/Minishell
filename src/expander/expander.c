@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:45 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 17:44:40 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 05:03:57 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*expand_var(int l, char *input, char **envp)
 {
 	int		i;
 	char	*var_name;
-	char	*res;
 
 	if (*input != '$')
 		return (ft_strdup(input));
@@ -25,10 +24,7 @@ char	*expand_var(int l, char *input, char **envp)
 	{
 		if (ft_isspace(*(input + 1)) || *(input + 1) == '\0')
 			return (ft_strdup("$"));
-		res = ft_itoa(l);
-		if (!res)
-			return (NULL);
-		return (res);
+		return (ft_itoa(l));
 	}
 	var_name = input + 1;
 	i = -1;
@@ -81,4 +77,3 @@ char	*expand_unquoted(int l, char *input, char **envp)
 {
 	return (expand_var(l, input, envp));
 }
-

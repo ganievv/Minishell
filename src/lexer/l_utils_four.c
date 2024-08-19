@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:42:25 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/18 06:20:01 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 02:20:44 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ int	check_syntax_errors(t_token **head)
 	while (current && current->type == SPC)
 		current = current->next;
 	if (current && (current->type == PIPE))
-		return (ft_token_print_error(head, \
+		return (ft_token_print_error(head,
 				"msh:  unexpected token\n"));
 	while (current)
 	{
 		if (pipe_after_pipe(current))
-			return (ft_token_print_error(head, "msh: syntax error near\
-				unexpected token\n"));
+			return (ft_token_print_error(head, "msh: syntax error near"
+					" unexpected token\n"));
 		current = current->next;
 	}
 	return (0);

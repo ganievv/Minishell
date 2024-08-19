@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:28:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 00:46:05 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 07:37:15 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_pipe_group	*parse_pipeline(t_rdr_const rdr, t_token **tokens)
 	head = NULL;
 	current = NULL;
 	token_start = NULL;
+	group = NULL;
 	while (*tokens)
 	{
 		token_start = *tokens;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_files_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:54:08 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/17 15:19:20 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/19 04:56:22 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	redir_heredoc(t_pipe_group *cmd)
 	if (dup2(p[0], STDIN_FILENO) == -1)
 	{
 		close(p[0]);
-        return (0);
+		return (0);
 	}
 	close(p[0]);
 	return (1);

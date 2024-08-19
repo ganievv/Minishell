@@ -6,7 +6,7 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/18 03:06:05 by tnakas           ###   ########.fr        #
+#    Updated: 2024/08/19 05:36:04 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,18 @@ CC = cc
 CFLAGS = -g -Wall -Wextra -Werror -I. -I$(LIBFT_DIR) #-fsanitize=address
 LIBFT_DIR = libft
 
-SRC = src/main/main.c src/main/u_main_1.c src/main/u_main_2.c \
+SRC = src/main/main.c src/main/u_main_1.c \
+	src/main/u_main_2.c src/main/u_main_3.c  \
 	src/main/header.c src/signals/signals.c src/parser/parser.c \
 	src/lexer/l_utils_one.c src/lexer/l_utils_two.c \
 	src/lexer/l_utils_three.c src/lexer/l_utils_four.c\
 	src/lexer/l_utils_five.c src/lexer/l_utils_six.c\
 	src/lexer/l_utils_seven.c\
+	src/lexer/l_utils_eight.c\
 	src/lexer/lexer.c src/parser/p_utils_one.c \
 	src/parser/p_utils_two.c src/parser/p_utils_three.c \
 	src/parser/p_utils_four.c \
+	src/parser/p_utils_five.c \
 	src/get_next_line/get_next_line_utils.c \
 	src/get_next_line/get_next_line.c \
 	src/executor/builtins_1.c src/executor/builtins_2.c \
