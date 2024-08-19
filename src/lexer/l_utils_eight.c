@@ -95,7 +95,7 @@ void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 				temp_str = expand_double_quoted(l, temp->token_start, envp);
 			if (!temp_str)
 				token_preexp_free(dest);
-			free_is_existing(temp->token_start);
+			free_str(&(temp->token_start));
 			temp->token_start = temp_str;
 			temp->len = ft_strlen(temp->token_start);
 		}

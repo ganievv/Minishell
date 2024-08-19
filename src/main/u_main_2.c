@@ -18,7 +18,7 @@ void	free_all_prog_vars(t_msh *info)
 		pipe_group_free(&(info->cmds));
 	if (info->tokens)
 		token_preexp_free(&(info->tokens));
-	free_is_existing(info->input);
+	free_str(&(info->input));
 	free_pids_and_pipes(info);
 
 }

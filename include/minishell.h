@@ -263,7 +263,6 @@ void			create_file(char *file, int mode);
 void			reset_heredoc_fields(t_pipe_group *cmd);
 void			print_array(char **str);
 /*--------------parser-utils-four-------------*/
-void			free_is_existing(void *mem);
 void			pipe_group_print(t_pipe_group *group);
 t_pipe_group	*pipe_group_init(void);
 void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);
