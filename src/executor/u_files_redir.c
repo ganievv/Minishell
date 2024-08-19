@@ -18,7 +18,8 @@ static int	redir_heredoc(t_pipe_group *cmd)
 
 	if (pipe(p) == -1)
 		return (0);
-	if (write(p[1], cmd->heredoc_strs, ft_strlen(cmd->heredoc_strs)) == -1)
+	if (!cmd->heredoc_strs || write(p[1], cmd->heredoc_strs,
+			ft_strlen(cmd->heredoc_strs)) == -1)
 	{
 		close(p[0]);
 		close(p[1]);

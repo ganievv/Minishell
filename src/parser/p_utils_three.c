@@ -44,7 +44,7 @@ bool	handle_heredoc(int l, char *end, char **heredoc_strs, char **envp)
 		expand_heredoc_strs(&str, l, envp);
 		save_heredoc_str(str, heredoc_strs);
 	}
-	restore_stdin_fd(stdin_copy);
+	restore_stdin_fd(stdin_copy, heredoc_strs);
 	if (str)
 		free(str);
 	return (true);

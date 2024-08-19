@@ -32,9 +32,15 @@ void	copy_stdin_fd(int *stdin_copy)
 	*stdin_copy = dup(STDIN_FILENO);
 }
 
-void	restore_stdin_fd(int stdin_copy)
+void	restore_stdin_fd(int stdin_copy, char **heredoc_strs)
 {
-	dup2(stdin_copy, STDIN_FILENO);
+	if (errno == EBADF)
+	{
+		dup2(stdin_copy, STDIN_FILENO);
+		if (*heredoc_strs)
+			free(*heredoc_strs);
+		*heredoc_strs = NULL;
+	}
 	close(stdin_copy);
 }
 

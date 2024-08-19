@@ -19,7 +19,7 @@ void	handle_sigint_shell(int signal)
 {
 	if (signal == SIGINT)
 	{
-		write(STDOUT_FILENO, "\n", 1);
+		write(STDERR_FILENO, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -31,7 +31,7 @@ void	handle_sigint_heredoc(int signal)
 	(void)signal;
 	rl_replace_line("", 0);
 	close(STDIN_FILENO);
-	write(STDOUT_FILENO, "\n", 1);
+	write(STDERR_FILENO, "\n", 1);
 }
 
 void	change_terminal_echo_ctl(bool turn_off)

@@ -274,7 +274,7 @@ char			**args_join(char **src, char *new_arg);
 void			expand_heredoc_strs(char **str, int l, char **envp);
 void			save_heredoc_str(char *str, char **heredoc_strs);
 void			copy_stdin_fd(int *stdin_copy);
-void			restore_stdin_fd(int stdin_copy);
+void			restore_stdin_fd(int stdin_copy, char **heredoc_strs);
 void			pipe_group_free(t_pipe_group **head);
 /*---------------expander---------------------*/
 char			*expand_var(int l, char *input, char **envp);
