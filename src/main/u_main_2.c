@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 20:24:23 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/19 06:40:19 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 21:43:38 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	free_all_prog_vars(t_msh *info)
 {
+
 	free_pids_and_pipes(info);
 }
 

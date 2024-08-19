@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 16:06:05 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/18 02:46:25 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 15:43:15 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 	{
 		ft_memcpy(new_ptr, ptr, new_size);
 		free(ptr);
+		ptr = NULL;
 	}
 	return (new_ptr);
 }

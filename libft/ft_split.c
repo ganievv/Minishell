@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 18:41:54 by tnakas            #+#    #+#             */
-/*   Updated: 2024/05/20 19:58:35 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 15:43:30 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_free(char **s, int last)
 	while (last > 0)
 		free(s[--last]);
 	free(s);
+	s = NULL;
 }
 // // making the split
 
