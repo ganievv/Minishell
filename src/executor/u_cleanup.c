@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cleanup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 21:24:03 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/19 23:05:20 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/12 19:48:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ void	free_arr_int(int **arr, int num)
 	{
 		if (arr[i])
 			free(arr[i]);
-		arr[i] = NULL;
 	}
 	free(arr);
-	arr = NULL;
 }
 
 /* this function invokes clean up
@@ -43,18 +41,14 @@ void	free_pids_and_pipes(t_msh *info)
 }
 
 /* this function frees an array of strings */
-void	free_arr_str(char ***arr)
+void	free_arr_str(char **arr)
 {
 	int	i;
 
-	if (!arr || !*arr)
+	i = -1;
+	if (!arr)
 		return ;
-	i = 0;
-	while ((*arr)[i])
-	{
-		free((*arr)[i]);
-		i++;
-	}
-	free(*arr);
-	*arr = NULL;
+	while (arr[++i])
+		free(arr[i]);
+	free(arr);
 }

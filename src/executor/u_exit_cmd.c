@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_exit_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 23:06:20 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/13 18:53:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,12 @@ int	is_valid_exit_range(char *nbr)
 		return (1);
 }
 
-void	prepare_exit(t_msh *info, char **exit_arg)
+void	prepare_exit(t_msh *info)
 {
-	free_str(exit_arg);
 	if (info->cmds_num == 1)
 	{
-		free_pids_and_pipes(info);
-		if (info->cmds)
-			pipe_group_free(&(info->cmds));
-		free_arr_str(&(info->envp));
+		free_all_prog_vars(info);
+		free_arr_str(info->envp);
 		rl_clear_history();
 		change_terminal_echo_ctl(false);
 		//write(STDOUT_FILENO, "exit\n", 5);

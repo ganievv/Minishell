@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:43 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 23:08:35 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/18 22:21:43 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,14 @@ static void	copy_and_free(char **result, char *temp,
 	if (!(*result))
 	{
 		free(temp);
-		temp = NULL;
 		free(var);
-		var = NULL;
 		return ;
 	}
 	ft_strcpy(*result, temp);
 	ft_strcpy(*result + ft_strlen(temp), expanded_var);
 	free(temp);
-	temp = NULL;
 	free(var);
-	var = NULL;
 	free(expanded_var);
-	expanded_var = NULL;
 }
 
 static void	expand_double_quoted_helper_one(int l, t_exp_helper *h, char **envp)
@@ -66,9 +61,7 @@ static void	expand_double_quoted_helper_two(t_exp_helper *h)
 	if (!h->result)
 	{
 		free(h->temp);
-		h->temp = NULL;
 		free(h->var);
-		h->var = NULL;
 		return ;
 	}
 	ft_strcpy(h->result, h->temp);

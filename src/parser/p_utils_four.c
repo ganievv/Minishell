@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 22:35:17 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/20 00:01:41 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 06:55:58 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void	pipe_group_add(t_pipe_group **head, t_pipe_group *new_group)
 	}
 }
 
+void	free_is_existing(void *mem)
+{
+	if (mem)
+		free(mem);
+}
 
 void	pipe_group_free(t_pipe_group **head)
 {
@@ -79,16 +84,16 @@ void	pipe_group_free(t_pipe_group **head)
 	while (current)
 	{
 		next = current->next;
-		free_str(&(current->command));
-		free_arr_str(&(current->args));
-		free_str(&(current->file_in));
-		free_str(&(current->file_out));
+		free_is_existing((char *)current->command);
+		free_arr_str(current->args);
+		free_is_existing((char *)current->file_in);
+		free_is_existing((char *)current->file_out);
 		if (current->is_heredoc_in)
-			free_str(&(current->heredoc_strs));
-		free_arr_str(&(current->argv));
-		free_str(&(current->cmd_path));
+			free_is_existing((char *)current->heredoc_strs);
+		free_arr_str(current->argv);
+		free_is_existing((char *)current->cmd_path);
 		free(current);
 		current = next;
 	}
-	head = NULL;
+	*head = NULL;
 }

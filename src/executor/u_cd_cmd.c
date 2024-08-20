@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cd_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 20:06:01 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/19 22:59:25 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/12 19:40:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ void	update_pwd_var(char ***envp)
 			(*envp)[var_i] = new_path;
 		}
 		else
-		{
 			free(new_path);
-			new_path = NULL;
-		}
 	}
 }
 
@@ -60,7 +57,6 @@ void	update_oldpwd_var(char ***envp)
 			return ;
 		change_or_add_env_var(oldpwd, envp);
 		free(oldpwd);
-		oldpwd = NULL;
 	}
 }
 

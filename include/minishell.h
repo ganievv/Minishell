@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:51:39 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 22:40:33 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/19 06:08:57 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ struct s_msh
 {
 	char			*input;
 	t_token			*tokens;
-	t_token			*ready;
 	t_pipe_group	*cmds;
 	int				cmds_num;
 	char			**envp;
@@ -134,7 +133,8 @@ void			init_builtin_ptrs(int (**builtin_ptrs)(char **,
 						char ***, t_msh *));
 char			**copy_arr_str(char **src);
 void			process_input(t_msh *info, t_rdr_const rdr);
-void			process_pipeline(t_msh *info, t_rdr_const rdr, t_token **ready);
+void			process_pipeline(t_msh *info, t_rdr_const rdr,
+					t_token **ready);
 /*---------------------------builtins---------------------------*/
 int				ft_pwd(char **args, char ***envp, t_msh *info);
 int				ft_cd(char **args, char ***envp, t_msh *info);
@@ -163,8 +163,7 @@ int				is_cmd_present_one_cmd(t_msh *info);
 void			is_cmd_present_multiple_cmds(t_pipe_group *cmd);
 
 /*---------------------------cleanup----------------------------*/
-void			free_str(char **str);
-void			free_arr_str(char ***arr);
+void			free_arr_str(char **arr);
 void			free_arr_int(int **arr, int num);
 void			free_pids_and_pipes(t_msh *info);
 void			free_all_prog_vars(t_msh *info);
@@ -183,7 +182,7 @@ void			restore_io_fds(int *fds, t_pipe_group *cmd);
 int				is_nbr(char *arg);
 int				is_valid_exit_range(char *nbr);
 long long		ft_atoll(char *str);
-void			prepare_exit(t_msh *info, char **exit_arg);
+void			prepare_exit(t_msh *info);
 /*----------------------------export----------------------------*/
 void			double_array_sort(char **array, int size);
 int				is_export_arg_valid(char *arg);
@@ -263,6 +262,7 @@ void			create_file(char *file, int mode);
 void			reset_heredoc_fields(t_pipe_group *cmd);
 void			print_array(char **str);
 /*--------------parser-utils-four-------------*/
+void			free_is_existing(void *mem);
 void			pipe_group_print(t_pipe_group *group);
 t_pipe_group	*pipe_group_init(void);
 void			pipe_group_add(t_pipe_group **head, t_pipe_group *new_group);

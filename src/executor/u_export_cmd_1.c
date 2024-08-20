@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_export_cmd_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:15:19 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/19 23:06:42 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/10 23:01:57 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ void	print_env_vars(char **list)
 		name = take_env_var_name(sorted[i]);
 		value = take_env_var_value(sorted[i]);
 		form_output_str(name, value);
-		free_str(&name);
-		free_str(&value);
+		if (name)
+			free(name);
+		if (value)
+			free(value);
 	}
-	free_arr_str(&sorted);
+	free_arr_str(sorted);
 }
