@@ -23,7 +23,11 @@ char	*take_env_var_value(char *var)
 	value = NULL;
 	begin = ft_strchr(var, '=');
 	if (begin)
+	{
 		value = ft_strdup(begin + 1);
+		if (*value == '\0')
+			return (free_str(&value), NULL);
+	}
 	return (value);
 }
 

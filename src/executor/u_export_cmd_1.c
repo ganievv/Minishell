@@ -76,10 +76,8 @@ void	print_env_vars(char **list)
 		name = take_env_var_name(sorted[i]);
 		value = take_env_var_value(sorted[i]);
 		form_output_str(name, value);
-		if (name)
-			free(name);
-		if (value)
-			free(value);
+		free_str(&name);
+		free_str(&value);
 	}
 	free_arr_str(&sorted);
 }

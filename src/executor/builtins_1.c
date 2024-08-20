@@ -54,12 +54,12 @@ int	ft_cd(char **args, char ***envp, t_msh *info)
 	else
 		dir = ft_strdup(args[0]);
 	if (!check_special_cd_options(&dir, *envp))
-		return (1);
+		return (free_str(&dir), 1);
 	if (dir[0] != '\0' && (chdir(dir) == -1))
-		return (print_err_for_cd(dir), 1);
+		return (print_err_for_cd(dir), free_str(&dir), 1);
 	update_oldpwd_var(envp);
 	update_pwd_var(envp);
-	return (free(dir), 0);
+	return (free_str(&dir), 0);
 }
 
 /* '-n' flag should be in args[0] */

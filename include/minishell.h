@@ -117,6 +117,7 @@ struct s_msh
 	int				last_exit_status;
 	int				*pids;
 	int				**pipes;
+	int				*io_fds;
 	char			*builtin_names[BUILTIN_NUM + 1];
 	int				(*builtin_ptrs[BUILTIN_NUM + 1])(char **args,
 			char ***envp, t_msh *info);
@@ -178,7 +179,7 @@ void			make_pipes_redir(t_msh *info, int cmd_index);
 /*--------------------------files_redir-------------------------*/
 int				make_files_redir(t_pipe_group *cmd);
 int				*save_io_fds(t_pipe_group *cmd);
-void			restore_io_fds(int *fds, t_pipe_group *cmd);
+void			restore_io_fds(int **fds, t_pipe_group *cmd);
 /*-----------------------------exit-----------------------------*/
 int				is_nbr(char *arg);
 int				is_valid_exit_range(char *nbr);

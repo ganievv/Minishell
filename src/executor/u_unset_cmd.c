@@ -22,10 +22,13 @@ static void	rest_copy(int var_i, char **dst, char **src)
 
 	i = 0;
 	y = 0;
-	while (y != var_i)
+	while (y != var_i && src[y])
 		dst[i++] = src[y++];
 	if (y == var_i)
+	{
+		free_str(&(src[y]));
 		y++;
+	}
 	while (src[y])
 		dst[i++] = src[y++];
 	dst[i] = NULL;
@@ -42,7 +45,7 @@ void	remove_env_var(char *var, char ***envp)
 	var_i = search_env_var(var, *envp);
 	if (var_i != -1)
 	{
-		len = count_args(*envp) + 2;
+		len = count_args(*envp);
 		envp_new = (char **)malloc(sizeof(char *) * len);
 		if (envp_new)
 		{

@@ -88,6 +88,7 @@ void	prepare_exit(t_msh *info, char **exit_arg)
 	free_str(exit_arg);
 	if (info->cmds_num == 1)
 	{
+		restore_io_fds(&(info->io_fds), info->cmds);
 		free_pids_and_pipes(info);
 		pipe_group_free(&(info->cmds));
 		free_arr_str(&(info->envp));

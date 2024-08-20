@@ -1,63 +1,41 @@
 minishell: exit
-==448== 
-==448== HEAP SUMMARY:
-==448==     in use at exit: 204,611 bytes in 220 blocks
-==448==   total heap usage: 1,352 allocs, 1,135 frees, 1,095,329 bytes allocated
-==448== 
-==448== 5 bytes in 1 blocks are still reachable in loss record 1 of 63
-==448==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==448==    by 0x110D3B: ft_strdup (in /host/minishell)
-==448==    by 0x10B1AD: token_preexp_and_update_input (l_utils_seven.c:43)
-==448==    by 0x109C2C: process_input (u_main_3.c:25)
-==448==    by 0x109750: main (main.c:59)
-==448== 
-==448== 5 bytes in 1 blocks are still reachable in loss record 2 of 63
-==448==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==448==    by 0x1111FF: ft_strndup (in /host/minishell)
-==448==    by 0x10A57D: token_create_preexp (l_utils_two.c:36)
-==448==    by 0x10B213: token_to_token_preexp (l_utils_eight.c:19)
-==448==    by 0x10B124: token_ready_for_parsing (l_utils_seven.c:18)
-==448==    by 0x109D11: process_pipeline (u_main_3.c:40)
-==448==    by 0x109C7E: process_input (u_main_3.c:29)
-==448==    by 0x109750: main (main.c:59)
-==448== 
-==448== 8 bytes in 1 blocks are still reachable in loss record 7 of 63
-==448==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==448==    by 0x10D455: save_io_fds (u_files_redir.c:72)
-==448==    by 0x10D958: process_one_cmd (executor.c:111)
-==448==    by 0x10DA31: exec_all_cmds (executor.c:134)
-==448==    by 0x109D87: process_pipeline (u_main_3.c:48)
-==448==    by 0x109C7E: process_input (u_main_3.c:29)
-==448==    by 0x109750: main (main.c:59)
-==448== 
-==448== 10 bytes in 1 blocks are definitely lost in loss record 8 of 63
-==448==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==448==    by 0x110D3B: ft_strdup (in /host/minishell)
-==448==    by 0x10F26C: add_var (u_export_cmd_2.c:39)
-==448==    by 0x10F36C: change_or_add_env_var (u_export_cmd_2.c:70)
-==448==    by 0x10CFE7: ft_export (builtins_2.c:35)
-==448==    by 0x10D9AC: process_one_cmd (executor.c:117)
-==448==    by 0x10DA31: exec_all_cmds (executor.c:134)
-==448==    by 0x109D87: process_pipeline (u_main_3.c:48)
-==448==    by 0x109C7E: process_input (u_main_3.c:29)
-==448==    by 0x109750: main (main.c:59)
-==448== 
-==448== 24 bytes in 1 blocks are still reachable in loss record 15 of 63
-==448==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==448==    by 0x10A556: token_create_preexp (l_utils_two.c:33)
-==448==    by 0x10B213: token_to_token_preexp (l_utils_eight.c:19)
-==448==    by 0x10B124: token_ready_for_parsing (l_utils_seven.c:18)
-==448==    by 0x109D11: process_pipeline (u_main_3.c:40)
-==448==    by 0x109C7E: process_input (u_main_3.c:29)
-==448==    by 0x109750: main (main.c:59)
-==448== 
-==448== LEAK SUMMARY:
-==448==    definitely lost: 10 bytes in 1 blocks
-==448==    indirectly lost: 0 bytes in 0 blocks
-==448==      possibly lost: 0 bytes in 0 blocks
-==448==    still reachable: 42 bytes in 4 blocks
-==448==         suppressed: 204,559 bytes in 215 blocks
-==448== 
-==448== For lists of detected and suppressed errors, rerun with: -s
-==448== ERROR SUMMARY: 4 errors from 2 contexts (suppressed: 0 from 0)
-➜  /host git:(master) ✗ 
+==1901== 
+==1901== HEAP SUMMARY:
+==1901==     in use at exit: 204,593 bytes in 218 blocks
+==1901==   total heap usage: 1,461 allocs, 1,244 frees, 1,292,523 bytes allocated
+==1901== 
+==1901== 5 bytes in 1 blocks are still reachable in loss record 1 of 61
+==1901==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1901==    by 0x110E55: ft_strdup (in /host/minishell)
+==1901==    by 0x10B1AF: token_preexp_and_update_input (l_utils_seven.c:43)
+==1901==    by 0x109C2E: process_input (u_main_3.c:25)
+==1901==    by 0x109750: main (main.c:59)
+==1901== 
+==1901== 5 bytes in 1 blocks are still reachable in loss record 2 of 61
+==1901==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1901==    by 0x111319: ft_strndup (in /host/minishell)
+==1901==    by 0x10A57F: token_create_preexp (l_utils_two.c:36)
+==1901==    by 0x10B215: token_to_token_preexp (l_utils_eight.c:19)
+==1901==    by 0x10B126: token_ready_for_parsing (l_utils_seven.c:18)
+==1901==    by 0x109D13: process_pipeline (u_main_3.c:40)
+==1901==    by 0x109C80: process_input (u_main_3.c:29)
+==1901==    by 0x109750: main (main.c:59)
+==1901== 
+==1901== 24 bytes in 1 blocks are still reachable in loss record 13 of 61
+==1901==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1901==    by 0x10A558: token_create_preexp (l_utils_two.c:33)
+==1901==    by 0x10B215: token_to_token_preexp (l_utils_eight.c:19)
+==1901==    by 0x10B126: token_ready_for_parsing (l_utils_seven.c:18)
+==1901==    by 0x109D13: process_pipeline (u_main_3.c:40)
+==1901==    by 0x109C80: process_input (u_main_3.c:29)
+==1901==    by 0x109750: main (main.c:59)
+==1901== 
+==1901== LEAK SUMMARY:
+==1901==    definitely lost: 0 bytes in 0 blocks
+==1901==    indirectly lost: 0 bytes in 0 blocks
+==1901==      possibly lost: 0 bytes in 0 blocks
+==1901==    still reachable: 34 bytes in 3 blocks
+==1901==         suppressed: 204,559 bytes in 215 blocks
+==1901== 
+==1901== For lists of detected and suppressed errors, rerun with: -s
+==1901== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

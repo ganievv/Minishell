@@ -32,7 +32,7 @@ void	update_pwd_var(char ***envp)
 			(*envp)[var_i] = new_path;
 		}
 		else
-			free(new_path);
+			free_str(&new_path);
 	}
 }
 
@@ -52,11 +52,11 @@ void	update_oldpwd_var(char ***envp)
 	if (pwd_value)
 	{
 		oldpwd = ft_strjoin("OLDPWD=", pwd_value);
-		free(pwd_value);
+		free_str(&pwd_value);
 		if (!oldpwd)
 			return ;
 		change_or_add_env_var(oldpwd, envp);
-		free(oldpwd);
+		free_str(&oldpwd);
 	}
 }
 
@@ -83,7 +83,7 @@ int	check_special_cd_options(char **dir, char **envp)
 		new_dir = search_oldpwd("OLDPWD", envp);
 		if (!new_dir)
 			return (write(STDERR_FILENO, "cd: OLDPWD not set\n", 19), 0);
-		free(*dir);
+		free_str(dir);
 		*dir = new_dir;
 	}
 	return (1);

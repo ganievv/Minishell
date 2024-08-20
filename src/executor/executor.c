@@ -101,22 +101,22 @@ static void	exec_one_cmd(t_msh *info)
 static void	process_one_cmd(t_msh *info)
 {
 	int	index;
-	int	*fds;
 
 	if (!is_cmd_present_one_cmd(info))
 		return ;
 	index = is_cmd_builtin(info->cmds->command, info);
 	if (index >= 0)
 	{
-		fds = save_io_fds(info->cmds);
+		info->io_fds = save_io_fds(info->cmds);
 		if (!make_files_redir(info->cmds))
 		{
 			info->last_exit_status = 1;
+			restore_io_fds(&(info->io_fds), info->cmds);
 			return ;
 		}
 		info->last_exit_status = (info->builtin_ptrs[index])
 			(info->cmds->args, &(info->envp), info);
-		restore_io_fds(fds, info->cmds);
+		restore_io_fds(&(info->io_fds), info->cmds);
 	}
 	else
 	{
