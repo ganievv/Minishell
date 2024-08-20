@@ -17,6 +17,7 @@ void	process_input(t_msh *info, t_rdr_const rdr)
 	t_token	*ready;
 
 	ready = NULL;
+	(void)rdr;
 	if (tokenize(info->input, &(info->tokens)) != -1)
 	{
 		token_to_token_preexp(info->tokens, &ready);
@@ -27,7 +28,8 @@ void	process_input(t_msh *info, t_rdr_const rdr)
 		token_free(&(info->tokens));
 		if (tokenize(info->input, &(info->tokens)) != -1)
 			process_pipeline(info, rdr, &(ready));
-		free(info->input);
+		else
+			token_free(&(info->tokens));
 	}
 	else
 		token_free(&(info->tokens));
@@ -39,15 +41,16 @@ void	process_pipeline(t_msh *info, t_rdr_const rdr, t_token **ready)
 {
 	token_ready_for_parsing(info->last_exit_status,
 		&(info->tokens), ready, info->envp);
-	if (info->cmds)
-		pipe_group_free(&(info->cmds));
 	if (info->tokens)
 		token_free(&(info->tokens));
 	info->tokens = *ready;
 	info->cmds = parse_pipeline(rdr, &(info->tokens));
+	token_preexp_free(ready);
+	free(info->input);
 	exec_all_cmds(info);
 	if (info->cmds)
 		pipe_group_free(&(info->cmds));
-	token_preexp_free(ready);
+	(void)rdr;
+	(void)ready;
 	info->tokens = NULL;
 }

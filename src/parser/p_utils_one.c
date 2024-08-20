@@ -26,12 +26,14 @@ void	p_redir_h_two(t_rdr_const rdr, t_token_type type,
 {
 	if (type == 3 || type == 6)
 	{
-		(*group)->file_out = file;
+		free_str(&((*group)->file_out));
+		(*group)->file_out = ft_strdup(file);
 		(*group)->redir_out = STDOUT_FILENO;
 		(*group)->mode_out = O_CREAT | O_WRONLY
 			| (type == 6) * O_APPEND
 			| (type == 3) * O_TRUNC;
-		create_file((*group)->file_out, (*group)->mode_out);
+		if (!create_file((*group)->file_out, (*group)->mode_out))
+			(*group)->file_out = NULL;
 	}
 	else
 	{
@@ -41,7 +43,8 @@ void	p_redir_h_two(t_rdr_const rdr, t_token_type type,
 					&((*group)->heredoc_strs), rdr.envp);
 			return ;
 		}
-		(*group)->file_in = file;
+		free_str(&((*group)->file_in));
+		(*group)->file_in = ft_strdup(file);
 		(*group)->redir_in = STDIN_FILENO;
 		(*group)->mode_in = O_RDONLY;
 		reset_heredoc_fields(*group);

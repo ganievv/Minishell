@@ -22,30 +22,24 @@ void	token_to_token_preexp(t_token *src, t_token **dest)
 	}
 }
 
-void	token_preexp_free(t_token **dest)
+//&& temp->token_start[0] != '\0'
+void	token_preexp_free(t_token **head)
 {
-	t_token	*temp;
-	t_token	*next;
+	t_token	*current;
+	t_token	*next_token;
 
-	temp = *dest;
-	while (temp)
+	if (!head || !*head)
+		return ;
+	current = (*head);
+	next_token = NULL;
+	while (current)
 	{
-		if (temp->token_start && temp->token_start[0] != '\0')
-		{
-			free(temp->token_start);
-			temp->token_start = NULL; 
-		}
-		if (temp->next)
-		{
-			next = temp->next;
-			temp = next;
-			free(temp);
-			temp = NULL;
-		}
-		else
-			break ;
+		next_token = current->next;
+		free_str(&(current->token_start));
+		free(current);
+		current = next_token;
 	}
-	*dest = NULL;
+	*head = NULL;
 }
 
 void	token_preexp_to_trimed(t_token **dest)

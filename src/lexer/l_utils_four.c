@@ -46,8 +46,8 @@ static int	pipe_after_pipe(t_token *head)
 
 static int	ft_token_print_error(t_token **head, char *message)
 {
+	(void)head;
 	ft_putstr_fd(message, 2);
-	token_preexp_free(head);
 	return (-1);
 }
 

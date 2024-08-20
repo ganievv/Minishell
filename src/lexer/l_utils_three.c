@@ -32,6 +32,8 @@ int	pipe_error_end(t_token **head)
 {
 	t_token	*temp;
 
+	if (!head || !*head)
+		return (0);
 	temp = (*head);
 	while (temp->next)
 		temp = temp->next;

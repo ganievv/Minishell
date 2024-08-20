@@ -260,7 +260,7 @@ void			parse_args(t_token **tokens, t_pipe_group *group);
 /*--------------parser-utils-three------------*/
 bool			handle_heredoc(int l, char *end,
 					char **heredoc_strs, char **envp);
-void			create_file(char *file, int mode);
+int				create_file(char *file, int mode);
 void			reset_heredoc_fields(t_pipe_group *cmd);
 void			print_array(char **str);
 /*--------------parser-utils-four-------------*/

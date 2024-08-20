@@ -50,14 +50,21 @@ bool	handle_heredoc(int l, char *end, char **heredoc_strs, char **envp)
 	return (true);
 }
 
-void	create_file(char *file, int mode)
+int	create_file(char *file, int mode)
 {
 	int	fd;
 
 	fd = open(file, mode, 0666);
 	if (fd == -1)
-		return ;
+	{
+		write(STDERR_FILENO, "msh: ", 5);
+		write(STDERR_FILENO, file, ft_strlen(file));
+		write(STDERR_FILENO, ": ", 2);
+		perror("");
+		return (0);
+	}
 	close(fd);
+	return (1);
 }
 
 void	reset_heredoc_fields(t_pipe_group *cmd)
