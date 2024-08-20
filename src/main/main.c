@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 07:47:04 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/20 19:41:51 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	change_terminal_echo_ctl(false);
 	free_arr_str(&(info.envp));
+
 	rl_clear_history();
 	return (0);
 }

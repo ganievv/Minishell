@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 05:34:14 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/20 01:15:40 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/20 19:53:34 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	process_input(t_msh *info, t_rdr_const rdr)
 		token_preexp_free(&ready);
 		token_free(&(info->tokens));
 		if (tokenize(info->input, &(info->tokens)) != -1)
-			process_pipeline(info, rdr, &ready);
+			process_pipeline(info, rdr, &(ready));
 		free(info->input);
 	}
 	else
 		token_free(&(info->tokens));
-	if (ready != NULL)
-		token_preexp_free(&(ready));
+	// if (ready != NULL)
+	// 	token_preexp_free(&(ready));
 }
 
 void	process_pipeline(t_msh *info, t_rdr_const rdr, t_token **ready)
@@ -48,4 +48,6 @@ void	process_pipeline(t_msh *info, t_rdr_const rdr, t_token **ready)
 	exec_all_cmds(info);
 	if (info->cmds)
 		pipe_group_free(&(info->cmds));
+	token_preexp_free(ready);
+	info->tokens = NULL;
 }

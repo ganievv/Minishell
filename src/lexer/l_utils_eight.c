@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 05:14:21 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 05:16:16 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/20 19:09:13 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,20 @@ void	token_preexp_free(t_token **dest)
 	temp = *dest;
 	while (temp)
 	{
-		if (temp->token_start)
+		if (temp->token_start && temp->token_start[0] != '\0')
+		{
 			free(temp->token_start);
-		next = (temp)->next;
-		free(temp);
-		temp = next;
+			temp->token_start = NULL; 
+		}
+		if (temp->next)
+		{
+			next = temp->next;
+			temp = next;
+			free(temp);
+			temp = NULL;
+		}
+		else
+			break ;
 	}
 	*dest = NULL;
 }
@@ -51,7 +60,7 @@ void	token_preexp_to_trimed(t_token **dest)
 		{
 			if (ft_strlen(temp->token_start) > 2)
 				temp_str = ft_strndup(temp->token_start + 1,
-						temp->len - 2);
+						ft_strlen(temp->token_start) - 2);
 			else
 				temp_str = ft_strdup("\0");
 			if (!temp_str)
@@ -93,9 +102,10 @@ void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 				temp_str = expand_double_quoted(l, temp->token_start, envp);
 			if (!temp_str)
 				token_preexp_free(dest);
-			free_is_existing(temp->token_start);
+			free(temp->token_start);
+			temp->token_start = NULL;
 			temp->token_start = temp_str;
-			temp->len = ft_strlen(temp->token_start);
+			temp->len = -1;
 		}
 		t_preex_helper(&temp, &prev);
 	}

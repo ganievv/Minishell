@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 21:42:25 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 02:20:44 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/20 18:27:56 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	pipe_after_pipe(t_token *head)
 static int	ft_token_print_error(t_token **head, char *message)
 {
 	ft_putstr_fd(message, 2);
-	token_free(head);
+	token_preexp_free(head);
 	return (-1);
 }
 

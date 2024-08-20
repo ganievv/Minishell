@@ -6,12 +6,12 @@
 #    By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/19 05:36:04 by tnakas           ###   ########.fr        #
+#    Updated: 2024/08/20 16:11:33 by tnakas           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-CC = cc
+CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror -I. -I$(LIBFT_DIR) #-fsanitize=address
 LIBFT_DIR = libft
 
@@ -57,7 +57,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT)
 	@echo "$(BLUE)Linking $@...$(RESET)"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIBFT_DIR) \
-	-lft -lreadline > /dev/null
+	-lft -lreadline
 	@echo "$(GREEN)Executable $(NAME) created successfully!$(RESET)"
 
 $(LIBFT):
@@ -66,7 +66,7 @@ $(LIBFT):
 	@echo "$(GREEN)Library libft created successfully!$(RESET)"
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c -o $@ $< > /dev/null
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	@echo "$(YELLOW)Cleaning object files...$(RESET)"

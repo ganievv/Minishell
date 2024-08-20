@@ -6,7 +6,7 @@
 /*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 18:45:59 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 18:55:15 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/20 18:28:00 by tnakas           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,15 @@ void	token_h_variable(char *input, t_token **head, t_h_token *var)
 	var->start = var->i;
 	if (input[var->i] == '?' || ft_isdigit(input[var->i]))
 		(var->i)++;
-	else
+	else if (input[var->i] && (ft_isalnum(input[var->i])))
+	{
 		while (input[var->i] && (ft_isalnum(input[var->i])
 				|| input[var->i] == '_'))
 			(var->i)++ ;
+	}
+	else if (input[var->i] && is_quote(input[var->i]))
+		if (token_h_quote(input, head, var) == -1)
+				return ;
 	var->len = var->i - var->start;
 	token_lstadd(head, token_create(input + (var->start) - 1,
 			var->len + 1, EXP_FIELD));
