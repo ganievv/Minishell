@@ -41,14 +41,26 @@ void	free_pids_and_pipes(t_msh *info)
 }
 
 /* this function frees an array of strings */
-void	free_arr_str(char **arr)
+void	free_arr_str(char ***arr)
 {
 	int	i;
 
-	i = -1;
-	if (!arr)
+	if (!arr || !*arr)
 		return ;
-	while (arr[++i])
-		free(arr[i]);
-	free(arr);
+	i = 0;
+	while ((*arr)[i])
+	{
+		free((*arr)[i]);
+		i++;
+	}
+	free(*arr);
+	*arr = NULL;
+}
+
+void	free_str(char **str)
+{
+	if (!str || !*str)
+		return ;
+	free(*str);
+	*str = NULL;
 }

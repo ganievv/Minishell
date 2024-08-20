@@ -85,12 +85,12 @@ void	pipe_group_free(t_pipe_group **head)
 	{
 		next = current->next;
 		free_is_existing((char *)current->command);
-		free_arr_str(current->args);
+		free_arr_str(&(current->args));
 		free_is_existing((char *)current->file_in);
 		free_is_existing((char *)current->file_out);
 		if (current->is_heredoc_in)
 			free_is_existing((char *)current->heredoc_strs);
-		free_arr_str(current->argv);
+		free_arr_str(&(current->argv));
 		free_is_existing((char *)current->cmd_path);
 		free(current);
 		current = next;

@@ -93,19 +93,19 @@ int	ft_exit(char **args, char ***envp, t_msh *info)
 	if (!args || !args[0])
 		exit_arg = ft_itoa(info->last_exit_status);
 	else
-		exit_arg = args[0];
+		exit_arg = ft_strdup(args[0]);
 	if (!is_nbr(exit_arg) || !is_valid_exit_range(exit_arg))
 	{
 		write (STDERR_FILENO, "msh: exit: numeric argument required\n", 37);
-		prepare_exit(info);
+		prepare_exit(info, &exit_arg);
 		exit(255);
 	}
 	if (args && (count_args(args) >= 2))
 	{
 		write (STDERR_FILENO, "msh: exit: too many arguments\n", 30);
-		return (1);
+		return (free_str(&exit_arg), 1);
 	}
 	n_nbr = ft_atoll(exit_arg);
-	prepare_exit(info);
+	prepare_exit(info, &exit_arg);
 	exit(n_nbr % 256);
 }

@@ -60,7 +60,7 @@ int	main(int argc, char *argv[], char *envp[])
 		free_all_prog_vars(&info);
 	}
 	change_terminal_echo_ctl(false);
-	free_arr_str(info.envp);
+	free_arr_str(&(info.envp));
 	rl_clear_history();
 	return (0);
 }

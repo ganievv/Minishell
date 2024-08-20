@@ -83,12 +83,14 @@ int	is_valid_exit_range(char *nbr)
 		return (1);
 }
 
-void	prepare_exit(t_msh *info)
+void	prepare_exit(t_msh *info, char **exit_arg)
 {
+	free_str(exit_arg);
 	if (info->cmds_num == 1)
 	{
-		free_all_prog_vars(info);
-		free_arr_str(info->envp);
+		free_pids_and_pipes(info);
+		pipe_group_free(&(info->cmds));
+		free_arr_str(&(info->envp));
 		rl_clear_history();
 		change_terminal_echo_ctl(false);
 		//write(STDOUT_FILENO, "exit\n", 5);

@@ -103,9 +103,9 @@ char	*search_exec_dir(char *file, char *path_env_v)
 		{
 			e_dir = is_file_present(dir, file, path_arr, i);
 			if (e_dir)
-				return (free_arr_str(path_arr), closedir(dir), e_dir);
+				return (free_arr_str(&path_arr), closedir(dir), e_dir);
 			closedir(dir);
 		}
 	}
-	return (free_arr_str(path_arr), e_dir);
+	return (free_arr_str(&path_arr), e_dir);
 }

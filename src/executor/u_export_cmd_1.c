@@ -81,5 +81,5 @@ void	print_env_vars(char **list)
 		if (value)
 			free(value);
 	}
-	free_arr_str(sorted);
+	free_arr_str(&sorted);
 }
