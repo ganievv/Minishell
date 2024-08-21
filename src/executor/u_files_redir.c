@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:54:08 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/21 14:26:30 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 16:11:25 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	make_files_redir(t_pipe_group *cmd)
 		if (!redir_heredoc(cmd))
 			return (0);
 	}
-	if (!process_in_files(cmd->f_in))
+	else if (!process_in_files(cmd->f_in))
 		return (0);
 	if (!process_out_files(cmd->f_out))
 		return (0);

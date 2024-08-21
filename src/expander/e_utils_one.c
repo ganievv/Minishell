@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_utils_one.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 18:49:43 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/20 18:27:34 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/21 16:40:23 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,16 @@ static void	expand_double_quoted_helper_one(int l, t_exp_helper *h, char **envp)
 	char	*expanded_var;
 
 	h->end = h->start + 1;
-	while (ft_isalnum(*(h->end)) || *(h->end) == '_' || *(h->end) == '?')
-	{
-		if (*(h->end) == '?')
-		{
-			h->end++;
-			break ;
-		}
+	if (*(h->end) == '?')
 		h->end++;
+	else
+	{
+		while (ft_isalnum(*(h->end)) || *(h->end) == '_' || *(h->end) == '?')
+		{
+			if (*(h->end) == '?')
+				break ;
+			h->end++;
+		}
 	}
 	h->var = ft_strndup(h->start, h->end - h->start);
 	if (!h->var)

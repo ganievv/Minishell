@@ -6,7 +6,7 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 01:08:28 by tnakas            #+#    #+#              #
-#    Updated: 2024/08/21 13:41:15 by sganiev          ###   ########.fr        #
+#    Updated: 2024/08/21 18:17:22 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,7 @@ SRC = src/main/main.c src/main/u_main_1.c \
 	src/executor/u_wait_for_proc.c \
 	src/expander/e_utils_one.c src/expander/expander.c \
 	src/parser/p_utils_heredoc.c \
-	src/parser/p_utils_redir_f.c \
-	src/executor/u_io_redir.c \
+	src/executor/u_io_redir.c src/parser/p_utils_redir_f.c \
 
 OBJ = $(SRC:.c=.o)
 

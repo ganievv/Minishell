@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/21 14:11:26 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 15:57:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,12 @@ void	p_redir_h_three(t_token **temp, t_token **redir)
 
 void	p_redir_h_four(t_token **temp)
 {
-	if ((*temp))
-		(*temp) = (*temp)->next;
-	while ((*temp) && !p_redir_h_one((*temp)) && (*temp)->type != PIPE)
-		(*temp) = (*temp)->next;
+	while (*temp && (*temp)->type == SPC)
+		*temp = (*temp)->next;
+	while (*temp && p_command_h_one(*temp))
+		*temp = (*temp)->next;
+	while (*temp && (*temp)->type == SPC)
+		*temp = (*temp)->next;
 }
 
 void	parse_redir(t_rdr_const rdr, t_token **tokens, t_pipe_group *group)

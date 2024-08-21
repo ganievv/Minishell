@@ -6,13 +6,13 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/21 15:14:34 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 17:26:44 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	prog_init(t_msh *info, char **envp, t_rdr_const	*rdr)
+static void	prog_init(t_msh *info, char **envp)
 {
 	signal(SIGQUIT, SIG_IGN);
 	t_msh_init(info, envp);
@@ -20,8 +20,6 @@ static void	prog_init(t_msh *info, char **envp, t_rdr_const	*rdr)
 	handle_shlvl_var(info);
 	clear_screen();
 	print_header();
-	rdr->l = info->last_exit_status;
-	rdr->envp = info->envp;
 }
 
 static void	prepare_input(t_msh *info)
@@ -46,9 +44,11 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
-	prog_init(&info, envp, &rdr);
+	prog_init(&info, envp);
 	while (true)
 	{
+		rdr.l = info.last_exit_status;
+		rdr.envp = info.envp;
 		prepare_input(&info);
 		if (!info.input)
 		{

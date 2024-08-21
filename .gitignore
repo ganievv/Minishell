@@ -1,5 +1,6 @@
 *.o
 *.out
+*.txt
 notes.txt
 subject_funcs.txt
 practicing
