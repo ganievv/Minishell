@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 01:55:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/21 03:29:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 14:19:49 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*prepare_for_redir(t_token **token)
 	char	*temp;
 	t_token	*temp_t;
 
-	temp_t= (*token);
+	temp_t = (*token);
 	res = ft_strdup("\0");
 	temp = NULL;
 	while (temp_t && p_command_h_one(temp_t))
@@ -44,6 +44,6 @@ char	*prepare_for_redir(t_token **token)
 		free_str(&temp);
 		temp_t = temp_t->next;
 	}
-	*token = temp_t; 
+	*token = temp_t;
 	return (res);
 }

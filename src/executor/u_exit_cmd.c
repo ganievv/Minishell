@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:38 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/21 03:59:34 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 15:14:24 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ void	prepare_exit(t_msh *info, char **exit_arg)
 		free_arr_str(&(info->envp));
 		rl_clear_history();
 		change_terminal_echo_ctl(false);
-		//write(STDOUT_FILENO, "exit\n", 5);
+		write(STDOUT_FILENO, "exit\n", 5);
 	}
 }

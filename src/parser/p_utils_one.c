@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/21 04:07:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 14:11:26 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,14 @@ int	p_redir_h_one(t_token *tokens)
 void	p_redir_h_two(t_rdr_const rdr, t_token_type type,
 			t_pipe_group **group, char *file)
 {
+	int	mode;
+
 	if (type == 3 || type == 6)
 	{
-		free_str(&((*group)->file_out));
-		(*group)->file_out = file;
-		(*group)->redir_out = STDOUT_FILENO;
-		(*group)->mode_out = O_CREAT | O_WRONLY
-			| (type == 6) * O_APPEND
+		mode = O_CREAT | O_WRONLY | (type == 6) * O_APPEND
 			| (type == 3) * O_TRUNC;
-		if (!create_file((*group)->file_out, (*group)->mode_out))
-			(*group)->file_out = NULL;
+		redir_files_lstadd(&((*group)->f_out),
+			create_redir_file(file, mode, STDOUT_FILENO));
 	}
 	else
 	{
@@ -43,10 +41,8 @@ void	p_redir_h_two(t_rdr_const rdr, t_token_type type,
 					&((*group)->heredoc_strs), rdr.envp);
 			return (free_str(&file));
 		}
-		free_str(&((*group)->file_in));
-		(*group)->file_in = file;
-		(*group)->redir_in = STDIN_FILENO;
-		(*group)->mode_in = O_RDONLY;
+		redir_files_lstadd(&((*group)->f_in),
+			create_redir_file(file, O_RDONLY, STDIN_FILENO));
 		reset_heredoc_fields(*group);
 	}
 }

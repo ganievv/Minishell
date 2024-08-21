@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:51:39 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/21 02:51:45 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 14:32:15 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,24 @@ typedef struct s_exp_helper
 	char		*result;
 	char		*start;
 }	t_exp_helper;
+
+/*--------------------------redir_files-------------------------*/
+
+typedef struct s_redir_files
+{
+	char					*file;
+	int						redir_type;
+	int						mode;
+	struct s_redir_files	*next;
+}	t_redir_files;
+
 /*-------------------------commands_list------------------------*/
 typedef struct s_pipe_group
 {
 	char				*command;
 	char				**args;
-	char				*file_in;
-	char				*file_out;
-	int					redir_in;
-	int					redir_out;
-	int					mode_in;
-	int					mode_out;
+	t_redir_files		*f_in;
+	t_redir_files		*f_out;
 	char				*heredoc_strs;
 	bool				is_heredoc_in;
 	char				**argv;
@@ -180,6 +187,8 @@ void			make_pipes_redir(t_msh *info, int cmd_index);
 int				make_files_redir(t_pipe_group *cmd);
 int				*save_io_fds(t_pipe_group *cmd);
 void			restore_io_fds(int **fds, t_pipe_group *cmd);
+int				process_in_files(t_redir_files *f_in);
+int				process_out_files(t_redir_files *f_out);
 /*-----------------------------exit-----------------------------*/
 int				is_nbr(char *arg);
 int				is_valid_exit_range(char *nbr);
@@ -281,6 +290,11 @@ void			save_heredoc_str(char *str, char **heredoc_strs);
 void			copy_stdin_fd(int *stdin_copy);
 void			restore_stdin_fd(int stdin_copy, char **heredoc_strs);
 void			pipe_group_free(t_pipe_group **head);
+/*---------------p-utils-redir-f--------------*/
+void			redir_files_lstadd(t_redir_files **head,
+					t_redir_files *new_file);
+t_redir_files	*create_redir_file(char *file, int mode, int redir_type);
+void			free_t_redir_files(t_redir_files **head);
 /*---------------expander---------------------*/
 char			*expand_var(int l, char *input, char **envp);
 void			expand_parsed_commands(int l, t_pipe_group *group, char **envp);

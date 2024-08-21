@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 05:14:21 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/21 02:14:28 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 15:14:59 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,3 @@ void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 			temp = temp->next;
 	}
 }
-
-//inputs : t_token **dest skip heredoc skip spaces 
-//will return 1 or 0
-// <<   l$HOME ===> [<<][][][][???] (p_command_one)[$HOME] node->prev_prev,node_prev,current_node
-// << "HELLO$WORD"'GGGGG'$PWDl$HOME cat
-// <<     $HOME
-// if first->type == HEREDOC && p_command_one(second) && third->type = EXP

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/21 03:37:31 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 15:00:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	pre_command_phase(t_token **tokens)
 			temp = temp->next;
 		if (temp && temp->type == PIPE)
 			break ;
-		if (temp && p_command_h_one(temp))
+		while (temp && p_command_h_one(temp))
 			temp = temp->next;
 		while (temp && temp->type == SPC)
 			temp = temp->next;

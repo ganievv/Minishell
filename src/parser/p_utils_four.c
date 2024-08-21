@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_four.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 22:35:17 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 06:55:58 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/21 14:33:09 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,8 @@ t_pipe_group	*pipe_group_init(void)
 		return (NULL);
 	new_group->command = NULL;
 	new_group->args = NULL;
-	new_group->file_in = NULL;
-	new_group->file_out = NULL;
-	new_group->redir_in = 0;
-	new_group->redir_out = 0;
-	new_group->mode_in = 0;
-	new_group->mode_out = 0;
+	new_group->f_in = NULL;
+	new_group->f_out = NULL;
 	new_group->heredoc_strs = NULL;
 	new_group->is_heredoc_in = false;
 	new_group->argv = NULL;
@@ -86,8 +82,8 @@ void	pipe_group_free(t_pipe_group **head)
 		next = current->next;
 		free_is_existing((char *)current->command);
 		free_arr_str(&(current->args));
-		free_is_existing((char *)current->file_in);
-		free_is_existing((char *)current->file_out);
+		free_t_redir_files(&(current->f_in));
+		free_t_redir_files(&(current->f_out));
 		if (current->is_heredoc_in)
 			free_is_existing((char *)current->heredoc_strs);
 		free_arr_str(&(current->argv));

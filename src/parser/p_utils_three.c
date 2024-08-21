@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:57:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/17 15:05:13 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 13:54:05 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,6 @@ bool	handle_heredoc(int l, char *end, char **heredoc_strs, char **envp)
 	if (str)
 		free(str);
 	return (true);
-}
-
-int	create_file(char *file, int mode)
-{
-	int	fd;
-
-	fd = open(file, mode, 0666);
-	if (fd == -1)
-	{
-		write(STDERR_FILENO, "msh: ", 5);
-		write(STDERR_FILENO, file, ft_strlen(file));
-		write(STDERR_FILENO, ": ", 2);
-		perror("");
-		return (0);
-	}
-	close(fd);
-	return (1);
 }
 
 void	reset_heredoc_fields(t_pipe_group *cmd)

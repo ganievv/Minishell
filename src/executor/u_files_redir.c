@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_files_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:54:08 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/19 04:56:22 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/21 14:26:30 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,15 @@ static int	redir_heredoc(t_pipe_group *cmd)
 *  file and an output file, if they exist		*/
 int	make_files_redir(t_pipe_group *cmd)
 {
-	int	fd;
-
 	if (cmd->is_heredoc_in)
 	{
 		if (!redir_heredoc(cmd))
 			return (0);
 	}
-	else if (cmd->file_in)
-	{
-		fd = open(cmd->file_in, cmd->mode_in);
-		if (fd == -1)
-			return (perror(cmd->file_in), 0);
-		dup2(fd, cmd->redir_in);
-		close(fd);
-	}
-	if (cmd->file_out)
-	{
-		fd = open(cmd->file_out, cmd->mode_out, 0666);
-		if (fd == -1)
-			return (perror(cmd->file_out), 0);
-		dup2(fd, cmd->redir_out);
-		close(fd);
-	}
+	if (!process_in_files(cmd->f_in))
+		return (0);
+	if (!process_out_files(cmd->f_out))
+		return (0);
 	return (1);
 }
 
@@ -72,10 +58,10 @@ int	*save_io_fds(t_pipe_group *cmd)
 	fds = (int *)malloc(sizeof(int) * 2);
 	if (!fds)
 		return (NULL);
-	if (cmd->file_in || cmd->is_heredoc_in)
-		fds[0] = dup(cmd->redir_in);
-	if (cmd->file_out)
-		fds[1] = dup(cmd->redir_out);
+	if (cmd->f_in || cmd->is_heredoc_in)
+		fds[0] = dup(STDIN_FILENO);
+	if (cmd->f_out)
+		fds[1] = dup(STDOUT_FILENO);
 	return (fds);
 }
 
@@ -83,14 +69,14 @@ void	restore_io_fds(int **fds, t_pipe_group *cmd)
 {
 	if (!fds || !*fds)
 		return ;
-	if (cmd->file_in || cmd->is_heredoc_in)
+	if (cmd->f_in || cmd->is_heredoc_in)
 	{
-		dup2((*fds)[0], cmd->redir_in);
+		dup2((*fds)[0], STDIN_FILENO);
 		close((*fds)[0]);
 	}
-	if (cmd->file_out)
+	if (cmd->f_out)
 	{
-		dup2((*fds)[1], cmd->redir_out);
+		dup2((*fds)[1], STDOUT_FILENO);
 		close((*fds)[1]);
 	}
 	free(*fds);
