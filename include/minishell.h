@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:51:39 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/20 18:19:58 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/21 02:51:45 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void			is_cmd_present_multiple_cmds(t_pipe_group *cmd);
 void			free_arr_str(char ***arr);
 void			free_arr_int(int **arr, int num);
 void			free_pids_and_pipes(t_msh *info);
-void			free_all_prog_vars(t_msh *info);
+void			free_rest_vars(t_msh *info);
 void			free_str(char **str);
 /*---------------------------env_vars---------------------------*/
 int				search_env_var(char *var_to_find, char **envp);
@@ -238,6 +238,9 @@ void			token_to_token_preexp(t_token *src, t_token **dest);
 void			token_preexp_free(t_token **dest);
 void			token_preexp_to_trimed(t_token **dest);
 void			token_preexp_to_token_exp(int l, t_token **dest, char **envp);
+/*---------------lexer-utils-nine---------------------*/
+void			first_second_third(t_token **dest);
+char			*prepare_for_redir(t_token **token);
 /*----------------parser----------------------*/
 t_pipe_group	*parse_pipeline(t_rdr_const rdr, t_token **tokens);
 int				p_command_h_one(t_token *tokens);

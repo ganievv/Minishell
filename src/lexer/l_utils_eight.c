@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   l_utils_eight.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 05:14:21 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/20 19:09:13 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/21 02:14:28 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,26 +69,17 @@ void	token_preexp_to_trimed(t_token **dest)
 	}
 }
 
-static void	t_preex_helper(t_token **temp, t_token **prev)
-{
-	if ((*temp)->type != SPC)
-		*prev = (*temp);
-	(*temp) = (*temp)->next;
-}
-
 void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 {
 	t_token	*temp;
-	t_token	*prev;
 	char	*temp_str;
 
 	temp = *dest;
-	prev = NULL;
 	while (temp)
 	{
-		if ((temp->type == EXP_FIELD || ((temp->type == D_QUOTED)
-					&& ft_strchr(temp->token_start, '$')))
-			&& (!prev || prev->type != HEREDOC))
+		first_second_third(&temp);
+		if (temp && (temp->type == EXP_FIELD || ((temp->type == D_QUOTED)
+					&& ft_strchr(temp->token_start, '$'))))
 		{
 			if (temp->type == EXP_FIELD)
 				temp_str = expand_var(l, temp->token_start, envp);
@@ -101,6 +92,14 @@ void	token_preexp_to_token_exp(int l, t_token **dest, char **envp)
 			temp->token_start = temp_str;
 			temp->len = -1;
 		}
-		t_preex_helper(&temp, &prev);
+		if (temp)
+			temp = temp->next;
 	}
 }
+
+//inputs : t_token **dest skip heredoc skip spaces 
+//will return 1 or 0
+// <<   l$HOME ===> [<<][][][][???] (p_command_one)[$HOME] node->prev_prev,node_prev,current_node
+// << "HELLO$WORD"'GGGGG'$PWDl$HOME cat
+// <<     $HOME
+// if first->type == HEREDOC && p_command_one(second) && third->type = EXP

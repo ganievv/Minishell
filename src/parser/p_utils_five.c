@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_five.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 05:20:30 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 05:57:46 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/21 03:37:45 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,16 @@ char	**args_join(char **src, char *new_arg)
 		free_arr_str(&src);
 	return (res);
 }
+//while (spaces) skip
+// non space
+//while (h_redir_one)
+//{
+	// next
+	//while (spaces) skip
+	// if (word) skip word ??
+	// if PIPE break
+	// if (pipe) beak
+	//while (spaces) skip
+//}
+
+// command->command

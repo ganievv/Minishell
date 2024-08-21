@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils_two.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:46:51 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/19 06:03:50 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/21 03:37:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@
 
 void	p_args_skip_spaces(t_token **temp)
 {
-	if ((*temp) && p_redir_h_one((*temp)))
+	if (!temp || !*temp)
+		return ;
+	if (p_redir_h_one((*temp)))
 	{
-		(*temp) = (*temp)->next;
-		while ((*temp) && (*temp)->type == SPC)
-			(*temp) = (*temp)->next;
-		if (p_command_h_one((*temp)))
-			(*temp) = (*temp)->next;
+		*temp = (*temp)->next;
+		if (!*temp)
+			return ;
+		while (*temp && (*temp)->type == SPC)
+			*temp = (*temp)->next;
+		while (*temp && p_command_h_one(*temp))
+			*temp = (*temp)->next;
 	}
 }
 
@@ -61,15 +65,42 @@ void	add_arg_and_skip_spaces(char ***args, char *current_str,
 		(*temp) = (*temp)->next;
 }
 
-void	parse_command(t_token **tokens, t_pipe_group	*group)
+static void	pre_command_phase(t_token **tokens)
 {
 	t_token	*temp;
-	char	*temp_str;
-	char	*current_str;
+
+	if (!tokens || !(*tokens))
+		return ;
+	temp = *tokens;
+	while (temp && temp->type == SPC)
+		temp = temp->next;
+	while (temp && p_redir_h_one(temp))
+	{
+		temp = temp->next;
+		while (temp && temp->type == SPC)
+			temp = temp->next;
+		if (temp && temp->type == PIPE)
+			break ;
+		if (temp && p_command_h_one(temp))
+			temp = temp->next;
+		while (temp && temp->type == SPC)
+			temp = temp->next;
+		if (temp && temp->type == PIPE)
+			break ;
+	}
+	*tokens = temp;
+}
+
+void	parse_command(t_token **tokens, t_pipe_group *group)
+{
+	t_token			*temp;
+	char			*temp_str;
+	char			*current_str;
 
 	temp = *tokens;
 	current_str = NULL;
-	while (p_command_h_one(temp))
+	pre_command_phase(&temp);
+	while (temp && p_command_h_one(temp))
 	{
 		if (!current_str)
 			temp_str = ft_strdup(temp->token_start);
@@ -82,9 +113,21 @@ void	parse_command(t_token **tokens, t_pipe_group	*group)
 		if (temp)
 			temp = temp->next;
 	}
+	group->command = current_str;
 	while (temp && temp->next && ((p_command_h_one(temp)
 				&& temp->token_start[0] == '\0') || temp->type == SPC))
 		temp = temp->next;
-	group->command = current_str;
 	(*tokens) = temp;
 }
+
+//while (spaces) skip
+// non space
+//while (h_redir_one)
+//{
+	// next
+	//while (spaces) skip
+	// if (word) skip word ??
+	// if PIPE break
+	// if (pipe) beak
+	//while (spaces) skip
+//}

@@ -35,21 +35,23 @@ t_pipe_group	*parse_pipeline(t_rdr_const rdr, t_token **tokens)
 	t_pipe_group	*current;
 	t_pipe_group	*group;
 	t_token			*token_start;
+	t_token			*tmp;
 
 	head = NULL;
 	current = NULL;
 	token_start = NULL;
 	group = NULL;
-	while (*tokens)
+	tmp = *tokens;
+	while (tmp)
 	{
-		token_start = *tokens;
+		token_start = tmp;
 		group = pipe_group_init();
-		while (*tokens && (*tokens)->type == SPC)
-			(*tokens) = (*tokens)->next;
-		parse_command(tokens, group);
-		parse_args(&(*tokens), group);
+		while (tmp && tmp->type == SPC)
+			tmp = tmp->next;
+		parse_command(&tmp, group);
+		parse_args(&tmp, group);
 		parse_redir(rdr, &token_start, group);
-		update_group_list(&head, &current, group, tokens);
+		update_group_list(&head, &current, group, &tmp);
 	}
 	return (head);
 }

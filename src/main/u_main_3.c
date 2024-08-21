@@ -29,12 +29,16 @@ void	process_input(t_msh *info, t_rdr_const rdr)
 		if (tokenize(info->input, &(info->tokens)) != -1)
 			process_pipeline(info, rdr, &(ready));
 		else
+		{
 			token_free(&(info->tokens));
+			info->last_exit_status = 258;
+		}
 	}
 	else
+	{
 		token_free(&(info->tokens));
-	// if (ready != NULL)
-	// 	token_preexp_free(&(ready));
+		info->last_exit_status = 258;
+	}
 }
 
 void	process_pipeline(t_msh *info, t_rdr_const rdr, t_token **ready)

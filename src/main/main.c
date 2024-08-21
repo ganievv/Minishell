@@ -3,28 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnakas <tnakas@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:59:26 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/20 19:41:51 by tnakas           ###   ########.fr       */
+/*   Updated: 2024/08/21 03:59:27 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	prog_init(t_msh *info, char **envp)
+static void	prog_init(t_msh *info, char **envp, t_rdr_const	*rdr)
 {
 	signal(SIGQUIT, SIG_IGN);
 	t_msh_init(info, envp);
 	change_or_add_env_var("OLDPWD", &info->envp);
 	handle_shlvl_var(info);
-	// clear_screen();
-	// print_header();
+	//clear_screen();
+	//print_header();
+	rdr->l = info->last_exit_status;
+	rdr->envp = info->envp;
 }
 
+static void	prepare_input(t_msh *info)
+{
+	signal(SIGINT, handle_sigint_shell);
+	change_terminal_echo_ctl(true);
+	if (isatty(STDIN_FILENO))
+		info->input = readline(GRAY"minishell: "RESET);
+	else
+		info->input = ft_strtrim(get_next_line(STDIN_FILENO), "\n");
+	signal(SIGINT, SIG_IGN);
+}
 
-
-
+//if (info.cmds)
+		//	pipe_group_free(&(info.cmds));
 /* we should call the 'change_terminal_echo_ctl(false)'
 *  function before exit the shell*/
 int	main(int argc, char *argv[], char *envp[])
@@ -34,34 +46,21 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
-	prog_init(&info, envp);
-	rdr.l = info.last_exit_status;
-	rdr.envp = info.envp;
+	prog_init(&info, envp, &rdr);
 	while (true)
 	{
-		signal(SIGINT, handle_sigint_shell);
-		change_terminal_echo_ctl(true);
-		if (info.cmds)
-			pipe_group_free(&(info.cmds));
-		if (isatty(fileno(stdin)))
-			info.input = readline(GRAY"minishell: "RESET);
-		else
-			info.input = ft_strtrim(get_next_line(fileno(stdin)), "\n");
-		signal(SIGINT, SIG_IGN);
+		prepare_input(&info);
 		if (!info.input)
 		{
-			// printf("exit\n");
+			//printf("exit\n");
 			break ;
 		}
 		if (ft_strlen(info.input) > 0)
 			add_history(info.input);
 		if (!is_input_empty(info.input))
 			process_input(&info, rdr);
-		free_all_prog_vars(&info);
+		free_pids_and_pipes(&info);
 	}
-	change_terminal_echo_ctl(false);
-	free_arr_str(&(info.envp));
-
-	rl_clear_history();
+	free_rest_vars(&info);
 	return (0);
 }

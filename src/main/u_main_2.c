@@ -12,10 +12,11 @@
 
 #include "../../include/minishell.h"
 
-void	free_all_prog_vars(t_msh *info)
+void	free_rest_vars(t_msh *info)
 {
-
-	free_pids_and_pipes(info);
+	change_terminal_echo_ctl(false);
+	free_arr_str(&(info->envp));
+	rl_clear_history();
 }
 
 static void	add_to_shlvl(t_msh *info, int var_i)

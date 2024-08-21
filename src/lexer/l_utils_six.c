@@ -73,7 +73,7 @@ void	token_h_variable(char *input, t_token **head, t_h_token *var)
 	}
 	else if (input[var->i] && is_quote(input[var->i]))
 		if (token_h_quote(input, head, var) == -1)
-				return ;
+			return ;
 	var->len = var->i - var->start;
 	token_lstadd(head, token_create(input + (var->start) - 1,
 			var->len + 1, EXP_FIELD));

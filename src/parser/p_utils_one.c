@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 18:47:27 by tnakas            #+#    #+#             */
-/*   Updated: 2024/08/17 15:02:52 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/21 04:07:29 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	p_redir_h_two(t_rdr_const rdr, t_token_type type,
 	if (type == 3 || type == 6)
 	{
 		free_str(&((*group)->file_out));
-		(*group)->file_out = ft_strdup(file);
+		(*group)->file_out = file;
 		(*group)->redir_out = STDOUT_FILENO;
 		(*group)->mode_out = O_CREAT | O_WRONLY
 			| (type == 6) * O_APPEND
@@ -41,10 +41,10 @@ void	p_redir_h_two(t_rdr_const rdr, t_token_type type,
 		{
 			(*group)->is_heredoc_in = handle_heredoc(rdr.l, file,
 					&((*group)->heredoc_strs), rdr.envp);
-			return ;
+			return (free_str(&file));
 		}
 		free_str(&((*group)->file_in));
-		(*group)->file_in = ft_strdup(file);
+		(*group)->file_in = file;
 		(*group)->redir_in = STDIN_FILENO;
 		(*group)->mode_in = O_RDONLY;
 		reset_heredoc_fields(*group);
@@ -86,7 +86,7 @@ void	parse_redir(t_rdr_const rdr, t_token **tokens, t_pipe_group *group)
 			break ;
 		p_redir_h_three(&temp, &redir);
 		if (p_command_h_one(temp))
-			p_redir_h_two(rdr, redir->type, &group, temp->token_start);
+			p_redir_h_two(rdr, redir->type, &group, prepare_for_redir(&temp));
 		p_redir_h_four(&temp);
 	}
 	*tokens = temp;
