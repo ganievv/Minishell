@@ -60,3 +60,18 @@ int	main(int argc, char *argv[], char *envp[])
 	free_rest_vars(&info);
 	return (0);
 }
+
+/*{
+*    leak readline
+*    Memcheck:Leak
+*    ...
+*    fun:readline
+*}
+*{
+*    leak add_history
+*    Memcheck:Leak
+*    ...
+*    fun:add_history
+*}*/
+/* valgrind --leak-check=full --show-leak-kinds=all
+*	--suppressions=readline.supp ./minishell */
