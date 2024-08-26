@@ -65,7 +65,10 @@ void	change_or_add_env_var(char *var, char ***envp)
 
 	var_i = search_env_var(var, *envp);
 	if (var_i != -1)
-		change_var_value(var, var_i, envp);
+	{
+		if (ft_strchr(var, '='))
+			change_var_value(var, var_i, envp);
+	}
 	else
 		add_var(var, envp);
 }

@@ -29,21 +29,6 @@ static int	pipe_after_pipe(t_token *head)
 	return (cont1);
 }
 
-// static int	redir_and_after_not_word(t_token *head)
-// {
-// 	t_token	*c_tok;
-// 	t_token	*temp;
-
-// 	c_tok = head;
-// 	temp = NULL;
-// 	if (c_tok && c_tok->next)
-// 		temp = c_tok->next;
-// 	while (temp && temp->type == SPC)
-// 		temp = temp->next;
-// 	return ((c_tok->type == 4 || c_tok->type == 3 || c_tok->type == 6
-// 			|| c_tok->type == 5) && ((temp && (temp->type != 0)) || (!temp)));
-// }
-
 static int	ft_token_print_error(t_token **head, char *message)
 {
 	(void)head;

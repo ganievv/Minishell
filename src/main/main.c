@@ -27,16 +27,12 @@ static void	prepare_input(t_msh *info)
 	signal(SIGINT, handle_sigint_shell);
 	change_terminal_echo_ctl(true);
 	if (isatty(STDIN_FILENO))
-		info->input = readline(GRAY"minishell: "RESET);
+		info->input = readline("minishell: ");
 	else
 		info->input = ft_strtrim(get_next_line(STDIN_FILENO), "\n");
 	signal(SIGINT, SIG_IGN);
 }
 
-//if (info.cmds)
-		//	pipe_group_free(&(info.cmds));
-/* we should call the 'change_terminal_echo_ctl(false)'
-*  function before exit the shell*/
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_msh		info;

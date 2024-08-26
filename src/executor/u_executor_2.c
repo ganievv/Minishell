@@ -100,3 +100,11 @@ void	close_all_pipes(int **pipes, int len)
 		close(pipes[i][1]);
 	}
 }
+
+void	free_child(t_msh *info)
+{
+	free_pids_and_pipes(info);
+	pipe_group_free(&(info->cmds));
+	free_arr_str(&(info->envp));
+	rl_clear_history();
+}

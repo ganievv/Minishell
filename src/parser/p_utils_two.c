@@ -114,20 +114,7 @@ void	parse_command(t_token **tokens, t_pipe_group *group)
 			temp = temp->next;
 	}
 	group->command = current_str;
-	while (temp && temp->next && ((p_command_h_one(temp)
-				&& temp->token_start[0] == '\0') || temp->type == SPC))
+	while (temp && temp->next && (temp->type == SPC))
 		temp = temp->next;
 	(*tokens) = temp;
 }
-
-//while (spaces) skip
-// non space
-//while (h_redir_one)
-//{
-	// next
-	//while (spaces) skip
-	// if (word) skip word ??
-	// if PIPE break
-	// if (pipe) beak
-	//while (spaces) skip
-//}

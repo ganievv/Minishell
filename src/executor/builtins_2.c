@@ -23,6 +23,7 @@ int	ft_export(char **args, char ***envp, t_msh *info)
 	int	estatus;
 
 	estatus = 0;
+	(void)info;
 	if (!args || !*args)
 		print_env_vars(*envp);
 	else
@@ -30,10 +31,7 @@ int	ft_export(char **args, char ***envp, t_msh *info)
 		while (*args)
 		{
 			if (is_export_arg_valid(*args))
-			{
-				if (info->cmds_num == 1)
-					change_or_add_env_var(*args, envp);
-			}
+				change_or_add_env_var(*args, envp);
 			else
 				estatus = 1;
 			args++;
@@ -47,15 +45,13 @@ int	ft_unset(char **args, char ***envp, t_msh *info)
 	int	estatus;
 
 	estatus = 0;
+	(void)info;
 	if (!args || !*args)
 		return (estatus);
 	while (*args)
 	{
 		if (is_unset_arg_valid(*args))
-		{
-			if (info->cmds_num == 1)
-				remove_env_var(*args, envp);
-		}
+			remove_env_var(*args, envp);
 		else
 			estatus = 1;
 		args++;

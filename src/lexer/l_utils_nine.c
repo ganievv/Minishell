@@ -28,7 +28,7 @@ void	first_second_third(t_token **dest)
 	}
 }
 
-char	*prepare_for_redir(t_token **token)
+char	*prepare_for_redir(t_pipe_group *group, t_token **token)
 {
 	char	*res;
 	char	*temp;
@@ -39,6 +39,8 @@ char	*prepare_for_redir(t_token **token)
 	temp = NULL;
 	while (temp_t && p_command_h_one(temp_t))
 	{
+		if (temp_t->type == S_QUOTED || temp_t->type == D_QUOTED)
+			group->is_heredoc_quoted = true;
 		temp = res;
 		res = ft_strjoin(res, temp_t->token_start);
 		free_str(&temp);

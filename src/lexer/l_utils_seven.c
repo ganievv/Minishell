@@ -20,14 +20,6 @@ void	token_ready_for_parsing(int l, t_token **src, t_token **dest,
 	token_preexp_to_token_exp(l, dest, envp);
 }
 
-// tokenize src
-// expand	src
-// update   input
-// tokenize udated input
-// ==============================================
-// parse	
-// excecute
-
 void	token_preexp_and_update_input(char **input, t_token *dest)
 {
 	char	*temp;

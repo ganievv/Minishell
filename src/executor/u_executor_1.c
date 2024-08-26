@@ -68,3 +68,24 @@ int	count_cmds(t_pipe_group *cmds)
 	}
 	return (count);
 }
+
+int	is_cmd_path_correct(char *cmd_path)
+{
+	if (!ft_strncmp(cmd_path, "/", 1)
+		|| !ft_strncmp(cmd_path, "./", 2)
+		|| !ft_strncmp(cmd_path, "../", 3))
+		return (1);
+	else
+		return (0);
+}
+
+void	launch_external_cmd(t_msh *info, t_pipe_group *cmd)
+{
+	cmd->cmd_path = search_cmd_path(cmd->command, info);
+	cmd->argv = args_to_argv(cmd->args, cmd->cmd_path);
+	if (is_cmd_path_correct(cmd->cmd_path))
+		execve(cmd->cmd_path, cmd->argv, info->envp);
+	print_cmd_not_found(cmd->cmd_path);
+	free_child(info);
+	exit(CMD_NOT_FOUND);
+}

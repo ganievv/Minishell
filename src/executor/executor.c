@@ -14,13 +14,11 @@
 
 /* this function converts command 'args' to 'argv'; creates a new process
 *  to execute a command and handles pipes and file redirections */
-static int	exec_multiple_cmds(int i, t_msh *info,
-	char **envp, t_pipe_group *cmd)
+static int	exec_multiple_cmds(int i, t_msh *info, t_pipe_group *cmd)
 {
 	int	cmd_ptr_i;
+	int	exit_status;
 
-	cmd->cmd_path = search_cmd_path(cmd->command, info);
-	cmd->argv = args_to_argv(cmd->args, cmd->cmd_path);
 	info->pids[i] = fork();
 	if (info->pids[i] == -1)
 		return (1);
@@ -33,13 +31,14 @@ static int	exec_multiple_cmds(int i, t_msh *info,
 			exit(1);
 		cmd_ptr_i = is_cmd_builtin(cmd->command, info);
 		if (cmd_ptr_i >= 0)
-			exit((info->builtin_ptrs[cmd_ptr_i])(cmd->args, &envp, info));
-		else
 		{
-			execve(cmd->cmd_path, cmd->argv, envp);
-			print_cmd_not_found(cmd->cmd_path);
-			exit(CMD_NOT_FOUND);
+			exit_status = (info->builtin_ptrs[cmd_ptr_i])
+				(cmd->args, &(info->envp), info);
+			free_child(info);
+			exit(exit_status);
 		}
+		else
+			launch_external_cmd(info, cmd);
 	}
 	return (0);
 }
@@ -53,10 +52,8 @@ static int	exec_multiple_cmds(int i, t_msh *info,
 static void	process_multiple_cmds(t_msh *info, int cmds_num)
 {
 	t_pipe_group	*cmd;
-	char			**envp_buf;
 	int				i;
 
-	envp_buf = info->envp;
 	info->pids = (int *)malloc(sizeof(int) * cmds_num);
 	if (!info->pids)
 		return ;
@@ -66,7 +63,7 @@ static void	process_multiple_cmds(t_msh *info, int cmds_num)
 	cmd = info->cmds;
 	while ((++i < cmds_num) && cmd)
 	{
-		exec_multiple_cmds(i, info, envp_buf, cmd);
+		exec_multiple_cmds(i, info, cmd);
 		cmd = cmd->next;
 	}
 	close_all_pipes(info->pipes, cmds_num - 1);
@@ -87,9 +84,14 @@ static void	exec_one_cmd(t_msh *info)
 	{
 		reset_signals();
 		if (!make_files_redir(info->cmds))
+		{
+			free_child(info);
 			exit(1);
-		execve(info->cmds->cmd_path, info->cmds->argv, info->envp);
+		}
+		if (is_cmd_path_correct(info->cmds->cmd_path))
+			execve(info->cmds->cmd_path, info->cmds->argv, info->envp);
 		print_cmd_not_found(info->cmds->cmd_path);
+		free_child(info);
 		exit(CMD_NOT_FOUND);
 	}
 }

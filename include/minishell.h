@@ -32,12 +32,6 @@
 
 /*--------------------------exit_codes-------------------------*/
 # define CMD_NOT_FOUND 127
-# define SIGINT_ESTATUS 130
-# define SIGQUIT_ESTATUS 131
-
-/*----------------------------colors---------------------------*/
-# define GRAY "\x1b[90m"
-# define RESET "\x1b[0m"
 
 /*--------------------------token_types-------------------------*/
 typedef enum e_token_type
@@ -105,6 +99,7 @@ typedef struct s_pipe_group
 	t_redir_files		*f_out;
 	char				*heredoc_strs;
 	bool				is_heredoc_in;
+	bool				is_heredoc_quoted;
 	char				**argv;
 	char				*cmd_path;
 	struct s_pipe_group	*next;
@@ -169,6 +164,8 @@ void			print_cmd_not_found(char *cmd);
 void			reset_signals(void);
 int				is_cmd_present_one_cmd(t_msh *info);
 void			is_cmd_present_multiple_cmds(t_pipe_group *cmd);
+int				is_cmd_path_correct(char *cmd_path);
+void			launch_external_cmd(t_msh *info, t_pipe_group *cmd);
 
 /*---------------------------cleanup----------------------------*/
 void			free_arr_str(char ***arr);
@@ -176,6 +173,7 @@ void			free_arr_int(int **arr, int num);
 void			free_pids_and_pipes(t_msh *info);
 void			free_rest_vars(t_msh *info);
 void			free_str(char **str);
+void			free_child(t_msh *info);
 /*---------------------------env_vars---------------------------*/
 int				search_env_var(char *var_to_find, char **envp);
 char			*take_env_var_value(char *var);
@@ -249,7 +247,7 @@ void			token_preexp_to_trimed(t_token **dest);
 void			token_preexp_to_token_exp(int l, t_token **dest, char **envp);
 /*---------------lexer-utils-nine---------------------*/
 void			first_second_third(t_token **dest);
-char			*prepare_for_redir(t_token **token);
+char			*prepare_for_redir(t_pipe_group *group, t_token **token);
 /*----------------parser----------------------*/
 t_pipe_group	*parse_pipeline(t_rdr_const rdr, t_token **tokens);
 int				p_command_h_one(t_token *tokens);
@@ -271,7 +269,7 @@ void			parse_command(t_token **tokens, t_pipe_group	*group);
 void			parse_args(t_token **tokens, t_pipe_group *group);
 /*--------------parser-utils-three------------*/
 bool			handle_heredoc(int l, char *end,
-					char **heredoc_strs, char **envp);
+					t_pipe_group *group, char **envp);
 int				create_file(char *file, int mode);
 void			reset_heredoc_fields(t_pipe_group *cmd);
 void			print_array(char **str);

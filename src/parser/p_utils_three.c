@@ -25,26 +25,26 @@ static bool	prepare_heredoc_redir(char **heredoc_strs, int *stdin_copy)
 	return (true);
 }
 
-// handle env vars expansion
-bool	handle_heredoc(int l, char *end, char **heredoc_strs, char **envp)
+bool	handle_heredoc(int l, char *end, t_pipe_group *group, char **envp)
 {
 	char	*str;
 	int		stdin_copy;
 
-	if (!prepare_heredoc_redir(heredoc_strs, &stdin_copy))
+	if (!prepare_heredoc_redir(&(group->heredoc_strs), &stdin_copy))
 		return (false);
 	while (true)
 	{
 		rl_on_new_line();
 		signal(SIGINT, handle_sigint_heredoc);
-		str = readline(GRAY"> "RESET);
+		str = readline("> ");
 		signal(SIGINT, SIG_IGN);
 		if (!str || (ft_strcmp(str, end) == 0))
 			break ;
-		expand_heredoc_strs(&str, l, envp);
-		save_heredoc_str(str, heredoc_strs);
+		if (!group->is_heredoc_quoted)
+			expand_heredoc_strs(&str, l, envp);
+		save_heredoc_str(str, &(group->heredoc_strs));
 	}
-	restore_stdin_fd(stdin_copy, heredoc_strs);
+	restore_stdin_fd(stdin_copy, &(group->heredoc_strs));
 	if (str)
 		free(str);
 	return (true);

@@ -12,8 +12,6 @@
 
 #include "../../include/minishell.h"
 
-// error for pipes
-
 void	pipe_error_start(char *input)
 {
 	int	i;

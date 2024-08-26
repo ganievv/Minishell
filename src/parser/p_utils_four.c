@@ -40,6 +40,7 @@ t_pipe_group	*pipe_group_init(void)
 	new_group->f_out = NULL;
 	new_group->heredoc_strs = NULL;
 	new_group->is_heredoc_in = false;
+	new_group->is_heredoc_quoted = false;
 	new_group->argv = NULL;
 	new_group->cmd_path = NULL;
 	new_group->next = NULL;

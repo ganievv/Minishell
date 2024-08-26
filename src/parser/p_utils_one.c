@@ -38,7 +38,7 @@ void	p_redir_h_two(t_rdr_const rdr, t_token_type type,
 		if (type == HEREDOC)
 		{
 			(*group)->is_heredoc_in = handle_heredoc(rdr.l, file,
-					&((*group)->heredoc_strs), rdr.envp);
+					*group, rdr.envp);
 			return (free_str(&file));
 		}
 		redir_files_lstadd(&((*group)->f_in),
@@ -84,7 +84,8 @@ void	parse_redir(t_rdr_const rdr, t_token **tokens, t_pipe_group *group)
 			break ;
 		p_redir_h_three(&temp, &redir);
 		if (p_command_h_one(temp))
-			p_redir_h_two(rdr, redir->type, &group, prepare_for_redir(&temp));
+			p_redir_h_two(rdr, redir->type, &group,
+				prepare_for_redir(group, &temp));
 		p_redir_h_four(&temp);
 	}
 	*tokens = temp;

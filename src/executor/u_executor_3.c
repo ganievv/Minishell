@@ -40,9 +40,15 @@ void	reset_signals(void)
 
 int	is_cmd_present_one_cmd(t_msh *info)
 {
+	int	exit_status;
+
 	if (!info->cmds->command)
 	{
-		info->last_exit_status = 1;
+		info->io_fds = save_io_fds(info->cmds);
+		exit_status = make_files_redir(info->cmds);
+		restore_io_fds(&(info->io_fds), info->cmds);
+		exit_status = (exit_status == 0);
+		info->last_exit_status = exit_status;
 		return (0);
 	}
 	return (1);
@@ -50,6 +56,12 @@ int	is_cmd_present_one_cmd(t_msh *info)
 
 void	is_cmd_present_multiple_cmds(t_pipe_group *cmd)
 {
+	int	exit_status;
+
 	if (!cmd->command)
-		exit(1);
+	{
+		exit_status = make_files_redir(cmd);
+		exit_status = (exit_status == 0);
+		exit(exit_status);
+	}
 }

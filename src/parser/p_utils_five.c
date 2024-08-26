@@ -60,16 +60,3 @@ char	**args_join(char **src, char *new_arg)
 		free_arr_str(&src);
 	return (res);
 }
-//while (spaces) skip
-// non space
-//while (h_redir_one)
-//{
-	// next
-	//while (spaces) skip
-	// if (word) skip word ??
-	// if PIPE break
-	// if (pipe) beak
-	//while (spaces) skip
-//}
-
-// command->command

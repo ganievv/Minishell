@@ -25,7 +25,7 @@ void	t_msh_init(t_msh *info, char **envp)
 	init_builtin_ptrs(info->builtin_ptrs);
 }
 
-// clear screen before prompt
+/* clear screen before prompt */
 void	clear_screen(void)
 {
 	printf("\033[H\033[J");
