@@ -8,7 +8,7 @@
 4. [Usage](#usage)
 5. [Built-in Commands](#built-in-commands)
 6. [Known Issues](#known-issues)
-7. [Contributors](#contributors)
+7. [Contributor](#contributor)
 
 ## Introduction
 
