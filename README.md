@@ -8,7 +8,7 @@
 4. [Usage](#usage)
 5. [Built-in Commands](#built-in-commands)
 6. [Known Issues](#known-issues)
-7. [Contributor](#contributor)
+7. [Project Partner](#project-partner)
 
 ## Introduction
 
@@ -66,6 +66,6 @@ Minishell implements several built-in commands:
 - Potential memory leaks from `readline()` (outside project control).
 - No support for specific advanced features such as job control.
 
-## Contributor
+## Project Partner
 
 - [Thomas Nakas](link-to-profile)
