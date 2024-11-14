@@ -68,4 +68,4 @@ Minishell implements several built-in commands:
 
 ## Project Partner
 
-- [Thomas Nakas](link-to-profile)
+- [Thomas Nakas](https://github.com/ThomasNakas)
